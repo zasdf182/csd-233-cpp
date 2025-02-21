@@ -77,7 +77,9 @@ class SchedulePoll {
         linklist const& thu() {return *(__days + (day)::thu);}
         linklist const& fri() {return *(__days + (day)::fri);}
         linklist const& sat() {return *(__days + (day)::sat);}
+        linklist const& operator +(int day_) {return __days[day_];}
         linklist const& operator +(day day_) {return __days[day_];}
+        linklist const& operator [](int day_) {return __days[day_];}
         linklist const& operator [](day day_) {return __days[day_];}
         linklist const* begin() {return __days + 0;}
         linklist const* end() {return __days + 6;}
