@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools-extension-pack",
+        "chiehyu.vscode-astyle",
+        "esbenp.prettier-vscode",
+        "ms-vscode.cmake-tools",
+        "twxs.cmake",
+        "vadimcn.vscode-lldb"
+    ]
+}

@@ -1,0 +1,32 @@
+# Extensions
+
+### C++
+
+-   **ON SAVE** — Auto-format with ArtisticStyle (Unopinionated Code Formatter)
+-   **SETUP** — Install [C/C++ Extension Pack](1) as a vscode extension
+-   **SETUP** — Install [CMake (Language Support)](2) as a vscode extension
+-   **SETUP** — Install [CMake Tools](3) as a vscode extension
+-   **SETUP** — Install [Makefile Tools](4) as a vscode extension
+-   **SETUP** — Install [Astyle](5) as a vscode extension
+-   **SETUP** — Install [Astyle](6) as a PATH bin / homebrew package
+-   **SETUP** — Install [CodeLLDB](9) as a vscode extension
+
+### Markdown, JSON
+
+-   **ON SAVE** — Auto-format with Prettier (Opinionated Code Formatter)
+-   **SETUP** — Install [Prettier](7) as a vscode extension
+-   **SETUP** — Install [Prettier](8) as a global npm package
+
+[1]: vscode:extension/ms-vscode.cpptools-extension-pack
+[2]: vscode:extension/twxs.cmake
+[3]: vscode:extension/ms-vscode.cmake-tools
+[4]: vscode:extension/ms-vscode.makefile-tools
+[5]: vscode:extension/chiehyu.vscode-astyle
+[6]: https://astyle.sourceforge.net/
+[7]: vscode:extension/esbenp.prettier-vscode
+[8]: https://www.npmjs.com/package/prettier
+[9]: vscode:extension/vadimcn.vscode-lldb
+
+# Mac CMake Tutorial
+
+https://www.youtube.com/watch?v=Ozc3zWJ_NhQ

@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        ////////////////////////////////////////////////////////////////////////
+        {
+            // Style
+            "name": "Debug current C++ file",
+
+            // Config
+            "type": "lldb",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "${workspaceFolder}/build/currCppFile",
+            "preLaunchTask": "BuildMacExe",
+
+            // Args
+            "args": ["line", "line", "line", "line"]
+        }
+        ////////////////////////////////////////////////////////////////////////
+    ]
+}

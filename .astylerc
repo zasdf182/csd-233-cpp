@@ -1,0 +1,55 @@
+
+# Do not retain a backup of the original file.
+--suffix=none
+-n
+
+
+
+
+# Indent style.
+--convert-tabs
+-c
+--indent=spaces=4
+-s4
+--indent-classes
+-C
+--indent-switches
+-S
+
+# Space padding style.
+--pad-header
+-H
+--pad-oper
+-p
+--align-pointer=type
+-k1
+
+
+
+
+# Remove excess braces.
+--remove-braces
+-xj
+
+# Remove excess whitespace
+--squeeze-ws
+
+
+
+
+# Dont break braces.
+--style=java
+--style=attach
+-A2
+
+# Dont break complex one-line statements.
+--keep-one-line-blocks
+-O
+--keep-one-line-statements
+-o
+
+# Dont break function headers.
+--attach-return-type
+-xf
+--attach-return-type-decl
+-xh

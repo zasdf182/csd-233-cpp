@@ -1,0 +1,61 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        ////////////////////////////////////////////////////////////////////////
+        {
+            // VSCode metadata
+            "label": "GetMacMakefiles",
+            "detail": "Generates MacOS MakeFiles from CMakeLists.txt",
+
+            // Program to run
+            "command": "/usr/local/bin/cmake",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": ["$gcc"],
+            "args": ["--preset get-mac-makefiles"],
+
+            // VSCode style settings
+            "type": "cppbuild",
+            "group": {
+                "kind": "build"
+            },
+            "presentation": {
+                "echo": true,
+                "focus": true,
+                "clear": true,
+                "close": false,
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        ////////////////////////////////////////////////////////////////////////
+        {
+            // VSCode metadata
+            "label": "BuildMacExe",
+            "detail": "Build Darwin executable in /bin/Darwin/",
+
+            // Program to run
+            "command": "/usr/local/bin/cmake",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": ["$gcc"],
+            "args": ["--build", "--preset get-mac-exe"],
+
+            "dependsOn": ["GetMacMakefiles"],
+            "type": "cppbuild",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+
+            // VSCode style settings
+            "presentation": {
+                "echo": true,
+                "focus": true,
+                "clear": true,
+                "close": false,
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////
+    ]
+}

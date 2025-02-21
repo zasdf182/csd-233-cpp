@@ -1,0 +1,5 @@
+TODO: Make a script that generates these files with env vars:
+- CMakeLists.txt -- point to currently open file
+- CMakePresets.json -- point to clang and clang++
+- .vscode/c_cpp_properties.json -- point to clang and configure os-specific settings
+- .vscode/tasks.json -- point to cmake

@@ -1,0 +1,31 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "get-mac-makefiles",
+            "displayName": "Generate MacOS MakeFiles from CMakeLists.txt",
+            "description": "In folder: build/mac-makefiles",
+
+            "binaryDir": "${sourceDir}/build/mac-makefiles",
+            "installDir": "${sourceDir}/build/mac-makefiles",
+
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/mac-makefiles",
+                "CMAKE_C_COMPILER": "/usr/bin/clang",
+                "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "get-mac-exe",
+            "displayName": "Build MacOS executable from compiling MakeFiles",
+            "description": "In folder: build/",
+
+            "cleanFirst": true,
+            "configurePreset": "get-mac-makefiles",
+            "configuration": "Debug"
+        }
+    ]
+}
