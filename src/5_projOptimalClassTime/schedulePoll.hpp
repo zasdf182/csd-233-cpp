@@ -1,5 +1,5 @@
 #define daysinweek 7
-#define IMPORTERROR 42
+#define IMPORTERROR 'x'
 #define IMPORTGOOD 0
 #ifndef SCHEDULEPOLL_HPP
 #define SCHEDULEPOLL_HPP
