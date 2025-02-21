@@ -39,7 +39,7 @@ linklist::~linklist() {
     node* ptr1 = __head;
     while (ptr1 != nullptr) {
         ptr0 = ptr1;
-        ptr1 = ptr1->next;
+        ptr1 = ptr1->next();
         delete ptr0;
     }
 };
@@ -72,9 +72,9 @@ void linklist::add(float hour_, char const* student_) {
         else if (ptr1->hour() > hour_) {
             node* newnode = new node(hour_);
             newnode->add(student_);
-            newnode->next = ptr1;
+            newnode->next() = ptr1;
             if (ptr0 != nullptr)
-                ptr0->next = newnode;
+                ptr0->next() = newnode;
             else
                 __head = newnode;
             return;
@@ -82,13 +82,13 @@ void linklist::add(float hour_, char const* student_) {
 
         // INCREMENT LOOP COUNTER
         ptr0 = ptr1;
-        ptr1 = ptr1->next;
-    } while (ptr1->next != nullptr);
+        ptr1 = ptr1->next();
+    } while (ptr1->next() != nullptr);
 
     // LAST NODE IS SMALLER - CREATE NODE AT END OF LIST
     node* newnode = new node(hour_);
     newnode->add(student_);
-    ptr1->next = newnode;
+    ptr1->next() = newnode;
 };
 
 
@@ -101,7 +101,7 @@ node::node(float hour_) {
     __hour = hour_;
     __count = 0;
     __students = new char const*[__mem];
-    next = nullptr;
+    next() = nullptr;
 }
 
 node::~node() {

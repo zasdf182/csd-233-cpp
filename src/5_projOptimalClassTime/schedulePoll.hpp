@@ -27,13 +27,15 @@ class node {
         int __mem;
         void __alloc();
     protected:
+        node* __next;
         float __hour;
         int __count;
         char const** __students;
     public:
         node(float hour_);
         ~node();
-        node* next;
+        node*& next() {return __next;}
+        node* const& next() const {return __next;}
         float hour() {return __hour;}
         float hour() const {return __hour;}
         int count() {return __count;}
