@@ -115,7 +115,7 @@ static void queryschedules(SchedulePoll* in) {
             }
         }
 
-        if (word::isnum(userinput)) {
+        if (word::isint(userinput)) {
             int num = atoi(userinput);
             for (int i = (day)::sun; i < daysinweek; i++) {
                 // create iterator for schedulepoll::__days
