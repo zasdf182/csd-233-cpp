@@ -30,8 +30,11 @@ static const bool isnum(char const* str_) {
     if (str_ == nullptr) return false;
     if (*str_ == '\0') return false;
     char const* ptr = str_;
-    while (*ptr != '\0')
-        if (!std::isdigit(*ptr++)) return false;
-    return true;
+    while (*ptr != '\0') {
+        if (!std::isdigit(*ptr))
+            if (*ptr != '.')
+                return false;
+        ptr++;
+    } return true;
 }
 }
