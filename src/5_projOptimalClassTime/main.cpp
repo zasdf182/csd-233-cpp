@@ -3,6 +3,7 @@
 #include "main.hpp"
 #include <iostream>
 #include <cctype>
+#include <cstdio>
 #define secondchar 1
 #define maxstrlen 4096
 using namespace std;
@@ -58,6 +59,7 @@ static void intromsg() {
 
 
 static const char getschedules(SchedulePoll* out) {
+    out = new SchedulePoll();
     cout << endl;
     cout << endl << "<======== PART ONE ========>";
     cout << endl << "Enter one of these options:";
@@ -66,9 +68,7 @@ static const char getschedules(SchedulePoll* out) {
     cout << endl << "    - \"0\" to quit the program";
     cout << endl;
 
-    out = new SchedulePoll();
     char* userinput = new char[maxstrlen];
-
     while (true) {
         cout << endl;
         cout << endl << "--> ";
@@ -100,7 +100,6 @@ static void queryschedules(SchedulePoll* in) {
     cout << endl;
 
     char* userinput = new char[maxstrlen];
-
     while (true) {
         cout << endl;
         cout << endl << "--> ";
@@ -115,15 +114,32 @@ static void queryschedules(SchedulePoll* in) {
             }
         }
 
-        if (word::isint(userinput)) {
-            int num = atoi(userinput);
-            for (int i = (day)::sun; i < daysinweek; i++) {
-                // create iterator for schedulepoll::__days
-            }
-        } else
+        if (!word::isint(userinput)) {
             cout << endl << "    ERROR: invalid input";
+            continue;
+        }
+
+        int mincount = atoi(userinput);
+        for (int i = (day)::sun; i < daysinweek; i++) {
+            char** hours = new char*[maxstrlen];
+            char** hourptr = hours;
+
+            node const* nodeptr0 = nullptr;
+            node const* nodeptr1 = in->days()[i].head();
+            while (nodeptr1 != nullptr) {
+                if (nodeptr1->count() >= mincount)
+                    snprintf(*hourptr++, maxstrlen, "%f", nodeptr1->hour());
+
+                nodeptr0 = nodeptr1;
+                nodeptr1 = nodeptr1->next();
+            }
+
+            //print out all matches for the day
+        }
     } delete[] userinput;
 }
+
+
 
 
 static void quitprogram() {
