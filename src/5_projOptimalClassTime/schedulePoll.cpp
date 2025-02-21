@@ -47,18 +47,6 @@ linklist::~linklist() {
 
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-/** HOUR SERVES AS LIST INDEX */
-
-node const* linklist::at(float hour_) {
-    node* ptr = __head;
-    while (ptr != nullptr) {
-        if (ptr->hour() == hour_) return ptr;
-        ptr = ptr->next;
-    } return nullptr;
-};
-
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 /** IF NODE WITH SAME HOUR EXISTS ADD TO IT - IF NOT CREATE NEW ONE */
 

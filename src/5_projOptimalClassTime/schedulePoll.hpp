@@ -35,8 +35,11 @@ class node {
         ~node();
         node* next;
         float hour() {return __hour;}
+        float hour() const {return __hour;}
         int count() {return __count;}
+        int count() const {return __count;}
         char const* const* students() {return __students;}
+        char const* const* students() const {return __students;}
         void add(char const* student_);
         void operator +=(char const* student_) {add(student_);}
 };
@@ -48,9 +51,7 @@ class linklist {
         linklist();
         ~linklist();
         node const* head() {return __head;}
-        node const* at(float hour_);
-        node const* operator +(float hour_) {return at(hour_);}
-        node const* operator [](float hour_) {return at(hour_);}
+        node const* head() const {return __head;}
         void add(float hour_, char const* student_);
 };
 
@@ -70,18 +71,32 @@ class SchedulePoll {
         ~SchedulePoll();
         int import(char const* schedulefile_);
         linklist const* days() {return __days;}
-        linklist const& sun() {return *(__days + (day)::sun);}
-        linklist const& mon() {return *(__days + (day)::mon);}
-        linklist const& tue() {return *(__days + (day)::tue);}
-        linklist const& wed() {return *(__days + (day)::wed);}
-        linklist const& thu() {return *(__days + (day)::thu);}
-        linklist const& fri() {return *(__days + (day)::fri);}
-        linklist const& sat() {return *(__days + (day)::sat);}
+        linklist const* days() const {return __days;}
+        linklist const& sun() {return __days[(day)::sun];}
+        linklist const& mon() {return __days[(day)::mon];}
+        linklist const& tue() {return __days[(day)::tue];}
+        linklist const& wed() {return __days[(day)::wed];}
+        linklist const& thu() {return __days[(day)::thu];}
+        linklist const& fri() {return __days[(day)::fri];}
+        linklist const& sat() {return __days[(day)::sat];}
+        linklist const& sun() const {return __days[(day)::sun];}
+        linklist const& mon() const {return __days[(day)::mon];}
+        linklist const& tue() const {return __days[(day)::tue];}
+        linklist const& wed() const {return __days[(day)::wed];}
+        linklist const& thu() const {return __days[(day)::thu];}
+        linklist const& fri() const {return __days[(day)::fri];}
+        linklist const& sat() const {return __days[(day)::sat];}
         linklist const& operator +(int day_) {return __days[day_];}
         linklist const& operator +(day day_) {return __days[day_];}
         linklist const& operator [](int day_) {return __days[day_];}
         linklist const& operator [](day day_) {return __days[day_];}
+        linklist const& operator +(int day_) const {return __days[day_];}
+        linklist const& operator +(day day_) const {return __days[day_];}
+        linklist const& operator [](int day_) const {return __days[day_];}
+        linklist const& operator [](day day_) const {return __days[day_];}
         linklist const* begin() {return __days + 0;}
+        linklist const* begin() const {return __days + 0;}
         linklist const* end() {return __days + 6;}
+        linklist const* end() const {return __days + 6;}
 };
 #endif
