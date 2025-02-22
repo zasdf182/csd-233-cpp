@@ -7,21 +7,29 @@
 
 
 
-// ====================================================== //
-// ================== DAYS OF THE WEEK ================== //
-// ====================================================== //
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
 
+/**
+ * Defines all days of a week in the Gregorian calendar.
+ */
 enum day {sun, mon, tue, wed, thu, fri, sat, NUL};
 static day getday(char const* charptr);
 
 
 
 
-// ====================================================== //
-// ========= LINKED LIST FOR ONE DAY OF THE WEEK ======== //
-// ======== OF STUDENTS AND THEIR AVAILABLE HOURS ======= //
-// ====================================================== //
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
 
+/**
+ * A container for:
+ *   -An hour of the day.
+ *   -A char* array of students that prefer that hour.
+ *   -Helper methods.
+ */
 class node {
     private:
         int __mem;
@@ -46,6 +54,18 @@ class node {
         void operator +=(char const* student_) {add(student_);}
 };
 
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/**
+ * A container for all students' available hours for one day of the week.
+ * Has a unique node for every hour of the day.
+ * Each node has an array of student names.
+ */
 class linklist {
     protected:
         node* __head;
@@ -60,11 +80,16 @@ class linklist {
 
 
 
-// ====================================================== //
-// ========= CONTAINER FOR ALL DAYS OF THE WEEK ========= //
-// ========== AND ALL STUDENTS AVAILABLE HOURS ========== //
-// ====================================================== //
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
 
+/**
+ * A container for all days of the week, and all students' available hours.
+ * Has a unique linklist for every day of the week.
+ * Each linklist has a unique node for every hour of the day.
+ * Each node has an array of student names.
+ */
 class SchedulePoll {
     private:
         linklist* __days;

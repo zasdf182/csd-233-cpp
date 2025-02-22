@@ -11,6 +11,19 @@ using namespace std;
 
 
 
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/**
+ * A program with two parts.
+ * The first part asks the user to input any number of text files with schedule data.
+ * The second part lets the user query all times that have at least a certain number of matches.
+ */
 int main(int argc, char** argv) {
     SchedulePoll* schedulepoll;
     intromsg();
@@ -33,6 +46,17 @@ int main(int argc, char** argv) {
 
 
 
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/**
+ * Explains the program.
+ */
 static void intromsg() {
     cout << endl;
     cout << endl << "Welcome to the Super Schedule Poll!";
@@ -58,6 +82,20 @@ static void intromsg() {
 
 
 
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/**
+ * Launches Part 1 of the program.
+ * Loops and asks user to input any number of schedule files.
+ * @returns -- 'e' if the user wants to continue to Part 2 of the program.
+ *          -- '0' if the user wants to quit the program.
+ */
 static const char getschedules(SchedulePoll* out) {
     out = new SchedulePoll();
     cout << endl;
@@ -91,6 +129,20 @@ static const char getschedules(SchedulePoll* out) {
 
 
 
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/**
+ * Launches Part 2 of the program.
+ * Loops and asks the user to input a number.
+ * Lists all the hours that have at least that number of preferring students.
+ * Quits the program if the user inputs '0'
+ */
 static void queryschedules(SchedulePoll* in) {
     cout << endl;
     cout << endl << "<======== PART TWO ========>";
@@ -142,6 +194,17 @@ static void queryschedules(SchedulePoll* in) {
 
 
 
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/**
+ * Quits the program.
+ */
 static void quitprogram() {
 
 }

@@ -7,10 +7,26 @@
 
 
 
-// ====================================================== //
-// ================== DAYS OF THE WEEK ================== //
-// ====================================================== //
 
+
+
+
+
+
+
+
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/**
+ * Parses a c-style string and returns an enum.
+ *   Options: sun, mon, tue, wed, thu, fri, sat
+ */
 static day getday(char const* charptr) {
     if (strcmp(charptr, "sun") == 0) return (day)::sun;
     else if (strcmp(charptr, "mon") == 0) return (day)::mon;
@@ -25,15 +41,83 @@ static day getday(char const* charptr) {
 
 
 
-// ====================================================== //
-// ========= LINKED LIST FOR ONE DAY OF THE WEEK ======== //
-// ======== OF STUDENTS AND THEIR AVAILABLE HOURS ======= //
-// ====================================================== //
 
+
+
+
+
+
+
+
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/** Constructor that inits private defaults and allocates memory. */
+node::node(float hour_) {
+    __mem = 4;
+    __hour = hour_;
+    __count = 0;
+    __students = new char const*[__mem];
+    next() = nullptr;
+}
+
+/** Destructor that collects garbage. */
+node::~node() {
+    delete[] __students;
+}
+
+/**
+ * Tells the node that a student prefers this node's hour.
+ * It will add the student name to an internal array, and update helper methods.
+ */
+void node::add(char const* student_) {
+    if (__count == __mem) __alloc();
+    __students[__count++] = student_;
+}
+
+/**
+ * Private helper method that allocates more memory when the node fills up.
+ */
+void node::__alloc() {
+    char const** newptr = new char const*[__mem * __mem];
+    std::copy(__students, (__students + __mem), newptr);
+    for (int i = 0; i < __mem; i++)
+        delete[] __students[i];
+    delete[] __students;
+    __students = newptr;
+    __mem = __mem * __mem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/** Constructor that inits private defaults. */
 linklist::linklist() {
     __head = nullptr;
 };
 
+/** Constructor that collects garbage. */
 linklist::~linklist() {
     node* ptr0 = nullptr;
     node* ptr1 = __head;
@@ -44,12 +128,12 @@ linklist::~linklist() {
     }
 };
 
-
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-/** IF NODE WITH SAME HOUR EXISTS ADD TO IT - IF NOT CREATE NEW ONE */
-
+/**
+ * Tells the linklist that a student prefers a specific hour of the day.
+ * The linklist has a unique node for each hour of the day.
+ * Each node starts as null, and is created when that hour is first requested.
+ * Each node has an array that tracks all the students that prefer that hour.
+ */
 void linklist::add(float hour_, char const* student_) {
     if (__head == nullptr) {
         __head = new node(hour_);
@@ -94,43 +178,23 @@ void linklist::add(float hour_, char const* student_) {
 
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-
-node::node(float hour_) {
-    __mem = 4;
-    __hour = hour_;
-    __count = 0;
-    __students = new char const*[__mem];
-    next() = nullptr;
-}
-
-node::~node() {
-    delete[] __students;
-}
-
-void node::add(char const* student_) {
-    if (__count == __mem) __alloc();
-    __students[__count++] = student_;
-}
-
-void node::__alloc() {
-    char const** newptr = new char const*[__mem * __mem];
-    std::copy(__students, (__students + __mem), newptr);
-    for (int i = 0; i < __mem; i++)
-        delete[] __students[i];
-    delete[] __students;
-    __students = newptr;
-    __mem = __mem * __mem;
-}
 
 
 
 
-// ====================================================== //
-// ========= CONTAINER FOR ALL DAYS OF THE WEEK ========= //
-// ========== AND ALL STUDENTS AVAILABLE HOURS ========== //
-// ====================================================== //
 
+
+
+
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+
+/**Constructor that inits private objects. */
 SchedulePoll::SchedulePoll() {
     __days = new linklist[daysinweek];
     *(__days + (day)::sun) = linklist();
@@ -142,16 +206,22 @@ SchedulePoll::SchedulePoll() {
     *(__days + (day)::sat) = linklist();
 }
 
+/** Destructor that deallocates memory. */
 SchedulePoll::~SchedulePoll() {
     delete[] __days;
 }
 
-
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-/** READ TEXT FILE WITH STUDENT SCHEDULE */
-
+/**
+ * Reads a text file filled with students' preferred hours.
+ * Files should follow this format:
+ *   -- The file name follows this format: <first name of student>.txt
+ *   -- Each line follows this format: <day>: <comma separated list of start times>
+ *   -- <day> must be one of: sun, mon, tue, wed, thu, fri, sat
+ *   -- Times must be in military / 24 hour format with 30 minute granularity.
+ *        Use .5 to represent starting the class at 30 minutes after the hour.
+ *        For example 2:30pm would be represented with 14.5
+ *   -- Times do not have to be in sequential order.
+ */
 int SchedulePoll::import(char const* schedulefile_) {
     int maxlinelen = 4096;
     int maxhourtypes = 48;

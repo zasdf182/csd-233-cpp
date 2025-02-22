@@ -3,6 +3,10 @@
 #include <cctype>
 namespace word {
 
+/**
+ * Checks if a char exists in a c-style array.
+ * @returns Array index or NOTFOUND (-1).
+ */
 static const int find(char query_, char const* input_, int start_) {
     if (input_ == nullptr) return NOTFOUND;
     if (start_ >= std::strlen(input_)) return NOTFOUND;
@@ -14,6 +18,11 @@ static const int find(char query_, char const* input_, int start_) {
     return NOTFOUND;
 }
 
+/**
+ * Trims leading whitespace.
+ * Then finds the first whitespace character and trims everything after that.
+ * Mutates the original c-style string.
+ */
 static const void trim(char* input_) {
     if (input_ == nullptr) return;
     if (*input_ == '\0') return;
@@ -26,6 +35,9 @@ static const void trim(char* input_) {
     } input_[i] = '\0';
 }
 
+/**
+ * Checks if there are any non-numeric characters in a c-style string.
+ */
 static const bool isint(char const* str_) {
     if (str_ == nullptr) return false;
     if (*str_ == '\0') return false;
