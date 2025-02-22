@@ -133,8 +133,8 @@ static const enginegoto getschedules(SchedulePoll* out) {
                 }
             default:
                 if (out->import(userinput) == IMPORTERROR)
-                    cout << endl << "    ERROR: unable to read file " << userinput;
-                else cout << endl << "    Successfully read file " << userinput;
+                    cout << "    ERROR: unable to read file " << userinput;
+                else cout << "    Successfully read file " << userinput;
         }
     }
 }
@@ -181,7 +181,7 @@ static const enginegoto queryschedules(SchedulePoll* in) {
             }
 
         if (!word::isint(userinput)) {
-            cout << endl << "    ERROR: invalid input";
+            cout << "    ERROR: invalid input";
             continue;
         }
 
@@ -202,7 +202,7 @@ static const enginegoto queryschedules(SchedulePoll* in) {
 
             for (int j = 0; j < matchcount; j++) {
                 node const* match = matches[j];
-                printf("\n  %-3.3s at %-2.1f was chosen by %s", dayname, match->hour(), match->students()[0]);
+                printf("%-3.3s at %-2.1f was chosen by %s", dayname, match->hour(), match->students()[0]);
                 for (int k = 1; k < match->count(); k++)
                     cout << ", " << match->students()[k];
             }
@@ -228,6 +228,6 @@ static const enginegoto queryschedules(SchedulePoll* in) {
  */
 static void quitprogram(SchedulePoll* ctx) {
     if (ctx != nullptr) delete ctx;
-    cout << endl << "The program will now exit. Thank you and come again!";
+    cout << "The program will now exit. Thank you and come again!";
     cout << endl << endl;
 }
