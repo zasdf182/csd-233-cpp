@@ -43,11 +43,11 @@ static void intromsg() {
     cout << endl << "Files should follow this format:";
     cout << endl << "    - The file name follows this format: <first name of student>.txt";
     cout << endl << "    - Each line follows this format: <day>: <comma separated list of start times>";
-    cout << endl << "    - <day> must be one of: sun, mon, tue, wed, thu, fri, sat.";
+    cout << endl << "    - <day> must be one of: sun, mon, tue, wed, thu, fri, sat";
     cout << endl << "      If the student didnt want to attend class on a particular day, there wont be a line for that day.";
     cout << endl << "    - Times must be in military / 24 hour format with 30 minute granularity.";
     cout << endl << "      Use .5 to represent starting the class at 30 minutes after the hour.";
-    cout << endl << "      For example 2:30pm would be represented with 14.5.";
+    cout << endl << "      For example 2:30pm would be represented with 14.5";
     cout << endl << "    - Times do not have to be in sequential order.";
     cout << endl;
     cout << endl << "In Part 2, the user can query the program for times with a minimum number of matches.";
