@@ -11,7 +11,7 @@ enum enginegoto {
     null = '\0'
 };
 
-/** A pointer to a function that updates the engine and returns a status key */
+/** A function that updates the engine and returns a status key */
 typedef const enginegoto (enginefunc) (SchedulePoll * ctx);
 typedef const enginegoto (*engineptr) (SchedulePoll * ctx);
 
