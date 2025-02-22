@@ -28,14 +28,14 @@
  *   Options: sun, mon, tue, wed, thu, fri, sat
  */
 static day getday(char const* charptr) {
-    if (strcmp(charptr, "sun") == 0) return (day)::sun;
-    else if (strcmp(charptr, "mon") == 0) return (day)::mon;
-    else if (strcmp(charptr, "tue") == 0) return (day)::tue;
-    else if (strcmp(charptr, "wed") == 0) return (day)::wed;
-    else if (strcmp(charptr, "thu") == 0) return (day)::thu;
-    else if (strcmp(charptr, "fri") == 0) return (day)::fri;
-    else if (strcmp(charptr, "sat") == 0) return (day)::sat;
-    else return (day)::NUL;
+    if (strcmp(charptr, "sun") == 0) return ::sun;
+    else if (strcmp(charptr, "mon") == 0) return ::mon;
+    else if (strcmp(charptr, "tue") == 0) return ::tue;
+    else if (strcmp(charptr, "wed") == 0) return ::wed;
+    else if (strcmp(charptr, "thu") == 0) return ::thu;
+    else if (strcmp(charptr, "fri") == 0) return ::fri;
+    else if (strcmp(charptr, "sat") == 0) return ::sat;
+    else return ::NUL;
 }
 
 
@@ -197,13 +197,13 @@ void linklist::add(float hour_, char const* student_) {
 /**Constructor that inits private objects. */
 SchedulePoll::SchedulePoll() {
     __days = new linklist[daysinweek];
-    *(__days + (day)::sun) = linklist();
-    *(__days + (day)::mon) = linklist();
-    *(__days + (day)::tue) = linklist();
-    *(__days + (day)::wed) = linklist();
-    *(__days + (day)::thu) = linklist();
-    *(__days + (day)::fri) = linklist();
-    *(__days + (day)::sat) = linklist();
+    *(__days + ::sun) = linklist();
+    *(__days + ::mon) = linklist();
+    *(__days + ::tue) = linklist();
+    *(__days + ::wed) = linklist();
+    *(__days + ::thu) = linklist();
+    *(__days + ::fri) = linklist();
+    *(__days + ::sat) = linklist();
 }
 
 /** Destructor that deallocates memory. */

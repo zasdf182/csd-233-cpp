@@ -97,20 +97,20 @@ class SchedulePoll {
         int import(char const* schedulefile_);
         linklist const* days() {return __days;}
         linklist const* days() const {return __days;}
-        linklist const& sun() {return __days[(day)::sun];}
-        linklist const& mon() {return __days[(day)::mon];}
-        linklist const& tue() {return __days[(day)::tue];}
-        linklist const& wed() {return __days[(day)::wed];}
-        linklist const& thu() {return __days[(day)::thu];}
-        linklist const& fri() {return __days[(day)::fri];}
-        linklist const& sat() {return __days[(day)::sat];}
-        linklist const& sun() const {return __days[(day)::sun];}
-        linklist const& mon() const {return __days[(day)::mon];}
-        linklist const& tue() const {return __days[(day)::tue];}
-        linklist const& wed() const {return __days[(day)::wed];}
-        linklist const& thu() const {return __days[(day)::thu];}
-        linklist const& fri() const {return __days[(day)::fri];}
-        linklist const& sat() const {return __days[(day)::sat];}
+        linklist const& sun() {return __days[::sun];}
+        linklist const& mon() {return __days[::mon];}
+        linklist const& tue() {return __days[::tue];}
+        linklist const& wed() {return __days[::wed];}
+        linklist const& thu() {return __days[::thu];}
+        linklist const& fri() {return __days[::fri];}
+        linklist const& sat() {return __days[::sat];}
+        linklist const& sun() const {return __days[::sun];}
+        linklist const& mon() const {return __days[::mon];}
+        linklist const& tue() const {return __days[::tue];}
+        linklist const& wed() const {return __days[::wed];}
+        linklist const& thu() const {return __days[::thu];}
+        linklist const& fri() const {return __days[::fri];}
+        linklist const& sat() const {return __days[::sat];}
         linklist const& operator +(int day_) {return __days[day_];}
         linklist const& operator +(day day_) {return __days[day_];}
         linklist const& operator [](int day_) {return __days[day_];}
