@@ -191,7 +191,7 @@ static const enginegoto queryschedules(SchedulePoll* in) {
             char const* dayname = getday((day)i);
             node const** matches = new node const*[hourtypes];
             node const* nodeptr0 = nullptr;
-            node const* nodeptr1 = in->days()[i].head();
+            node const* nodeptr1 = in->days()[i]->head();
 
             while (nodeptr1 != nullptr) {
                 if (nodeptr1->count() >= query)
@@ -207,7 +207,6 @@ static const enginegoto queryschedules(SchedulePoll* in) {
                     cout << ", " << match->students()[k];
             }
 
-            delete[] dayname;
             delete[] matches;
         }
     }

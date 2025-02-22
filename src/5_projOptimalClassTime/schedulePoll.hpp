@@ -1,5 +1,6 @@
 #define daytypes 7
 #define hourtypes 48
+#define maxlinelen 4096
 #define IMPORTERROR 'x'
 #define IMPORTGOOD '0'
 #ifndef SCHEDULEPOLL_HPP
@@ -92,38 +93,38 @@ class linklist {
  */
 class SchedulePoll {
     private:
-        linklist* __days;
+        linklist** __days;
     public:
         SchedulePoll();
         ~SchedulePoll();
         int import(char const* schedulefile_);
-        linklist const* days() {return __days;}
-        linklist const* days() const {return __days;}
-        linklist const& sun() {return __days[::sun];}
-        linklist const& mon() {return __days[::mon];}
-        linklist const& tue() {return __days[::tue];}
-        linklist const& wed() {return __days[::wed];}
-        linklist const& thu() {return __days[::thu];}
-        linklist const& fri() {return __days[::fri];}
-        linklist const& sat() {return __days[::sat];}
-        linklist const& sun() const {return __days[::sun];}
-        linklist const& mon() const {return __days[::mon];}
-        linklist const& tue() const {return __days[::tue];}
-        linklist const& wed() const {return __days[::wed];}
-        linklist const& thu() const {return __days[::thu];}
-        linklist const& fri() const {return __days[::fri];}
-        linklist const& sat() const {return __days[::sat];}
-        linklist const& operator +(int day_) {return __days[day_];}
-        linklist const& operator +(day day_) {return __days[day_];}
-        linklist const& operator [](int day_) {return __days[day_];}
-        linklist const& operator [](day day_) {return __days[day_];}
-        linklist const& operator +(int day_) const {return __days[day_];}
-        linklist const& operator +(day day_) const {return __days[day_];}
-        linklist const& operator [](int day_) const {return __days[day_];}
-        linklist const& operator [](day day_) const {return __days[day_];}
-        linklist const* begin() {return __days + 0;}
-        linklist const* begin() const {return __days + 0;}
-        linklist const* end() {return __days + 6;}
-        linklist const* end() const {return __days + 6;}
+        linklist const* const* days() {return __days;}
+        linklist const* const* days() const {return __days;}
+        linklist const& sun() {return *__days[::sun];}
+        linklist const& mon() {return *__days[::mon];}
+        linklist const& tue() {return *__days[::tue];}
+        linklist const& wed() {return *__days[::wed];}
+        linklist const& thu() {return *__days[::thu];}
+        linklist const& fri() {return *__days[::fri];}
+        linklist const& sat() {return *__days[::sat];}
+        linklist const& sun() const {return *__days[::sun];}
+        linklist const& mon() const {return *__days[::mon];}
+        linklist const& tue() const {return *__days[::tue];}
+        linklist const& wed() const {return *__days[::wed];}
+        linklist const& thu() const {return *__days[::thu];}
+        linklist const& fri() const {return *__days[::fri];}
+        linklist const& sat() const {return *__days[::sat];}
+        linklist const& operator +(int day_) {return *__days[day_];}
+        linklist const& operator +(day day_) {return *__days[day_];}
+        linklist const& operator [](int day_) {return *__days[day_];}
+        linklist const& operator [](day day_) {return *__days[day_];}
+        linklist const& operator +(int day_) const {return *__days[day_];}
+        linklist const& operator +(day day_) const {return *__days[day_];}
+        linklist const& operator [](int day_) const {return *__days[day_];}
+        linklist const& operator [](day day_) const {return *__days[day_];}
+        linklist const* begin() {return __days[0];}
+        linklist const* begin() const {return __days[0];}
+        linklist const* end() {return __days[6];}
+        linklist const* end() const {return __days[6];}
 };
 #endif

@@ -204,18 +204,20 @@ void linklist::add(float hour_, char const* student_) {
 
 /**Constructor that inits private objects. */
 SchedulePoll::SchedulePoll() {
-    __days = new linklist[daytypes];
-    *(__days + ::sun) = linklist();
-    *(__days + ::mon) = linklist();
-    *(__days + ::tue) = linklist();
-    *(__days + ::wed) = linklist();
-    *(__days + ::thu) = linklist();
-    *(__days + ::fri) = linklist();
-    *(__days + ::sat) = linklist();
+    __days = new linklist*[daytypes];
+    __days[::sun] = new linklist();
+    __days[::mon] = new linklist();
+    __days[::tue] = new linklist();
+    __days[::wed] = new linklist();
+    __days[::thu] = new linklist();
+    __days[::fri] = new linklist();
+    __days[::sat] = new linklist();
 }
 
 /** Destructor that deallocates memory. */
 SchedulePoll::~SchedulePoll() {
+    for (int i = 0; i < daytypes; i++)
+        delete __days[i];
     delete[] __days;
 }
 
@@ -231,8 +233,6 @@ SchedulePoll::~SchedulePoll() {
  *   -- Times do not have to be in sequential order.
  */
 int SchedulePoll::import(char const* schedulefile_) {
-    int maxlinelen = 4096;
-    int maxhourtypes = 48;
     std::ifstream file(schedulefile_);
     if (!file.is_open() || !file.good()) return IMPORTERROR;
 
@@ -262,11 +262,11 @@ int SchedulePoll::import(char const* schedulefile_) {
         word::trim(jour);
 
         // HOURS ARE SEPARATED BY COMMAS
-        char** hours = new char*[maxhourtypes];
+        char** hours = new char*[hourtypes];
         int hourcount = 0;
-
         int hourpos = colonpos + 1;
         int hourend = word::find(',', line, hourpos);
+
         while (hourend != NOTFOUND) {
             char** hourptr = hours + hourcount++;
             *hourptr = new char[(hourend - hourpos) + 1];
@@ -287,11 +287,11 @@ int SchedulePoll::import(char const* schedulefile_) {
 
         // ADD DATA TO LINKED LIST
         for (int i = 0; i < hourcount; i++)
-            __days[getday(jour)].add(std::atof(hours[i]), student);
+            __days[getday(jour)]->add(std::atof(hours[i]), student);
 
         // GARBAGE COLLECTION
         delete[] jour;
-        for (int i = 0; i < maxhourtypes; i++)
+        for (int i = 0; i < hourtypes; i++)
             delete[] hours[i];
         delete[] hours;
     }
