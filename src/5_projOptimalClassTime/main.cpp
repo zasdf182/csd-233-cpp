@@ -25,22 +25,30 @@ using namespace std;
  * The second part lets the user query all times that have at least a certain number of matches.
  */
 int main(int argc, char** argv) {
-    SchedulePoll* schedulepoll;
-    intromsg();
-    switch (getschedules(schedulepoll)) {
-        case 'e':
-            queryschedules(schedulepoll);
-            break;
-        case '0':
-            quitprogram();
-            break;
-        default:
-            cout << endl;
-            cout << "ERROR: An unexpected error occurred. The program will now exit.";
-            cout << endl;
-            if (schedulepoll != nullptr) delete schedulepoll;
-            return 1;
-    } delete schedulepoll;
+    SchedulePoll* programcontext;
+    engineptr engine = intromsg;
+
+    while (engine != nullptr)
+        switch (engine(programcontext)) {
+            case ::intro:
+                engine = intromsg;
+                break;
+            case ::part1:
+                engine = getschedules;
+                break;
+            case ::part2:
+                engine = queryschedules;
+                break;
+            case ::quit:
+                quitprogram(programcontext);
+                engine = nullptr;
+                break;
+            default:
+                cout << endl << "ERROR: An unexpected error occurred. The program will now exit." << endl;
+                if (programcontext != nullptr) delete programcontext;
+                return 1;
+        }
+    if (programcontext != nullptr) delete programcontext;
 }
 
 
@@ -57,7 +65,7 @@ int main(int argc, char** argv) {
 /**
  * Explains the program.
  */
-static void intromsg() {
+static const enginegoto intromsg(SchedulePoll* ctx) {
     cout << endl;
     cout << endl << "Welcome to the Super Schedule Poll!";
     cout << endl << "This program has two parts.";
@@ -77,6 +85,7 @@ static void intromsg() {
     cout << endl << "In Part 2, the user can query the program for times with a minimum number of matches.";
     cout << endl << "For example, a query of 2 will list all the times that have at least two students who prefer that time.";
     cout << endl;
+    return ::part1;
 }
 
 
@@ -96,7 +105,7 @@ static void intromsg() {
  * @returns -- 'e' if the user wants to continue to Part 2 of the program.
  *          -- '0' if the user wants to quit the program.
  */
-static const char getschedules(SchedulePoll* out) {
+static const enginegoto getschedules(SchedulePoll* out) {
     out = new SchedulePoll();
     cout << endl;
     cout << endl << "<======== PART ONE ========>";
@@ -107,23 +116,28 @@ static const char getschedules(SchedulePoll* out) {
     cout << endl;
 
     char* userinput = new char[maxstrlen];
+    char delimbuffer;
+
     while (true) {
         cout << endl;
         cout << endl << "--> ";
         cin >> userinput;
+        word::trim(userinput);
+        delimbuffer = userinput[secondchar];
 
         switch (*userinput) {
-            case 'e':
-            case '0': {
-                char char2 = userinput[secondchar];
-                if (char2 == '\0' || isspace(char2))
-                    return *userinput;
-            } default:
+            case ::part2:
+            case ::quit:
+                if (delimbuffer == '\0' || isspace(delimbuffer)) {
+                    delete[] userinput;
+                    return (enginegoto) (*userinput);
+                }
+            default:
                 if (out->import(userinput) == IMPORTERROR)
                     cout << endl << "    ERROR: unable to read file " << userinput;
                 else cout << endl << "    Successfully read file " << userinput;
         }
-    } delete[] userinput;
+    }
 }
 
 
@@ -141,9 +155,9 @@ static const char getschedules(SchedulePoll* out) {
  * Launches Part 2 of the program.
  * Loops and asks the user to input a number.
  * Lists all the hours that have at least that number of preferring students.
- * Quits the program if the user inputs '0'
+ * @returns '0' if the user wants to quit the program.
  */
-static void queryschedules(SchedulePoll* in) {
+static const enginegoto queryschedules(SchedulePoll* in) {
     cout << endl;
     cout << endl << "<======== PART TWO ========>";
     cout << endl << "Enter one of these options:";
@@ -152,19 +166,20 @@ static void queryschedules(SchedulePoll* in) {
     cout << endl;
 
     char* userinput = new char[maxstrlen];
+    char delimbuffer;
+
     while (true) {
         cout << endl;
         cout << endl << "--> ";
         cin >> userinput;
         word::trim(userinput);
+        delimbuffer = userinput[secondchar];
 
-        if (*userinput == '0') {
-            char char2 = userinput[secondchar];
-            if (char2 == '\0' || isspace(char2)) {
-                quitprogram();
-                break;
+        if (*userinput == ::quit)
+            if (delimbuffer == '\0' || isspace(delimbuffer)) {
+                delete[] userinput;
+                return ::quit;
             }
-        }
 
         if (!word::isint(userinput)) {
             cout << endl << "    ERROR: invalid input";
@@ -188,7 +203,7 @@ static void queryschedules(SchedulePoll* in) {
 
             //print out all matches for the day
         }
-    } delete[] userinput;
+    }
 }
 
 
@@ -205,6 +220,6 @@ static void queryschedules(SchedulePoll* in) {
 /**
  * Quits the program.
  */
-static void quitprogram() {
+static void quitprogram(SchedulePoll* ctx) {
 
 }

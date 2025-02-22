@@ -11,9 +11,7 @@
 // ##################################################################### //
 // ##################################################################### //
 
-/**
- * Defines all days of a week in the Gregorian calendar.
- */
+/** Defines all days of a week in the Gregorian calendar. */
 enum day {sun, mon, tue, wed, thu, fri, sat, NUL};
 static day getday(char const* charptr);
 
