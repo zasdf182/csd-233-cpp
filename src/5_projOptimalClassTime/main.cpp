@@ -25,7 +25,7 @@ using namespace std;
  * The second part lets the user query all times that have at least a certain number of matches.
  */
 int main(int argc, char** argv) {
-    SchedulePoll* programcontext;
+    SchedulePoll* programcontext = nullptr;
     engineptr engine = intromsg;
 
     while (engine != nullptr)
