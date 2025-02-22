@@ -23,21 +23,29 @@
 // ##################################################################### //
 // ##################################################################### //
 
-/**
- * Parses a c-style string and returns an enum.
- *   Options: sun, mon, tue, wed, thu, fri, sat
- */
-static day getday(char const* charptr) {
-    if (strcmp(charptr, "sun") == 0) return ::sun;
-    else if (strcmp(charptr, "mon") == 0) return ::mon;
-    else if (strcmp(charptr, "tue") == 0) return ::tue;
-    else if (strcmp(charptr, "wed") == 0) return ::wed;
-    else if (strcmp(charptr, "thu") == 0) return ::thu;
-    else if (strcmp(charptr, "fri") == 0) return ::fri;
-    else if (strcmp(charptr, "sat") == 0) return ::sat;
+/** Parses a c-style string and returns an enum. */
+static day getday(char const* charptr_) {
+    if (strcmp(charptr_, "sun") == 0) return ::sun;
+    else if (strcmp(charptr_, "mon") == 0) return ::mon;
+    else if (strcmp(charptr_, "tue") == 0) return ::tue;
+    else if (strcmp(charptr_, "wed") == 0) return ::wed;
+    else if (strcmp(charptr_, "thu") == 0) return ::thu;
+    else if (strcmp(charptr_, "fri") == 0) return ::fri;
+    else if (strcmp(charptr_, "sat") == 0) return ::sat;
     else return ::NUL;
 }
 
+/** Parses an enum and returns a c-style string. */
+static char const* getday(day day_) {
+    if (day_ == ::sun) return "sun";
+    else if (day_ == ::mon) return "mon";
+    else if (day_ == ::tue) return "tue";
+    else if (day_ == ::wed) return "wed";
+    else if (day_ == ::thu) return "thu";
+    else if (day_ == ::fri) return "fri";
+    else if (day_ == ::sat) return "sat";
+    else return nullptr;
+}
 
 
 
@@ -196,7 +204,7 @@ void linklist::add(float hour_, char const* student_) {
 
 /**Constructor that inits private objects. */
 SchedulePoll::SchedulePoll() {
-    __days = new linklist[daysinweek];
+    __days = new linklist[daytypes];
     *(__days + ::sun) = linklist();
     *(__days + ::mon) = linklist();
     *(__days + ::tue) = linklist();

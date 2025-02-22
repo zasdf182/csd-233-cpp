@@ -44,11 +44,10 @@ int main(int argc, char** argv) {
                 engine = nullptr;
                 break;
             default:
-                cout << endl << "ERROR: An unexpected error occurred. The program will now exit." << endl;
-                if (programcontext != nullptr) delete programcontext;
+                cout << endl << "ERROR: An unexpected error occurred." << endl;
+                quitprogram(programcontext);
                 return 1;
         }
-    if (programcontext != nullptr) delete programcontext;
 }
 
 
@@ -186,22 +185,30 @@ static const enginegoto queryschedules(SchedulePoll* in) {
             continue;
         }
 
-        int mincount = atoi(userinput);
-        for (int i = (day)::sun; i < daysinweek; i++) {
-            char** hours = new char*[maxstrlen];
-            char** hourptr = hours;
-
+        for (int i = ::sun; i < daytypes; i++) {
+            int query = atoi(userinput);
+            int matchcount = 0;
+            char const* dayname = getday((day)i);
+            node const** matches = new node const*[hourtypes];
             node const* nodeptr0 = nullptr;
             node const* nodeptr1 = in->days()[i].head();
-            while (nodeptr1 != nullptr) {
-                if (nodeptr1->count() >= mincount)
-                    snprintf(*hourptr++, maxstrlen, "%f", nodeptr1->hour());
 
+            while (nodeptr1 != nullptr) {
+                if (nodeptr1->count() >= query)
+                    matches[matchcount++] = nodeptr1;
                 nodeptr0 = nodeptr1;
                 nodeptr1 = nodeptr1->next();
             }
 
-            //print out all matches for the day
+            for (int j = 0; j < matchcount; j++) {
+                node const* match = matches[j];
+                printf("\n  %-3.3s at %-2.1f was chosen by %s", dayname, match->hour(), match->students()[0]);
+                for (int k = 1; k < match->count(); k++)
+                    cout << ", " << match->students()[k];
+            }
+
+            delete[] dayname;
+            delete[] matches;
         }
     }
 }
@@ -218,8 +225,10 @@ static const enginegoto queryschedules(SchedulePoll* in) {
 // ##################################################################### //
 
 /**
- * Quits the program.
+ * Collects garbage then quits the program.
  */
 static void quitprogram(SchedulePoll* ctx) {
-
+    if (ctx != nullptr) delete ctx;
+    cout << endl << "The program will now exit. Thank you and come again!";
+    cout << endl << endl;
 }

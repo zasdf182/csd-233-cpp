@@ -1,4 +1,5 @@
-#define daysinweek 7
+#define daytypes 7
+#define hourtypes 48
 #define IMPORTERROR 'x'
 #define IMPORTGOOD '0'
 #ifndef SCHEDULEPOLL_HPP
@@ -13,7 +14,8 @@
 
 /** Defines all days of a week in the Gregorian calendar. */
 enum day {sun, mon, tue, wed, thu, fri, sat, NUL};
-static day getday(char const* charptr);
+static day getday(char const* charptr_);
+static char const* getday(day dayenum_);
 
 
 
