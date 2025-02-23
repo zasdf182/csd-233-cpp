@@ -1,0 +1,2 @@
+◆ needs refactor: when schedule format is incorrect, continue loop, instead of throwing error
+◆ needs fix: ignore empty lines in SchedulePoll::import()
