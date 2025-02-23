@@ -66,6 +66,7 @@ int main(int argc, char** argv) {
  */
 static const enginegoto intromsg(SchedulePoll* ctx) {
     cout << endl;
+    cout << endl << "===================================";
     cout << endl << "Welcome to the Super Schedule Poll!";
     cout << endl << "This program has two parts.";
     cout << endl;
