@@ -286,7 +286,7 @@ int SchedulePoll::import(char const* schedulefile_) {
             hourend = line::find(',', line, hourpos);
         }
 
-        // EVERY HOUR HAS A COLON AFTER IT - EXCEPT THE LAST HOUR
+        // EVERY HOUR HAS A COMMA AFTER IT - EXCEPT THE LAST HOUR
         char** hourptr = hours + hourcount++;
         *hourptr = new char[(hourend - hourpos) + 1];
         *hourptr[hourend - hourpos] = '\0';
