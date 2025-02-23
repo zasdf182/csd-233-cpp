@@ -176,12 +176,12 @@ void linklist::add(float hour_, char const* student_) {
         // INCREMENT LOOP COUNTER
         ptr0 = ptr1;
         ptr1 = ptr1->next();
-    } while (ptr1->next() != nullptr);
+    } while (ptr1 != nullptr);
 
     // LAST NODE IS SMALLER - CREATE NODE AT END OF LIST
     node* newnode = new node(hour_);
     newnode->add(student_);
-    ptr1->next() = newnode;
+    ptr0->next() = newnode;
 };
 
 
@@ -257,7 +257,7 @@ int SchedulePoll::import(char const* schedulefile_) {
     char* line = new char[maxlinelen];
     while (file.good()) {
         file.getline(line, maxlinelen);
-        word::trim(line);
+        line::trim(line);
 
         // DAY IS BEFORE COLON
         char* jour;
