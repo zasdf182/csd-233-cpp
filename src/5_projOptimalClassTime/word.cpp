@@ -21,6 +21,19 @@ static const int find(char query_, char const* input_, int start_) {
 }
 
 /**
+ * Finds the last occurrence of a char in a c-style array.
+ * @returns Array index or NOTFOUND (-1).
+ */
+static const int findlast(char query_, char const* input_, int start_) {
+    int pos = NOTFOUND;
+    int scanner = find(query_, input_, start_);
+    while (scanner != NOTFOUND) {
+        pos = scanner;
+        scanner = find(query_, input_, pos + 1);
+    } return pos;
+}
+
+/**
  * Trims leading whitespace.
  * Then finds the first whitespace character and trims everything after that.
  * Mutates the original c-style string.
