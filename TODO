@@ -1,2 +1,1 @@
-◆ needs refactor: when schedule format is incorrect, continue loop, instead of throwing error
-◆ needs fix: ignore empty lines in SchedulePoll::import()
+◆ needs fix: in main, calling schedulepoll->days() throws EXC_BAD_ACCESS (code=1, address=0x0)
