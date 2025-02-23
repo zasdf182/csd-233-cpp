@@ -25,7 +25,7 @@ using namespace std;
  * The second part lets the user query all times that have at least a certain number of matches.
  */
 int main(int argc, char** argv) {
-    SchedulePoll* programcontext = nullptr;
+    SchedulePoll* programcontext = new SchedulePoll();
     engineptr engine = intromsg;
 
     while (engine != nullptr)
@@ -106,7 +106,6 @@ static const enginegoto intromsg(SchedulePoll* ctx) {
  *          -- '0' if the user wants to quit the program.
  */
 static const enginegoto getschedules(SchedulePoll* out) {
-    out = new SchedulePoll();
     cout << endl;
     cout << endl << "<======== PART ONE ========>";
     cout << endl << "Enter one of these options:";

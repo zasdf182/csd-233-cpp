@@ -1,1 +1,2 @@
-◆ needs fix: in main, calling schedulepoll->days() throws EXC_BAD_ACCESS (code=1, address=0x0)
+MODULE 5 - PROJECT - OPTIMAL CLASS TIME
+◆ needs fix: in main.cpp, queryschedules() has incorrect console output
