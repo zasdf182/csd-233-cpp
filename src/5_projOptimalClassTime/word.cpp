@@ -59,6 +59,27 @@ static const bool isint(char const* str_) {
 namespace line {
 
 /**
+ * Trims leading whitespace and trailing whitespace.
+ * Mutates the original c-style string.
+ */
+static const void trim(char* input_) {
+    if (input_ == nullptr) return;
+    if (*input_ == '\0') return;
+
+    char* firstchar = input_;
+    while (std::isspace(*firstchar)) firstchar++;
+
+    char* lastchar = input_ + std::strlen(input_) - 1;
+    while (lastchar > firstchar) {
+        if (!std::isspace(*lastchar)) break;
+        else lastchar--;
+    }
+
+    std::memmove(input_, firstchar, lastchar - firstchar + 1);
+    input_[lastchar - firstchar + 1] = '\0';
+}
+
+/**
  * Finds the first occurrence of a char in a c-style array.
  * @returns Array index or NOTFOUND (-1).
  */
