@@ -12,6 +12,7 @@
             "cwd": "${workspaceFolder}",
             "program": "${workspaceFolder}/build/currCppFile",
             "preLaunchTask": "BuildMacExe",
+            "terminal": "external",
 
             // Args
             "args": ["line", "line", "line", "line"]

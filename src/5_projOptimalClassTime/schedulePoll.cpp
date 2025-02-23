@@ -3,6 +3,7 @@
 #include <cstring>
 #include <algorithm>
 #include <fstream>
+#include <filesystem>
 
 
 
@@ -236,14 +237,21 @@ int SchedulePoll::import(char const* schedulefile_) {
     std::ifstream file(schedulefile_);
     if (!file.is_open() || !file.good()) return IMPORTERROR;
 
-    // FILE NAME IS STUDENT NAME - REMOVE FILE EXTENSION
-    char* student;
-    int studentlen = word::find('.', schedulefile_);
-    if (studentlen == NOTFOUND)
-        studentlen = std::strlen(schedulefile_);
-    student = new char[studentlen + 1];
-    student[studentlen] = '\0';
-    std::copy(schedulefile_, (schedulefile_ + studentlen), student);
+    // FILE NAME IS STUDENT NAME - REMOVE FILE PATH AND FILE EXTENSION
+    int studentpos = word::findlast('/', schedulefile_);
+    if (studentpos == NOTFOUND)
+        studentpos = word::findlast('\\', schedulefile_);
+    if (studentpos == NOTFOUND)
+        studentpos = 0;
+    else studentpos++;
+
+    int studentend = word::findlast('.', schedulefile_);
+    if (studentend == NOTFOUND)
+        studentend = std::strlen(schedulefile_);
+
+    char* student = new char[studentend - studentpos];
+    student[studentend - studentpos] = '\0';
+    std::copy((schedulefile_ + studentpos), (schedulefile_ + studentend), student);
 
     // EACH LINE HAS ONE DAY AND MULTIPLE HOURS
     char* line = new char[maxlinelen];
