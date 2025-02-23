@@ -1,6 +1,7 @@
 #define daytypes 7
 #define hourtypes 48
 #define maxlinelen 4096
+#define IMPORTBADFORMAT 'f'
 #define IMPORTERROR 'x'
 #define IMPORTGOOD '0'
 #ifndef SCHEDULEPOLL_HPP

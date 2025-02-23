@@ -266,7 +266,7 @@ int SchedulePoll::import(char const* schedulefile_) {
         char* jour;
         int colonpos = line::find(':', line);
         if (colonpos == NOTFOUND)
-            throw std::runtime_error("ERROR: Incorrect schedule format");
+            return IMPORTBADFORMAT;
         jour = new char[colonpos + 1];
         jour[colonpos] = '\0';
         std::copy(line, (line + colonpos), jour);

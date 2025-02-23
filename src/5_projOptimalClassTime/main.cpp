@@ -132,7 +132,10 @@ static const enginegoto getschedules(SchedulePoll* out) {
                     return (enginegoto) (*userinput);
                 }
             default:
-                if (out->import(userinput) == IMPORTERROR)
+                int status = out->import(userinput);
+                if (status == IMPORTBADFORMAT)
+                    cout << "    ERROR: wrong format in file " << userinput;
+                else if (status == IMPORTERROR)
                     cout << "    ERROR: unable to read file " << userinput;
                 else cout << "    Successfully read file " << userinput;
         }
