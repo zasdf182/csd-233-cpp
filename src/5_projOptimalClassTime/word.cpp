@@ -4,11 +4,12 @@
 namespace word {
 
 /**
- * Checks if a char exists in a c-style array.
+ * Finds the first occurrence of a char in a c-style array.
  * @returns Array index or NOTFOUND (-1).
  */
 static const int find(char query_, char const* input_, int start_) {
     if (input_ == nullptr) return NOTFOUND;
+    if (start_ < 0) start_ = 0;
     if (start_ >= std::strlen(input_)) return NOTFOUND;
     char const* scanner = input_;
     int charpos = start_;
