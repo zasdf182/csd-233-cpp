@@ -36,6 +36,7 @@ static const int findlast(char query_, char const* input_, int start_) {
 /**
  * Trims leading whitespace.
  * Then finds the first whitespace character and trims everything after that.
+ * That means, if a line is input, it will be trimmed to the first word.
  * Mutates the original c-style string.
  */
 static const void trim(char* input_) {
