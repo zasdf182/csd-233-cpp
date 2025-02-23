@@ -238,14 +238,14 @@ int SchedulePoll::import(char const* schedulefile_) {
     if (!file.is_open() || !file.good()) return IMPORTERROR;
 
     // FILE NAME IS STUDENT NAME - REMOVE FILE PATH AND FILE EXTENSION
-    int studentpos = word::findlast('/', schedulefile_);
+    int studentpos = line::findlast('/', schedulefile_);
     if (studentpos == NOTFOUND)
-        studentpos = word::findlast('\\', schedulefile_);
+        studentpos = line::findlast('\\', schedulefile_);
     if (studentpos == NOTFOUND)
         studentpos = 0;
     else studentpos++;
 
-    int studentend = word::findlast('.', schedulefile_);
+    int studentend = line::findlast('.', schedulefile_);
     if (studentend == NOTFOUND)
         studentend = std::strlen(schedulefile_);
 
@@ -261,7 +261,7 @@ int SchedulePoll::import(char const* schedulefile_) {
 
         // DAY IS BEFORE COLON
         char* jour;
-        int colonpos = word::find(':', line);
+        int colonpos = line::find(':', line);
         if (colonpos == NOTFOUND)
             throw std::runtime_error("ERROR: Incorrect schedule format");
         jour = new char[colonpos + 1];
@@ -273,7 +273,7 @@ int SchedulePoll::import(char const* schedulefile_) {
         char** hours = new char*[hourtypes];
         int hourcount = 0;
         int hourpos = colonpos + 1;
-        int hourend = word::find(',', line, hourpos);
+        int hourend = line::find(',', line, hourpos);
 
         while (hourend != NOTFOUND) {
             char** hourptr = hours + hourcount++;
@@ -283,7 +283,7 @@ int SchedulePoll::import(char const* schedulefile_) {
             word::trim(*hourptr);
 
             hourpos = hourend + 1;
-            hourend = word::find(',', line, hourpos);
+            hourend = line::find(',', line, hourpos);
         }
 
         // EVERY HOUR HAS A COLON AFTER IT - EXCEPT THE LAST HOUR

@@ -1,37 +1,18 @@
 #include "word.hpp"
 #include <cstring>
 #include <cctype>
+
+
+
+
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
 namespace word {
-
-/**
- * Finds the first occurrence of a char in a c-style array.
- * @returns Array index or NOTFOUND (-1).
- */
-static const int find(char query_, char const* input_, int start_) {
-    if (input_ == nullptr) return NOTFOUND;
-    if (start_ < 0) start_ = 0;
-    if (start_ >= std::strlen(input_)) return NOTFOUND;
-    char const* scanner = input_;
-    int charpos = start_;
-    while (scanner[charpos] != '\0')
-        if (scanner[charpos] == query_)
-            return charpos;
-        else charpos++;
-    return NOTFOUND;
-}
-
-/**
- * Finds the last occurrence of a char in a c-style array.
- * @returns Array index or NOTFOUND (-1).
- */
-static const int findlast(char query_, char const* input_, int start_) {
-    int pos = NOTFOUND;
-    int scanner = find(query_, input_, start_);
-    while (scanner != NOTFOUND) {
-        pos = scanner;
-        scanner = find(query_, input_, pos + 1);
-    } return pos;
-}
 
 /**
  * Trims leading whitespace.
@@ -62,5 +43,48 @@ static const bool isint(char const* str_) {
         if (!std::isdigit(*ptr++))
             return false;
     return true;
+}
+}
+
+
+
+
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+namespace line {
+
+/**
+ * Finds the first occurrence of a char in a c-style array.
+ * @returns Array index or NOTFOUND (-1).
+ */
+static const int find(char query_, char const* input_, int start_) {
+    if (input_ == nullptr) return NOTFOUND;
+    if (start_ < 0) start_ = 0;
+    if (start_ >= std::strlen(input_)) return NOTFOUND;
+    char const* scanner = input_;
+    int charpos = start_;
+    while (scanner[charpos] != '\0')
+        if (scanner[charpos] == query_)
+            return charpos;
+        else charpos++;
+    return NOTFOUND;
+}
+
+/**
+ * Finds the last occurrence of a char in a c-style array.
+ * @returns Array index or NOTFOUND (-1).
+ */
+static const int findlast(char query_, char const* input_, int start_) {
+    int pos = NOTFOUND;
+    int scanner = find(query_, input_, start_);
+    while (scanner != NOTFOUND) {
+        pos = scanner;
+        scanner = find(query_, input_, pos + 1);
+    } return pos;
 }
 }
