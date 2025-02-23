@@ -290,7 +290,7 @@ int SchedulePoll::import(char const* schedulefile_) {
         char** hourptr = hours + hourcount++;
         hourend = std::strlen(line);
         *hourptr = new char[(hourend - hourpos) + 1];
-        *hourptr[hourend - hourpos] = '\0';
+        (*hourptr)[hourend - hourpos] = '\0';
         std::copy((line + hourpos), (line + hourend), *hourptr);
         word::trim(*hourptr);
 
