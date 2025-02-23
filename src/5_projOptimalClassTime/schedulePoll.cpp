@@ -259,6 +259,9 @@ int SchedulePoll::import(char const* schedulefile_) {
         file.getline(line, maxlinelen);
         line::trim(line);
 
+        // IGNORE EMPTY LINES
+        if (*line == '\0') continue;
+
         // DAY IS BEFORE COLON
         char* jour;
         int colonpos = line::find(':', line);
