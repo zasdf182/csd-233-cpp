@@ -163,7 +163,8 @@ static const enginegoto queryschedules(SchedulePoll* in) {
     cout << endl;
     cout << endl << "<======== PART TWO ========>";
     cout << endl << "Enter one of these options:";
-    cout << endl << "    - A number greater than 0. The program will list all times with at least that number of students.";
+    cout << endl << "    - A number greater than 0.";
+    cout << endl << "      The program will list all times with at least that number of students.";
     cout << endl << "    - \"0\" to quit the program.";
     cout << endl;
 
