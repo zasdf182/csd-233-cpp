@@ -14,8 +14,9 @@ static const int find(char query_, char const* input_, int start_) {
     char const* scanner = input_;
     int charpos = start_;
     while (scanner[charpos] != '\0')
-        if (scanner[charpos++] == query_)
+        if (scanner[charpos] == query_)
             return charpos;
+        else charpos++;
     return NOTFOUND;
 }
 
