@@ -1,19 +1,25 @@
 #include "word.hpp"
 #include <cstring>
 #include <cctype>
+
+
+
+
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
 namespace word {
 
-static const int find(char query_, char const* input_, int start_) {
-    if (input_ == nullptr) return NOTFOUND;
-    if (start_ >= std::strlen(input_)) return NOTFOUND;
-    char const* scanner = input_;
-    int charpos = start_;
-    while (scanner[charpos] != '\0')
-        if (scanner[charpos++] == query_)
-            return charpos;
-    return NOTFOUND;
-}
-
+/**
+ * Trims leading whitespace.
+ * Then finds the first whitespace character and trims everything after that.
+ * That means, if a line is input, it will be trimmed to the first word.
+ * Mutates the original c-style string.
+ */
 static const void trim(char* input_) {
     if (input_ == nullptr) return;
     if (*input_ == '\0') return;
@@ -26,12 +32,80 @@ static const void trim(char* input_) {
     } input_[i] = '\0';
 }
 
-static const bool isnum(char const* str_) {
+/**
+ * Checks if there are any non-numeric characters in a c-style string.
+ */
+static const bool isint(char const* str_) {
     if (str_ == nullptr) return false;
     if (*str_ == '\0') return false;
     char const* ptr = str_;
     while (*ptr != '\0')
-        if (!std::isdigit(*ptr++)) return false;
+        if (!std::isdigit(*ptr++))
+            return false;
     return true;
+}
+}
+
+
+
+
+
+
+
+
+// ##################################################################### //
+// ##################################################################### //
+// ##################################################################### //
+namespace line {
+
+/**
+ * Trims leading whitespace and trailing whitespace.
+ * Mutates the original c-style string.
+ */
+static const void trim(char* input_) {
+    if (input_ == nullptr) return;
+    if (*input_ == '\0') return;
+
+    char* firstchar = input_;
+    while (std::isspace(*firstchar)) firstchar++;
+
+    char* lastchar = input_ + std::strlen(input_) - 1;
+    while (lastchar > firstchar) {
+        if (!std::isspace(*lastchar)) break;
+        else lastchar--;
+    }
+
+    std::memmove(input_, firstchar, lastchar - firstchar + 1);
+    input_[lastchar - firstchar + 1] = '\0';
+}
+
+/**
+ * Finds the first occurrence of a char in a c-style array.
+ * @returns Array index or NOTFOUND (-1).
+ */
+static const int find(char query_, char const* input_, int start_) {
+    if (input_ == nullptr) return NOTFOUND;
+    if (start_ < 0) start_ = 0;
+    if (start_ >= std::strlen(input_)) return NOTFOUND;
+    char const* scanner = input_;
+    int charpos = start_;
+    while (scanner[charpos] != '\0')
+        if (scanner[charpos] == query_)
+            return charpos;
+        else charpos++;
+    return NOTFOUND;
+}
+
+/**
+ * Finds the last occurrence of a char in a c-style array.
+ * @returns Array index or NOTFOUND (-1).
+ */
+static const int findlast(char query_, char const* input_, int start_) {
+    int pos = NOTFOUND;
+    int scanner = find(query_, input_, start_);
+    while (scanner != NOTFOUND) {
+        pos = scanner;
+        scanner = find(query_, input_, pos + 1);
+    } return pos;
 }
 }

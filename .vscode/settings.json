@@ -17,7 +17,7 @@
     "explorer.fileNesting.patterns": {
         ".gitignore": ".git*, .prettier*, .astyle*",
         "CMakeLists.txt": "CMake*",
-        "README": "HISTORY*"
+        "README": "HISTORY*, TODO*"
     },
 
     // VSCode syntax integration
