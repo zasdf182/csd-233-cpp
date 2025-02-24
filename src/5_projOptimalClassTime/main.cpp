@@ -170,6 +170,7 @@ static const enginegoto queryschedules(SchedulePoll* in) {
 
     char* userinput = new char[maxstrlen];
     char delimbuffer;
+    bool matchfound = false;
 
     while (true) {
         cout << endl;
@@ -177,6 +178,7 @@ static const enginegoto queryschedules(SchedulePoll* in) {
         cin >> userinput;
         word::trim(userinput);
         delimbuffer = userinput[secondchar];
+        matchfound = false;
 
         if (*userinput == ::quit)
             if (delimbuffer == '\0' || isspace(delimbuffer)) {
@@ -212,9 +214,11 @@ static const enginegoto queryschedules(SchedulePoll* in) {
                 cout << endl;
             }
 
-            if (matchcount > 0) cout << endl;
-            delete[] matches;
-        }
+            if (matchcount > 0) {
+                matchfound = true;
+                cout << endl;
+            } delete[] matches;
+        } if (!matchfound) cout << "    No matches found.";
     }
 }
 
