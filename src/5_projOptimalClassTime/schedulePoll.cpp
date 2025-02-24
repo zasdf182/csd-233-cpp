@@ -77,6 +77,8 @@ node::node(float hour_) {
 
 /** Destructor that collects garbage. */
 node::~node() {
+    for (int i = 0; i < __count; i++)
+        delete[] __students[i];
     delete[] __students;
 }
 
@@ -85,8 +87,11 @@ node::~node() {
  * It will add the student name to an internal array, and update helper methods.
  */
 void node::add(char const* student_) {
+    int len = std::strlen(student_);
+    char* name = new char[len];
     if (__count == __mem) __alloc();
-    __students[__count++] = student_;
+    std::copy(student_, (student_ + len), name);
+    __students[__count++] = name;
 }
 
 /**
