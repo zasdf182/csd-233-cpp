@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cctype>
 #include <cstdio>
+#include <cmath>
 #define secondchar 1
 #define maxstrlen 4096
 using namespace std;
@@ -208,7 +209,10 @@ static const enginegoto queryschedules(SchedulePoll* in) {
 
             for (int j = 0; j < matchcount; j++) {
                 node const* match = matches[j];
-                printf("%-3.3s at %-2.1f was chosen by %s", dayname, match->hour(), match->students()[0]);
+                int precision = 1;
+                if (std::trunc(match->hour()) == match->hour())
+                    precision = 0;
+                printf("%-3.3s at %-4.*f  was chosen by  %s", dayname, precision, match->hour(), match->students()[0]);
                 for (int k = 1; k < match->count(); k++)
                     cout << ", " << match->students()[k];
                 cout << endl;
