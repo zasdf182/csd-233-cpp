@@ -72,7 +72,7 @@ node::node(float hour_) {
     __hour = hour_;
     __count = 0;
     __students = new char const*[__mem];
-    next() = nullptr;
+    __next = nullptr;
 }
 
 /** Destructor that collects garbage. */
