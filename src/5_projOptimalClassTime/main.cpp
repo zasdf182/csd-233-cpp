@@ -212,7 +212,7 @@ static const enginegoto queryschedules(SchedulePoll* in) {
                 int precision = 1;
                 if (std::trunc(match->hour()) == match->hour())
                     precision = 0;
-                printf("%-3.3s at %-4.*f  was chosen by  %s", dayname, precision, match->hour(), match->students()[0]);
+                printf("%-3.3s at %-4.*f    %s", dayname, precision, match->hour(), match->students()[0]);
                 for (int k = 1; k < match->count(); k++)
                     cout << ", " << match->students()[k];
                 cout << endl;
