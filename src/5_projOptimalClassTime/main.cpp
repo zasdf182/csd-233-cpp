@@ -212,6 +212,7 @@ static const enginegoto queryschedules(SchedulePoll* in) {
                 cout << endl;
             }
 
+            if (matchcount > 0) cout << endl;
             delete[] matches;
         }
     }
