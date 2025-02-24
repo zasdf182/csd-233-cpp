@@ -209,6 +209,7 @@ static const enginegoto queryschedules(SchedulePoll* in) {
                 printf("%-3.3s at %-2.1f was chosen by %s", dayname, match->hour(), match->students()[0]);
                 for (int k = 1; k < match->count(); k++)
                     cout << ", " << match->students()[k];
+                cout << endl;
             }
 
             delete[] matches;
