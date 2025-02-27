@@ -48,7 +48,7 @@ find_package(OpenCV REQUIRED)
 
 # cmake_minimum_required(VERSION 3.31.3)
 # project(currCppFile)
-# add_executable(currCppFile src/3_shapesPart1/main.cpp)
+# add_executable(currCppFile src/3_assgshapesPart1/main.cpp)
 # target_link_libraries(currCppFile ${OpenCV_LIBS})
 
 # cmake_minimum_required(VERSION 3.31.3)
@@ -72,9 +72,9 @@ find_package(OpenCV REQUIRED)
 # project(currCppFile)
 # add_executable(currCppFile src/5_assgYourTurn/main.cpp)
 
-cmake_minimum_required(VERSION 3.31.3)
-project(currCppFile)
-add_executable(currCppFile src/5_projOptimalClassTime/main.cpp)
+# cmake_minimum_required(VERSION 3.31.3)
+# project(currCppFile)
+# add_executable(currCppFile src/5_projOptimalClassTime/main.cpp)
 
                                                             ##################
                                                             #### MODULE 6 ####
@@ -83,6 +83,11 @@ add_executable(currCppFile src/5_projOptimalClassTime/main.cpp)
 # cmake_minimum_required(VERSION 3.31.3)
 # project(currCppFile)
 # add_executable(currCppFile src/6_assgYourTurn/main.cpp)
+
+cmake_minimum_required(VERSION 3.31.3)
+project(currCppFile)
+add_executable(currCppFile src/6_assgWarmUp/ShapeFunStart.cpp)
+target_link_libraries(currCppFile ${OpenCV_LIBS})
 
                                                             #################
                                                             #### MIDTERM ####
