@@ -84,10 +84,14 @@ find_package(OpenCV REQUIRED)
 # project(currCppFile)
 # add_executable(currCppFile src/6_assgYourTurn/main.cpp)
 
+# cmake_minimum_required(VERSION 3.31.3)
+# project(currCppFile)
+# add_executable(currCppFile src/6_assgWarmUp/ShapeFunStart.cpp)
+# target_link_libraries(currCppFile ${OpenCV_LIBS})
+
 cmake_minimum_required(VERSION 3.31.3)
 project(currCppFile)
-add_executable(currCppFile src/6_assgWarmUp/ShapeFunStart.cpp)
-target_link_libraries(currCppFile ${OpenCV_LIBS})
+add_executable(currCppFile src/6_assgDerivedClasses/main.cpp)
 
                                                             #################
                                                             #### MIDTERM ####
