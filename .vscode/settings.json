@@ -105,6 +105,12 @@
         "__node_handle": "cpp",
         "execution": "cpp",
         "forward_list": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "any": "cpp",
+        "shared_mutex": "cpp",
+        "*.inc": "cpp",
+        "*.ipp": "cpp",
+        "coroutine": "cpp",
+        "source_location": "cpp"
     }
 }
