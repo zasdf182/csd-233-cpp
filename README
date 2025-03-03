@@ -10,6 +10,7 @@
 -   **SETUP** — Install [Astyle](5) as a vscode extension
 -   **SETUP** — Install [Astyle](6) as a PATH bin / homebrew package
 -   **SETUP** — Install [CodeLLDB](9) as a vscode extension
+-   **SETUP** — Install [C++ TestMate](10) as a vscode extension
 
 ### Markdown, JSON
 
@@ -26,6 +27,7 @@
 [7]: vscode:extension/esbenp.prettier-vscode
 [8]: https://www.npmjs.com/package/prettier
 [9]: vscode:extension/vadimcn.vscode-lldb
+[10]: vscode:extension/matepek.vscode-catch2-test-adapter
 
 # Mac CMake Tutorial
 

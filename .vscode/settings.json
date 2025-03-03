@@ -1,10 +1,10 @@
 {
-    // Prettier
+    // Extension: Prettier
     "prettier.tabWidth": 4,
     "prettier.resolveGlobalModules": true,
     "prettier.experimentalTernaries": true,
 
-    // AStyle
+    // Extension: AStyle
     "astyle.astylerc": "${workspaceFolder}/.astylerc",
 
     // VSCode text editor
