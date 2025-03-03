@@ -94,9 +94,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/lib/)
 # project(currCppFile)
 # add_executable(currCppFile src/5_projOptimalClassTime/main.cpp)
 
-# cmake_minimum_required(VERSION 3.31.3)
-# project(currCppFile)
-# add_executable(currCppFile src/5c_projSearchTree/main.cpp)
+cmake_minimum_required(VERSION 3.31.3)
+project(currCppFile)
+add_executable(currCppFile src/5c_projSearchTree/main.cpp)
 
 cmake_minimum_required(VERSION 3.31.3) 
 project(currCppTests)
