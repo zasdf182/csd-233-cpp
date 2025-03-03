@@ -100,7 +100,10 @@ add_executable(currCppFile src/5c_projSearchTree/main.cpp)
 
 cmake_minimum_required(VERSION 3.31.3) 
 project(currCppTests)
-add_executable(currCppTests src/5c_projSearchTreeTests/strTests.cpp)
+add_executable(currCppTests
+    src/5c_projSearchTreeTests/testStr.cpp
+    src/5c_projSearchTreeTests/testTree.cpp
+)
 target_include_directories(currCppTests PRIVATE src/5c_projSearchTree/)
 target_link_libraries(currCppTests gtest gtest_main)
 gtest_discover_tests(currCppTests)

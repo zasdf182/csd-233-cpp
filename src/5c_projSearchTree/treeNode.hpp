@@ -4,30 +4,24 @@ namespace Collections {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// A node in a binary search tree.
-/// The node must be linked to a Tree in the constructor.
-/// The data must be initialized in the constructor.
-/// Once constructed, all members are constant.
-/// Instead of editing nodes in a Tree, delete nodes and create new ones.
-/// Nodes in a Tree are unlinked and deallocated in the node deconstructor.
-/// Broken Tree links are automatically fixed in the node deconstructor.
+/// The Data is initialized in the constructor and is constant.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> class TreeNode {
-    private: //Encapsulated read-only constants.
-        TreeNode<T> const* parent;
-        TreeNode<T> const* left;
-        TreeNode<T> const* right;
-        T const* data;
+    private: //Encapsulated properties.
+        TreeNode<T>* left;
+        TreeNode<T>* right;
+        T data;
 
     public: //Constructors and destructors.
-        TreeNode(T data, Tree tree);
-        ~TreeNode();
+        TreeNode(T newdata);
 
-    public: //Getters of read-only constants.
-        TreeNode<T> const& Parent() {return *parent;}
-        TreeNode<T> const& Left() {return *left;}
-        TreeNode<T> const& Right() {return *right;}
-        T const DataValue() {return *data;}
-        T const& DataRef() {return *data;}
+    public: //Getters of encapsulated properties. Read-only if TreeNode is const.
+        T& Data() {return data;}
+        T const& Data() const {return data;}
+        TreeNode<T>*& Left() {return left;}
+        TreeNode<T>*& Right() {return right;}
+        TreeNode<T> const* const& Left() const {return left;}
+        TreeNode<T> const* const& Right() const {return right;}
 };
 }
 #endif

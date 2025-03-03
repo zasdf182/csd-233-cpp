@@ -5,27 +5,36 @@ namespace Collections {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// A binary search tree.
-/// The default constructor has no parameters and does nothing.
-/// After construction, use public methods to add and remove nodes.
+/// The constructor creates an empty tree.
+/// After construction, use public methods to mutate the tree.
 /// The deconstructor must deallocate all nodes.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> class Tree {
-    private: //Encapsulated read-only variables.
+    private: //Encapsulated read-only properties.
         TreeNode<T>* head;
+
+    public: //Getters of read-only properties.
+        TreeNode<T> const* Head() {return head;}
+        TreeNode<T> const* Head() const {return head;}
 
     public: //Constructors and destructors.
         Tree();
         ~Tree();
 
-    public: //Getters of read-only variables.
-        TreeNode<T> const& Head() {return *head;}
-        T const DataValue() {return head->DataValue();}
-        T const& DataRef() {return head->DataRef();}
+    public: //Mutation methods. Unavailable to const Trees.
+        void AddItem(T item);
 
-    public: //Public methods.
-        void AddItem (T item);
-        bool FindItem (T item);
-        Bool RemoveItem (T item);
+    public: //Retrieval methods.
+        const bool FindItem(T item);
+        const bool FindItem(T item) const;
+        const bool RemoveItem(T item);
+        const bool RemoveItem(T item) const;
+
+    private: //Binary search tree helper methods.
+        TreeNode<T>* newNode(T newItem, TreeNode<T>* recursionPointer);
+        bool search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out = nullptr);
+        TreeNode<T>* remove(T item, TreeNode<T>* recursionPointer);
+        TreeNode<T>* getParentOfRemovedNode(TreeNode<T>* recursionPointer);
 };
 }
 #endif
