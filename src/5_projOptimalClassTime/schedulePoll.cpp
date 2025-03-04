@@ -308,8 +308,6 @@ int SchedulePoll::import(char const* schedulefile_) {
 
         // GARBAGE COLLECTION
         delete[] jour;
-        for (int i = 0; i < hourtypes; i++)
-            delete[] hours[i];
         delete[] hours;
     }
 
