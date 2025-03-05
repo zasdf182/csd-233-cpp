@@ -4,7 +4,8 @@ namespace Collections {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// A node in a binary search tree.
-/// The Data is initialized in the constructor and is constant.
+/// Data is set in the constructor.
+/// Node links are initialized to nullptr in the constructor.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> class TreeNode {
     private: //Encapsulated properties.
