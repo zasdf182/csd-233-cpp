@@ -34,7 +34,7 @@ template <class T> class Tree {
         TreeNode<T>* newNode(T newItem, TreeNode<T>* recursionPointer);
         bool search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out = nullptr);
         TreeNode<T>* remove(T item, TreeNode<T>* recursionPointer);
-        TreeNode<T>* getParentOfRemovedNode(TreeNode<T>* recursionPointer);
+        TreeNode<T>* getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer);
 };
 }
 #endif

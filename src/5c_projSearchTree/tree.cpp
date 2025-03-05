@@ -113,17 +113,17 @@ template <class T> TreeNode<T>* Tree<T>::remove(T item, TreeNode<T>* recursionPo
         }
 
         // If both children are present
-        TreeNode<T>* parent = getParentOfRemovedNode(recursionPointer);
-        recursionPointer->Data() = *(parent->Data());
-        recursionPointer->Right() = remove(parent->Data(), recursionPointer->Right());
+        TreeNode<T>* successor = getSuccessorOfRemovedNode(recursionPointer);
+        recursionPointer->Data() = *(successor->Data());
+        recursionPointer->Right() = remove(successor->Data(), recursionPointer->Right());
     }
     return recursionPointer;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Private recursive helper method for finding the parent of a deleted node.
+/// Private recursive helper method for finding the successor of a deleted node.
 ////////////////////////////////////////////////////////////////////////////////
-template <class T> TreeNode<T>* Tree<T>::getParentOfRemovedNode(TreeNode<T>* recursionPointer) {
+template <class T> TreeNode<T>* Tree<T>::getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer) {
     recursionPointer = recursionPointer->Right();
     while (recursionPointer != nullptr && recursionPointer->Left() != nullptr)
         recursionPointer = recursionPointer->Left();
