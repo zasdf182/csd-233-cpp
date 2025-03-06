@@ -10,6 +10,9 @@ namespace Collections {
 /// The deconstructor must deallocate all nodes.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> class Tree {
+    public: //Aliases and typedefs.
+        template <class ctx> using TraversalFuncPtr = void (*) (TreeNode<T>* node, ctx& context);
+
     private: //Encapsulated read-only properties.
         TreeNode<T>* head;
 
@@ -24,8 +27,7 @@ template <class T> class Tree {
     public: //Mutation methods. Unavailable to const Trees.
         void AddItem(T item);
         bool RemoveItem(T item);
-        void ExecFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T>* node));
-        void ExecFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T> const* node));
+        template <class ctx> void ExecFuncOnNodesInOrder(TraversalFuncPtr<ctx> funcPtr, ctx& context);
 
     public: //Retrieval methods.
         bool FindItem(T item);
@@ -36,7 +38,7 @@ template <class T> class Tree {
         bool search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out = nullptr);
         TreeNode<T>* remove(T item, TreeNode<T>* recursionPointer);
         TreeNode<T>* getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer);
-        void execFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T>* node), TreeNode<T>* recursionPointer);
+        template <class ctx> void execFuncOnNodesInOrder(TraversalFuncPtr<ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
 };
 }
 #endif

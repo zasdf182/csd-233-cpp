@@ -5,10 +5,14 @@
 #include "treeNode.cpp"
 
 int main() {
-    int numbers[1000];
-    int removedNumbers[10];
-    Collections::Tree<int> tree;
     srand(42);
+    typedef std::map<int, bool> NumberTracker;
+    typedef Collections::TreeNode<int> IntNode;
+
+    int numbers[1000];
+    NumberTracker removedNumbers;
+    NumberTracker foundNumbers;
+    Collections::Tree<int> tree;
 
     // Test code that exercises the class by adding a list of sequential random numbers.
     // Create an array of 1000 integers.
@@ -46,8 +50,12 @@ int main() {
     // Do an in-order-traversal verifying that
     // each number 0...999 is found except for the 10 that were removed.
     // Uses a lambda function.
-    std::map<int, bool> foundNumbers;
-    tree.ExecFuncOnNodesInOrder([](Collections::TreeNode<int>* node) {
+    tree.ExecFuncOnNodesInOrder<NumberTracker> ([](IntNode * node, NumberTracker & context) {
+        int foundNumber = node->Data();
+        context[foundNumber] = true;
+    }, foundNumbers);
 
-    });
+    for (int i = 0; i < 1000; i++) {
+
+    }
 }
