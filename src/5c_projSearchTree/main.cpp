@@ -1,5 +1,6 @@
 #include <random>
 #include <iostream>
+#include <map>
 #include "tree.cpp"
 #include "treeNode.cpp"
 
@@ -42,5 +43,11 @@ int main() {
         tree.RemoveItem(randomRemovedNumber);
     }
 
-    // Do an in-order-traversal verifying that each number 0...999 is found except for the 10 that were removed.
+    // Do an in-order-traversal verifying that
+    // each number 0...999 is found except for the 10 that were removed.
+    // Uses a lambda function.
+    std::map<int, bool> foundNumbers;
+    tree.ExecFuncOnNodesInOrder([](Collections::TreeNode<int>* node) {
+
+    });
 }

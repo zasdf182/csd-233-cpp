@@ -24,6 +24,8 @@ template <class T> class Tree {
     public: //Mutation methods. Unavailable to const Trees.
         void AddItem(T item);
         bool RemoveItem(T item);
+        void ExecFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T>* node));
+        void ExecFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T> const* node));
 
     public: //Retrieval methods.
         bool FindItem(T item);
@@ -34,6 +36,7 @@ template <class T> class Tree {
         bool search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out = nullptr);
         TreeNode<T>* remove(T item, TreeNode<T>* recursionPointer);
         TreeNode<T>* getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer);
+        void execFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T>* node), TreeNode<T>* recursionPointer);
 };
 }
 #endif

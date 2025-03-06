@@ -25,13 +25,6 @@ template <class T> void Tree<T>::AddItem(T item) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Returns true if item is in tree, and false if not.
-////////////////////////////////////////////////////////////////////////////////
-template <class T> bool Tree<T>::FindItem(T item) {
-    return search(item, head);
-}
-
-////////////////////////////////////////////////////////////////////////////////
 /// If item is in tree, returns true, and removes the item.
 /// If not, returns false, and does nothing.
 ////////////////////////////////////////////////////////////////////////////////
@@ -40,6 +33,34 @@ template <class T> bool Tree<T>::RemoveItem(T item) {
     if (!found) return false;
     head = remove(item, head);
     return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Returns true if item is in tree, and false if not.
+////////////////////////////////////////////////////////////////////////////////
+template <class T> bool Tree<T>::FindItem(T item) {
+    return search(item, head);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Returns true if item is in tree, and false if not.
+////////////////////////////////////////////////////////////////////////////////
+template <class T> bool Tree<T>::FindItem(T item) const {
+    return search(item, head);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Does an in-order traversal, and executes a function on each node.
+////////////////////////////////////////////////////////////////////////////////
+template <class T> void Tree<T>::ExecFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T>* node)) {
+    execFuncOnNodesInOrder(head, funcPtr);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Does an in-order traversal, and executes a function on each node.
+////////////////////////////////////////////////////////////////////////////////
+template <class T> void Tree<T>::ExecFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T> const* node)) {
+    execFuncOnNodesInOrder(head, funcPtr);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -129,5 +150,17 @@ template <class T> TreeNode<T>* Tree<T>::getSuccessorOfRemovedNode(TreeNode<T>* 
     while (recursionPointer != nullptr && recursionPointer->Left() != nullptr)
         recursionPointer = recursionPointer->Left();
     return recursionPointer;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Private helper function.
+/// Does an in-order traversal, and executes a function on each node.
+/// @param recursionPointer Pass tree.head to this parameter.
+////////////////////////////////////////////////////////////////////////////////
+template <class T> void Tree<T>::execFuncOnNodesInOrder(void (*funcPtr) (TreeNode<T>* node), TreeNode<T>* recursionPointer) {
+    if (recursionPointer == nullptr) return;
+    execFuncOnNodesInOrder(recursionPointer->Left(), funcPtr);
+    *funcPtr(recursionPointer);
+    execFuncOnNodesInOrder(recursionPointer->Right(), funcPtr);
 }
 }
