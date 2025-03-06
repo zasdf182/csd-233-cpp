@@ -1,6 +1,7 @@
 #include <list>
 #ifndef STR_HPP
 #define STR_HPP
+using namespace std;
 namespace Str {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -8,13 +9,13 @@ namespace Str {
 /// Returns a string list of the file contents split at whitespaces.
 /// Returns an empty list if file is empty or broken.
 ////////////////////////////////////////////////////////////////////////////////
-static std::list<std::string> GetWordsFromFile(std::string filePath);
+static list<string> GetWordsFromFile(string filePath);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Trims leading and trailing whitespace from a string.
 /// Mutates and returns the original input string.
 ////////////////////////////////////////////////////////////////////////////////
-static std::string Trim(std::string input);
+static string Trim(string input);
 
 }
 #endif

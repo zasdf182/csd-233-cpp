@@ -3,6 +3,7 @@
 #include <sstream>
 #include <list>
 #include "str.hpp"
+using namespace std;
 namespace Str {
 
 
@@ -13,14 +14,14 @@ namespace Str {
 /// Returns a string list of the file contents split at whitespaces.
 /// Returns an empty list if file is empty or broken.
 ////////////////////////////////////////////////////////////////////////////////
-static std::list<std::string> GetWordsFromFile(std::string filePath) {
-    std::list<std::string> result;
-    std::ifstream file(filePath);
+static list<string> GetWordsFromFile(string filePath) {
+    list<string> result;
+    ifstream file(filePath);
     if (!file.is_open() || !file.good()) return result;
 
     // Read entire file contents into a string.
-    std::ostringstream buffer;
-    std::string fileContents;
+    ostringstream buffer;
+    string fileContents;
     buffer << file.rdbuf();
     fileContents = buffer.str();
 
@@ -31,14 +32,14 @@ static std::list<std::string> GetWordsFromFile(std::string filePath) {
 
     // Find the start of the next split.
     while (substrStart < size) {
-        if (std::isspace(fileContents.at(substrStart))) {
+        if (isspace(fileContents.at(substrStart))) {
             substrStart++;
             continue;
         }
 
         // Find the end of the next split and insert substring into list.
         for (substrEnd = substrStart + 1; substrEnd < size; substrEnd++) {
-            if (std::isspace(fileContents.at(substrEnd))) {
+            if (isspace(fileContents.at(substrEnd))) {
                 int substrLength = substrEnd - substrStart;
                 result.push_back(fileContents.substr(substrStart, substrLength));
                 break;
@@ -55,13 +56,13 @@ static std::list<std::string> GetWordsFromFile(std::string filePath) {
 /// Trims leading and trailing whitespace from a string.
 /// Mutates and returns the original input string.
 ////////////////////////////////////////////////////////////////////////////////
-static std::string Trim(std::string input) {
+static string Trim(string input) {
     int substrStart = -1;
     int substrEnd = -1;
 
     // Find where leading whitespace ends.
     for (int i = 0; i < input.size(); i++) {
-        if (!std::isspace(input.at(i))) {
+        if (!isspace(input.at(i))) {
             substrStart = i;
             break;
         }
@@ -75,7 +76,7 @@ static std::string Trim(std::string input) {
 
     // Find where trailing whitespace begins.
     for (int i = input.size() - 1; i >= 0; i--) {
-        if (!std::isspace(input.at(i))) {
+        if (!isspace(input.at(i))) {
             substrEnd = i;
             break;
         }
