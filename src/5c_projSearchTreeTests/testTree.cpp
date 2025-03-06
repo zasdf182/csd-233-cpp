@@ -166,4 +166,140 @@ TEST(FindItemTest, HandlesLeft) {
     EXPECT_EQ(tree.FindItem(5), true);
     EXPECT_EQ(tree.FindItem(42), false);
 }
+
+TEST(FindItemTest, HandlesRight) {
+    Collections::Tree<int> tree;
+    tree.AddItem(888);
+    tree.AddItem(999);
+    EXPECT_EQ(tree.FindItem(888), true);
+    EXPECT_EQ(tree.FindItem(999), true);
+    EXPECT_EQ(tree.FindItem(333), false);
+}
+
+TEST(FindItemTest, HandlesLeftLeft) {
+    Collections::Tree<int> tree;
+    tree.AddItem(444444);
+    tree.AddItem(333333);
+    tree.AddItem(222222);
+    EXPECT_EQ(tree.FindItem(444444), true);
+    EXPECT_EQ(tree.FindItem(333333), true);
+    EXPECT_EQ(tree.FindItem(222222), true);
+    EXPECT_EQ(tree.FindItem(111111), false);
+}
+
+TEST(FindItemTest, HandlesLeftRight) {
+    Collections::Tree<int> tree;
+    tree.AddItem(123456789);
+    tree.AddItem(1234567);
+    tree.AddItem(12345678);
+    EXPECT_EQ(tree.FindItem(123456789), true);
+    EXPECT_EQ(tree.FindItem(1234567), true);
+    EXPECT_EQ(tree.FindItem(12345678), true);
+    EXPECT_EQ(tree.FindItem(987654), false);
+}
+
+TEST(FindItemTest, HandlesRightLeft) {
+    Collections::Tree<int> tree;
+    tree.AddItem(1);
+    tree.AddItem(3);
+    tree.AddItem(2);
+    EXPECT_EQ(tree.FindItem(1), true);
+    EXPECT_EQ(tree.FindItem(3), true);
+    EXPECT_EQ(tree.FindItem(2), true);
+    EXPECT_EQ(tree.FindItem(55), false);
+}
+
+TEST(FindItemTest, HandlesRightRight) {
+    Collections::Tree<int> tree;
+    tree.AddItem(333);
+    tree.AddItem(555);
+    tree.AddItem(777);
+    EXPECT_EQ(tree.FindItem(333), true);
+    EXPECT_EQ(tree.FindItem(555), true);
+    EXPECT_EQ(tree.FindItem(777), true);
+    EXPECT_EQ(tree.FindItem(123), false);
+}
+
+//============================================================================//
+// Unit tests for Tree::RemoveItem()
+//============================================================================//
+TEST(RemoveItemTest, HandlesEmptyTree) {
+    Collections::Tree<int> tree;
+    EXPECT_EQ(tree.RemoveItem(INT_MIN), false);
+    EXPECT_EQ(tree.RemoveItem(INT_MIN + 1), false);
+    EXPECT_EQ(tree.RemoveItem(-1), false);
+    EXPECT_EQ(tree.RemoveItem(0), false);
+    EXPECT_EQ(tree.RemoveItem(1), false);
+    EXPECT_EQ(tree.RemoveItem(INT_MAX - 1), false);
+    EXPECT_EQ(tree.RemoveItem(INT_MAX), false);
+    EXPECT_EQ(tree.Head(), nullptr);
+}
+
+TEST(RemoveItemTest, HandlesLeft) {
+    Collections::Tree<int> tree;
+    tree.AddItem(7);
+    tree.AddItem(5);
+    EXPECT_EQ(tree.RemoveItem(7), true);
+    EXPECT_EQ(tree.RemoveItem(5), true);
+    EXPECT_EQ(tree.RemoveItem(42), false);
+    EXPECT_EQ(tree.Head(), nullptr);
+}
+
+TEST(RemoveItemTest, HandlesRight) {
+    Collections::Tree<int> tree;
+    tree.AddItem(888);
+    tree.AddItem(999);
+    EXPECT_EQ(tree.RemoveItem(888), true);
+    EXPECT_EQ(tree.RemoveItem(999), true);
+    EXPECT_EQ(tree.RemoveItem(333), false);
+    EXPECT_EQ(tree.Head(), nullptr);
+}
+
+TEST(RemoveItemTest, HandlesLeftLeft) {
+    Collections::Tree<int> tree;
+    tree.AddItem(444444);
+    tree.AddItem(333333);
+    tree.AddItem(222222);
+    EXPECT_EQ(tree.RemoveItem(444444), true);
+    EXPECT_EQ(tree.RemoveItem(333333), true);
+    EXPECT_EQ(tree.RemoveItem(222222), true);
+    EXPECT_EQ(tree.RemoveItem(111111), false);
+    EXPECT_EQ(tree.Head(), nullptr);
+}
+
+TEST(RemoveItemTest, HandlesLeftRight) {
+    Collections::Tree<int> tree;
+    tree.AddItem(123456789);
+    tree.AddItem(1234567);
+    tree.AddItem(12345678);
+    EXPECT_EQ(tree.RemoveItem(123456789), true);
+    EXPECT_EQ(tree.RemoveItem(1234567), true);
+    EXPECT_EQ(tree.RemoveItem(12345678), true);
+    EXPECT_EQ(tree.RemoveItem(987654), false);
+    EXPECT_EQ(tree.Head(), nullptr);
+}
+
+TEST(RemoveItemTest, HandlesRightLeft) {
+    Collections::Tree<int> tree;
+    tree.AddItem(1);
+    tree.AddItem(3);
+    tree.AddItem(2);
+    EXPECT_EQ(tree.RemoveItem(1), true);
+    EXPECT_EQ(tree.RemoveItem(3), true);
+    EXPECT_EQ(tree.RemoveItem(2), true);
+    EXPECT_EQ(tree.RemoveItem(55), false);
+    EXPECT_EQ(tree.Head(), nullptr);
+}
+
+TEST(RemoveItemTest, HandlesRightRight) {
+    Collections::Tree<int> tree;
+    tree.AddItem(333);
+    tree.AddItem(555);
+    tree.AddItem(777);
+    EXPECT_EQ(tree.RemoveItem(333), true);
+    EXPECT_EQ(tree.RemoveItem(555), true);
+    EXPECT_EQ(tree.RemoveItem(777), true);
+    EXPECT_EQ(tree.RemoveItem(123), false);
+    EXPECT_EQ(tree.Head(), nullptr);
+}
 }

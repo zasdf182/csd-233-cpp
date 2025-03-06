@@ -23,12 +23,11 @@ template <class T> class Tree {
 
     public: //Mutation methods. Unavailable to const Trees.
         void AddItem(T item);
+        bool RemoveItem(T item);
 
     public: //Retrieval methods.
-        const bool FindItem(T item);
-        const bool FindItem(T item) const;
-        const bool RemoveItem(T item);
-        const bool RemoveItem(T item) const;
+        bool FindItem(T item);
+        bool FindItem(T item) const;
 
     private: //Binary search tree helper methods.
         TreeNode<T>* newNode(T newItem, TreeNode<T>* recursionPointer);

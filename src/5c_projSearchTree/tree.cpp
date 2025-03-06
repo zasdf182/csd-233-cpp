@@ -27,7 +27,7 @@ template <class T> void Tree<T>::AddItem(T item) {
 ////////////////////////////////////////////////////////////////////////////////
 /// Returns true if item is in tree, and false if not.
 ////////////////////////////////////////////////////////////////////////////////
-template <class T> const bool Tree<T>::FindItem(T item) {
+template <class T> bool Tree<T>::FindItem(T item) {
     return search(item, head);
 }
 
@@ -35,10 +35,11 @@ template <class T> const bool Tree<T>::FindItem(T item) {
 /// If item is in tree, returns true, and removes the item.
 /// If not, returns false, and does nothing.
 ////////////////////////////////////////////////////////////////////////////////
-template <class T> const bool Tree<T>::RemoveItem(T item) {
+template <class T> bool Tree<T>::RemoveItem(T item) {
     bool found = search(item, head);
+    if (!found) return false;
     head = remove(item, head);
-    return found;
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -91,9 +92,9 @@ template <class T> TreeNode<T>* Tree<T>::remove(T item, TreeNode<T>* recursionPo
 
     // If item is in a subtree
     if (item < recursionPointer->Data())
-        item->Left() = remove(item, recursionPointer->Left());
+        recursionPointer->Left() = remove(item, recursionPointer->Left());
     else if (item > recursionPointer->Data())
-        item->Right() = remove(item, recursionPointer->Right());
+        recursionPointer->Right() = remove(item, recursionPointer->Right());
 
     // If item is on this node, delete node and relink other nodes
     else { //if (item == recursionPointer->Data())
@@ -114,7 +115,7 @@ template <class T> TreeNode<T>* Tree<T>::remove(T item, TreeNode<T>* recursionPo
 
         // If both children are present
         TreeNode<T>* successor = getSuccessorOfRemovedNode(recursionPointer);
-        recursionPointer->Data() = *(successor->Data());
+        recursionPointer->Data() = successor->Data();
         recursionPointer->Right() = remove(successor->Data(), recursionPointer->Right());
     }
     return recursionPointer;
