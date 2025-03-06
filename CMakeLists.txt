@@ -89,9 +89,18 @@ find_package(OpenCV REQUIRED)
 # add_executable(currCppFile src/6_assgWarmUp/ShapeFunStart.cpp)
 # target_link_libraries(currCppFile ${OpenCV_LIBS})
 
+# cmake_minimum_required(VERSION 3.31.3)
+# project(currCppFile)
+# add_executable(currCppFile src/6_assgDerivedClasses/main.cpp)
+
+
+                                                            ##################
+                                                            #### MODULE 7 ####
+                                                            ##################
+
 cmake_minimum_required(VERSION 3.31.3)
 project(currCppFile)
-add_executable(currCppFile src/6_assgDerivedClasses/main.cpp)
+add_executable(currCppFile src/7_assgYourTurn/main.cpp)
 
                                                             #################
                                                             #### MIDTERM ####
