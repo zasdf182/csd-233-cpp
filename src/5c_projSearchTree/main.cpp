@@ -1,17 +1,28 @@
-#include <random>
 #include <iostream>
-#include <map>
-#include "tree.cpp"
-#include "treeNode.cpp"
+#include <random>
+#include "main.hpp"
 using namespace std;
+
+
+
 
 int main() {
     srand(42);
+    MainEngine engine;
+    engine.Actions[ProgramStep::one] = IntTreeTest;
+    engine.Start(IntTreeTest);
+}
 
-    // Test code that exercises the class by adding a list of sequential random numbers.
-    typedef map<int, bool> NumberTracker;
-    typedef Collections::TreeNode<int> IntNode;
 
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Part one of the main program.
+///        Tests Tree class by adding a list of sequential random numbers.
+/// @param context A Tree object to perform tests on.
+/// @return The next program step to do after this (ProgramStep::two).
+////////////////////////////////////////////////////////////////////////////////
+ProgramStep IntTreeTest(IntTree* context) {
     int numbers[1000];
     NumberTracker removedNumbers;
     NumberTracker foundNumbers;
@@ -86,4 +97,5 @@ int main() {
         if (foundNumbers.count(i) <= 0)
             cout << endl << "ERROR: " << i << " was not found in the tree.";
     } cout << endl << "STEP 6 COMPLETED. If nothing else was mentioned, all numbers were found in the tree.";
+    return ProgramStep::two;
 }
