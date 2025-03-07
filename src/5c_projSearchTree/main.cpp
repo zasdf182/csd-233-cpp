@@ -6,6 +6,10 @@ using namespace std;
 
 
 
+
+
+
+
 int main() {
     srand(42);
     MainEngine engine;
@@ -17,17 +21,40 @@ int main() {
 
 
 
+
+
+
+
+// ##################################################################### //
+// ########################### SUBPROGRAM ONE ########################## //
+// ##################################################################### //
+
+
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Part one of the main program.
+/// @brief Subprogram one of the main program.
 ///        Tests Tree class by adding a list of sequential random numbers.
-/// @return The next program step to do after this (ProgramStep::two).
 ////////////////////////////////////////////////////////////////////////////////
 ProgramStep IntTreeTest(string* context) {
-    int numbers[1000];
-    NumberTracker removedNumbers;
-    NumberTracker foundNumbers;
-    IntTree tree;
+    IntTestEngine engine;
+    engine.Actions[IntTestStep::introMsg] = TestOneIntro;
+    engine.Actions[IntTestStep::a] = InitIntArray;
+    engine.Actions[IntTestStep::b] = RandomizeIntArray;
+    engine.Actions[IntTestStep::c] = CreateIntTree;
+    engine.Actions[IntTestStep::d] = ValidateTree;
+    engine.Actions[IntTestStep::e] = RemoveRandomTenIntsFromTree;
+    engine.Actions[IntTestStep::f] = TraverseAndValidateTree;
+    engine.Start(TestOneIntro);
+    return ProgramStep::two;
+}
 
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Step zero of subprogram one.
+///        Prints an introductory message explaining the subprogram.
+////////////////////////////////////////////////////////////////////////////////
+IntTestStep TestOneIntro(IntTestContext* context) {
     cout << endl;
     cout << endl;
     cout << endl << "================ STARTING TEST SUITE 1 ================";
@@ -37,16 +64,43 @@ ProgramStep IntTreeTest(string* context) {
     cout << endl << "4. Verifies that all numbers 0...999 are in the binary search tree.";
     cout << endl << "5. Removes 10 random numbers from the binary search tree.";
     cout << endl << "6. Does an in-order traversal verifying that each number 0...999 is found except for the 10 that were removed.";
+    return IntTestStep::a;
+}
 
-    // Create an array of 1000 integers.
-    cout << endl;
-    cout << endl << "STARTING STEP 1: Array created.";
-    for (int i = 0; i < 1000; i++)
-        numbers[i] = i;
 
-    // Randomize the array by swapping values in the array.
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Step one of subprogram one.
+///        Creates an array of 1000 integers and an empty int tree.
+/// @param context A pair this function uses to output the new array and new tree.
+////////////////////////////////////////////////////////////////////////////////
+IntTestStep InitIntArray(IntTestContext* context) {
+    array<int, 1000> numbers;
+    IntTree tree;
+
+    for (int i = 0; i < 1000; i++) numbers[i] = i;
+    *context = make_pair(numbers, tree);
+
     cout << endl;
-    cout << endl << "STARTING STEP 2: Array randomized.";
+    cout << endl << "COMPLETED STEP 1. Created array:";
+    cout << endl;
+    for (auto it = numbers.begin(); it != numbers.end(); it++)
+        cout << ' ' << *it;
+    return IntTestStep::b;
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Step two of subprogram one.
+///        Randomly swaps values in the int array.
+////////////////////////////////////////////////////////////////////////////////
+IntTestStep RandomizeIntArray(IntTestContext* context) {
+    array<int, 1000>& numbers = context->first;
+    IntTree& tree = context->second;
+
     for (int i = 0; i < 1000; i++) {
         int randomIndex = rand() % 1000;
         int num1 = numbers[i];
@@ -55,50 +109,135 @@ ProgramStep IntTreeTest(string* context) {
         numbers[randomIndex] = num1;
     }
 
-    // Insert all the numbers into the binary tree.
     cout << endl;
-    cout << endl << "STARTING STEP 3: Binary search tree created.";
+    cout << endl << "COMPLETED STEP 2. Randomized array to:";
+    for (auto it = numbers.begin(); it != numbers.end(); it++)
+        cout << ' ' << *it;
+    return IntTestStep::c;
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Step three of subprogram one.
+///        Inserts the int array contents into the binary search tree.
+////////////////////////////////////////////////////////////////////////////////
+IntTestStep CreateIntTree(IntTestContext* context) {
+    array<int, 1000>& numbers = context->first;
+    IntTree& tree = context->second;
+
     for (int i = 0; i < 1000; i++)
         tree.AddItem(numbers[i]);
 
-    // Search for each number, and make sure each number is found.
     cout << endl;
-    cout << endl << "STARTING STEP 4: Searching for each number 0 to 999...";
-    for (int i = 0; i < 1000; i++) {
-        bool found = tree.FindItem(numbers[i]);
-        if (!found)
-            cout << endl << "ERROR: " << i << " was not found in the tree.";
-    } cout << endl << "STEP 4 COMPLETED. If nothing else was mentioned, all numbers were found in the tree.";
+    cout << endl << "COMPLETED STEP 3: Created binary search tree. Head value:";
+    cout << tree.Head()->Data();
+    return IntTestStep::d;
+}
 
-    // Remove 10 random numbers.
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Step four of subprogram one.
+///        Verifies that all numbers 0...999 are in the binary search tree.
+////////////////////////////////////////////////////////////////////////////////
+IntTestStep ValidateTree(IntTestContext* context) {
+    array<int, 1000>& numbers = context->first;
+    IntTree& tree = context->second;
+
+    NumberTracker foundNumbers;
+    NumberTracker missingNumbers;
+
+    for (int i = 0; i < 1000; i++)
+        if (tree.FindItem(numbers[i]))
+            foundNumbers[i] = true;
+        else
+            missingNumbers[i] = true;
+
     cout << endl;
-    cout << endl << "STARTING STEP 5: Ten random numbers were removed from the tree.";
+    if (missingNumbers.size() <= 0)
+        cout << endl << "COMPLETED STEP 4. All numbers were found. None were missing.";
+    else {
+        cout << endl << "COMPLETED STEP 4. These numbers were missing:";
+        cout << endl;
+        for (auto it = missingNumbers.begin(); it != missingNumbers.end(); it++)
+            cout << ' ' << it->first;
+        cout << endl << "These numbers were found:";
+        for (auto it = foundNumbers.begin(); it != foundNumbers.end(); it++)
+            cout << ' ' << it->first;
+    } return IntTestStep::e;
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Step five of subprogram one.
+///        Removes 10 random numbers from the binary search tree.
+////////////////////////////////////////////////////////////////////////////////
+IntTestStep RemoveRandomTenIntsFromTree(IntTestContext* context) {
+    array<int, 1000>& numbers = context->first;
+    IntTree& tree = context->second;
+
+    NumberTracker removedNumbers;
     for (int i = 0; i < 10;) {
         int randomIndex = rand() % 1000;
         int randomRemovedNumber = numbers[randomIndex];
-        if (removedNumbers.count(randomRemovedNumber) > 0) continue;
+
+        bool numberAlreadyRemoved = removedNumbers.count(randomRemovedNumber) > 0;
+        if (numberAlreadyRemoved) continue;
 
         removedNumbers[randomRemovedNumber] = true;
         tree.RemoveItem(randomRemovedNumber);
         i++;
     }
 
-    // Do an in-order-traversal verifying that each number 0...999 is found except for the 10 that were removed.
-    // Uses a lambda function.
     cout << endl;
-    cout << endl << "STARTING STEP 6: Searching the tree with an in-order traversal...";
+    cout << "COMPLETED STEP 5: These numbers were removed from the tree:";
+    cout << endl;
+    for (auto it = removedNumbers.begin(); it != removedNumbers.end(); it++)
+        cout << ' ' << it->first;
+    return IntTestStep::f;
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Step six of subprogram one.
+///        Verifies that 0...999 is found in tree, except for 10 removed nums.
+///        Does an in-order traversal and uses a lambda function on each node.
+////////////////////////////////////////////////////////////////////////////////
+IntTestStep TraverseAndValidateTree(IntTestContext* context) {
+    array<int, 1000>& numbers = context->first;
+    IntTree& tree = context->second;
+
+    NumberTracker foundNumbers;
     tree.ExecFuncOnNodesInOrder<NumberTracker> ([](IntNode * node, NumberTracker & foundNumbers) {
         int foundNumber = node->Data();
         foundNumbers[foundNumber] = true;
     }, foundNumbers);
 
-    for (int i = 0; i < 1000; i++) {
-        if (removedNumbers.count(i) > 0) continue;
-        if (foundNumbers.count(i) <= 0)
-            cout << endl << "ERROR: " << i << " was not found in the tree.";
-    } cout << endl << "STEP 6 COMPLETED. If nothing else was mentioned, all numbers were found in the tree.";
-    return ProgramStep::two;
+    cout << endl;
+    cout << "COMPLETED STEP 6: These numbers were found:";
+    cout << endl;
+    for (auto it = foundNumbers.begin(); it != foundNumbers.end(); it++)
+        cout << ' ' << it->first;
+    return IntTestStep::DONE;
 }
+
+
+
+
+
+
+
+
+// ##################################################################### //
+// ########################### SUBPROGRAM TWO ########################## //
+// ##################################################################### //
 
 
 ////////////////////////////////////////////////////////////////////////////////
