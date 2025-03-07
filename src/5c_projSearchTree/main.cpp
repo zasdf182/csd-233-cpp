@@ -10,6 +10,7 @@ int main() {
     srand(42);
     MainEngine engine;
     engine.Actions[ProgramStep::one] = IntTreeTest;
+    engine.Actions[ProgramStep::two] = StringTreeTest;
     engine.Start(IntTreeTest);
 }
 
@@ -19,14 +20,13 @@ int main() {
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Part one of the main program.
 ///        Tests Tree class by adding a list of sequential random numbers.
-/// @param context A Tree object to perform tests on.
 /// @return The next program step to do after this (ProgramStep::two).
 ////////////////////////////////////////////////////////////////////////////////
-ProgramStep IntTreeTest(IntTree* context) {
+ProgramStep IntTreeTest(string* context) {
     int numbers[1000];
     NumberTracker removedNumbers;
     NumberTracker foundNumbers;
-    Collections::Tree<int> tree;
+    IntTree tree;
 
     cout << endl;
     cout << endl;
@@ -98,4 +98,14 @@ ProgramStep IntTreeTest(IntTree* context) {
             cout << endl << "ERROR: " << i << " was not found in the tree.";
     } cout << endl << "STEP 6 COMPLETED. If nothing else was mentioned, all numbers were found in the tree.";
     return ProgramStep::two;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Part two of the main program.
+///        Tests Tree class by using strings from a file specified on cmd line.
+/// @return The next program step to do after this.
+////////////////////////////////////////////////////////////////////////////////
+ProgramStep StringTreeTest(string* context) {
+
 }

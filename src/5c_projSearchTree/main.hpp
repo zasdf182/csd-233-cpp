@@ -3,6 +3,7 @@
 #include "engine.cpp"
 #include "treeNode.cpp"
 #include "tree.cpp"
+using namespace std;
 
 
 
@@ -14,6 +15,8 @@
 typedef map<int, bool> NumberTracker;
 typedef Collections::TreeNode<int> IntNode;
 typedef Collections::Tree<int> IntTree;
+typedef Collections::TreeNode<string> StringNode;
+typedef Collections::Tree<string> StringTree;
 
 
 
@@ -27,8 +30,9 @@ enum ProgramStep {
     two = 2,
     quit = 'q',
 };
-typedef Singletons::Engine<IntTree, ProgramStep> MainEngine;
-ProgramStep IntTreeTest(IntTree* context);
+typedef Singletons::Engine<string, ProgramStep> MainEngine;
+ProgramStep IntTreeTest(string* context);
+ProgramStep StringTreeTest(string* context);
 
 
 
