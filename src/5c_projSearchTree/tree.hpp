@@ -1,6 +1,6 @@
-#include "treeNode.hpp"
 #ifndef TREE_HPP
 #define TREE_HPP
+#include "treeNode.hpp"
 namespace Collections {
 
 ////////////////////////////////////////////////////////////////////////////////

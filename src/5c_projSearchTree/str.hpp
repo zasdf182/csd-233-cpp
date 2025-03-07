@@ -1,6 +1,6 @@
-#include <list>
 #ifndef STR_HPP
 #define STR_HPP
+#include <list>
 using namespace std;
 namespace Str {
 
