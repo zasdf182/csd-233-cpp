@@ -9,21 +9,21 @@ namespace Collections {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Constructor that initializes an empty tree.
+/// @brief Constructor that initializes an empty tree.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> Tree<T>::Tree() {
     head = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Destructor that deallocates all nodes in the tree.
+/// @brief Destructor that deallocates all nodes in the tree.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> Tree<T>::~Tree() {
     // todo
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Create a new node containing item.
+/// @brief Create a new node containing item.
 /// Add it to this tree, in sorted position.
 /// If a node containing the item already exists, does nothing.
 ////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ void Tree<T>::AddItem(T item) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// If item is in tree, returns true, and removes the item.
+/// @brief If item is in tree, returns true, and removes the item.
 /// If not, returns false, and does nothing.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
@@ -45,7 +45,7 @@ bool Tree<T>::RemoveItem(T item) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Returns true if item is in tree, and false if not.
+/// @brief Returns true if item is in tree, and false if not.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 bool Tree<T>::FindItem(T item) {
@@ -53,7 +53,7 @@ bool Tree<T>::FindItem(T item) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Returns true if item is in tree, and false if not.
+/// @brief Returns true if item is in tree, and false if not.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 bool Tree<T>::FindItem(T item) const {
@@ -61,7 +61,7 @@ bool Tree<T>::FindItem(T item) const {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Does an in-order traversal, and executes a function on each node.
+/// @brief Does an in-order traversal, and executes a function on each node.
 /// @param context An optional object for passing data in/out of the function.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
@@ -78,7 +78,7 @@ void Tree<T>::ExecFuncOnNodesInOrder(TraversalFuncPtr<ctx> funcPtr, ctx& context
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Private recursive helper method for adding new nodes.
+/// @brief Private recursive helper method for adding new nodes.
 /// To use: tree.head = newNode(item, head);
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
@@ -95,7 +95,7 @@ TreeNode<T>* Tree<T>::newNode(T item, TreeNode<T>* recursionPointer) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Private recursive helper method for searching for nodes.
+/// @brief Private recursive helper method for searching for nodes.
 /// If not found, returns false, and sets *out to nullptr;
 /// If found, returns true, and sets *out to the node.
 /// @param recursionPointer Pass tree.head to this parameter.
@@ -119,7 +119,7 @@ bool Tree<T>::search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Private recursive helper method for deleting nodes.
+/// @brief Private recursive helper method for deleting nodes.
 /// Returns modified head of the binary search tree (if it is modified).
 /// To use: head = remove(item, head);
 ////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +160,7 @@ TreeNode<T>* Tree<T>::remove(T item, TreeNode<T>* recursionPointer) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Private recursive helper method for finding the successor of a deleted node.
+/// @brief Private recursive helper method for finding the successor of a deleted node.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 TreeNode<T>* Tree<T>::getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer) {
@@ -171,7 +171,7 @@ TreeNode<T>* Tree<T>::getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// Private helper function.
+/// @brief Private helper function.
 /// Does an in-order traversal, and executes a function on each node.
 /// @param context An optional object for passing data in/out of the function.
 /// @param recursionPointer Pass tree.head to this parameter.

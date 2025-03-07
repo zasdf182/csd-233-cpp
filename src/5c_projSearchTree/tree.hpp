@@ -4,7 +4,7 @@
 namespace Collections {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// A binary search tree.
+/// @brief A binary search tree.
 /// The constructor creates an empty tree.
 /// After construction, use public methods to mutate the tree.
 /// The deconstructor must deallocate all nodes.
