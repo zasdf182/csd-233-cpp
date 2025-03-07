@@ -73,7 +73,7 @@ bool Tree<T>::FindItem(T item) const {
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 template <class ctx>
-void Tree<T>::ExecFuncOnNodesInOrder(TraversalFuncPtr<ctx> funcPtr, ctx& context) {
+void Tree<T>::ExecFuncOnNodesInOrder(TraversalFuncPtr<T, ctx> funcPtr, ctx& context) {
     execFuncOnNodesInOrder(funcPtr, context, head);
 }
 
@@ -197,7 +197,7 @@ TreeNode<T>* Tree<T>::getSuccessor(TreeNode<T>* recursionPointer) {
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 template <class ctx>
-void Tree<T>::execFuncOnNodesInOrder(TraversalFuncPtr<ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer) {
+void Tree<T>::execFuncOnNodesInOrder(TraversalFuncPtr<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer) {
     if (recursionPointer == nullptr) return;
     execFuncOnNodesInOrder(funcPtr, context, recursionPointer->Left());
     (*funcPtr)(recursionPointer, context);
