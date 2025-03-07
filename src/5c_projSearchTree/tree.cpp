@@ -8,6 +8,11 @@ namespace Collections {
 
 
 
+// ##################################################################### //
+// ########################### PUBLIC METHODS ########################## //
+// ##################################################################### //
+
+
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Constructor that initializes an empty tree.
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,9 +28,8 @@ template <class T> Tree<T>::~Tree() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Create a new node containing item.
-/// Add it to this tree, in sorted position.
-/// If a node containing the item already exists, does nothing.
+/// @brief Emplaces a new node containing item, in sorted position.
+///        Does nothing if a node containing item is already present.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 void Tree<T>::AddItem(T item) {
@@ -39,9 +43,12 @@ void Tree<T>::AddItem(T item) {
 template <class T>
 bool Tree<T>::RemoveItem(T item) {
     bool found = search(item, head);
-    if (!found) return false;
-    head = remove(item, head);
-    return true;
+    if (!found)
+        return false;
+    else {
+        head = remove(item, head);
+        return true;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -77,9 +84,17 @@ void Tree<T>::ExecFuncOnNodesInOrder(TraversalFuncPtr<ctx> funcPtr, ctx& context
 
 
 
+// ##################################################################### //
+// ########################## PRIVATE METHODS ########################## //
+// ##################################################################### //
+
+
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Private recursive helper method for adding new nodes.
-/// To use: tree.head = newNode(item, head);
+/// @brief Recursive helper method.
+///        Emplaces a new node containing item, in sorted position.
+///        If a node containing item is already present, returns that node.
+///        Otherwise, returns a newly created node.
+/// @param recursionPointer Pass the tree head to this parameter.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 TreeNode<T>* Tree<T>::newNode(T item, TreeNode<T>* recursionPointer) {
@@ -95,10 +110,11 @@ TreeNode<T>* Tree<T>::newNode(T item, TreeNode<T>* recursionPointer) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Private recursive helper method for searching for nodes.
-/// If not found, returns false, and sets *out to nullptr;
-/// If found, returns true, and sets *out to the node.
-/// @param recursionPointer Pass tree.head to this parameter.
+/// @brief Recursive helper method.
+///        Searches for a node containing item.
+///        If not found, returns false, and sets *out to nullptr;
+///        If found, returns true, and sets *out to the node.
+/// @param recursionPointer Pass the tree head to this parameter.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 bool Tree<T>::search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out) {
@@ -119,9 +135,10 @@ bool Tree<T>::search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Private recursive helper method for deleting nodes.
-/// Returns modified head of the binary search tree (if it is modified).
-/// To use: head = remove(item, head);
+/// @brief Recursive helper method.
+///        Deletes the node containing item, if present.
+///        Returns the tree head after any modifications.
+/// @param recursionPointer Pass the tree head to this parameter.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 TreeNode<T>* Tree<T>::remove(T item, TreeNode<T>* recursionPointer) {
@@ -152,7 +169,7 @@ TreeNode<T>* Tree<T>::remove(T item, TreeNode<T>* recursionPointer) {
         }
 
         // If both children are present
-        TreeNode<T>* successor = getSuccessorOfRemovedNode(recursionPointer);
+        TreeNode<T>* successor = getSuccessor(recursionPointer);
         recursionPointer->Data() = successor->Data();
         recursionPointer->Right() = remove(successor->Data(), recursionPointer->Right());
     }
@@ -160,10 +177,12 @@ TreeNode<T>* Tree<T>::remove(T item, TreeNode<T>* recursionPointer) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Private recursive helper method for finding the successor of a deleted node.
+/// @brief Recursive helper method.
+///        Finds the successor of a node.
+/// @param recursionPointer Pass the tree head to this parameter.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
-TreeNode<T>* Tree<T>::getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer) {
+TreeNode<T>* Tree<T>::getSuccessor(TreeNode<T>* recursionPointer) {
     recursionPointer = recursionPointer->Right();
     while (recursionPointer != nullptr && recursionPointer->Left() != nullptr)
         recursionPointer = recursionPointer->Left();
@@ -171,10 +190,10 @@ TreeNode<T>* Tree<T>::getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Private helper function.
-/// Does an in-order traversal, and executes a function on each node.
+/// @brief Recursive helper method.
+///        Does an in-order traversal, and executes a function on each node.
 /// @param context An optional object for passing data in/out of the function.
-/// @param recursionPointer Pass tree.head to this parameter.
+/// @param recursionPointer Pass the tree head to this parameter.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T>
 template <class ctx>

@@ -37,7 +37,7 @@ template <class T> class Tree {
         TreeNode<T>* newNode(T newItem, TreeNode<T>* recursionPointer);
         bool search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out = nullptr);
         TreeNode<T>* remove(T item, TreeNode<T>* recursionPointer);
-        TreeNode<T>* getSuccessorOfRemovedNode(TreeNode<T>* recursionPointer);
+        TreeNode<T>* getSuccessor(TreeNode<T>* recursionPointer);
         template <class ctx> void execFuncOnNodesInOrder(TraversalFuncPtr<ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
 };
 }
