@@ -21,10 +21,13 @@ template <class T> Tree<T>::Tree() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Destructor that deallocates all nodes in the tree.
+/// @brief Destructor that does an in-order traversal and deletes all nodes.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> Tree<T>::~Tree() {
-    // todo
+    int ctx = 0;
+    execFuncOnNodesInOrder<int> ([](TreeNode<T>* node, int& context) {
+        delete node;
+    }, ctx, head);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
