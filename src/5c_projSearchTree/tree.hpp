@@ -11,7 +11,7 @@ namespace Collections {
 /// @tparam ctx An optional object used to pass data in/out of the function.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T, class ctx>
-using TraversalFuncPtr = void (*) (TreeNode<T>* node, ctx& context);
+using NodeAction = void (*) (TreeNode<T>* node, ctx& context);
 
 
 
@@ -37,7 +37,7 @@ template <class T> class Tree {
     public: //Mutation methods. Unavailable to const Trees.
         void AddItem(T item);
         bool RemoveItem(T item);
-        template <class ctx> void ExecFuncOnNodesInOrder(TraversalFuncPtr<T, ctx> funcPtr, ctx& context);
+        template <class ctx> void ExecFuncOnNodesInOrder(NodeAction<T, ctx> funcPtr, ctx& context);
 
     public: //Retrieval methods.
         bool FindItem(T item);
@@ -48,7 +48,7 @@ template <class T> class Tree {
         bool search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out = nullptr);
         TreeNode<T>* remove(T item, TreeNode<T>* recursionPointer);
         TreeNode<T>* getSuccessor(TreeNode<T>* recursionPointer);
-        template <class ctx> void execFuncOnNodesInOrder(TraversalFuncPtr<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
+        template <class ctx> void execFuncOnNodesInOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
 };
 }
 #endif
