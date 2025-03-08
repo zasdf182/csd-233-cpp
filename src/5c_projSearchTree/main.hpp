@@ -34,14 +34,14 @@ typedef Collections::Tree<int> IntTree;
 typedef pair<array<int, 1000>, IntTree> IntTestContext;
 
 enum IntTestStep {
-    DONE = -1,
-    introMsg = 0,
-    a = 1,
-    b = 2,
-    c = 3,
-    d = 4,
-    e = 5,
-    f = 6,
+    aDONE = -1,
+    aIntroMsg = 0,
+    a1 = 1,
+    a2 = 2,
+    a3 = 3,
+    a4 = 4,
+    a5 = 5,
+    a6 = 6,
 };
 
 typedef Singletons::Engine<IntTestContext, IntTestStep> IntTestEngine;

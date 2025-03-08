@@ -36,13 +36,13 @@ int main() {
 ////////////////////////////////////////////////////////////////////////////////
 ProgramStep IntTreeTest(string* context) {
     IntTestEngine engine;
-    engine.Actions[IntTestStep::introMsg] = TestOneIntro;
-    engine.Actions[IntTestStep::a] = InitIntArray;
-    engine.Actions[IntTestStep::b] = RandomizeIntArray;
-    engine.Actions[IntTestStep::c] = CreateIntTree;
-    engine.Actions[IntTestStep::d] = ValidateTree;
-    engine.Actions[IntTestStep::e] = RemoveRandomTenIntsFromTree;
-    engine.Actions[IntTestStep::f] = TraverseAndValidateTree;
+    engine.Actions[IntTestStep::aIntroMsg] = TestOneIntro;
+    engine.Actions[IntTestStep::a1] = InitIntArray;
+    engine.Actions[IntTestStep::a2] = RandomizeIntArray;
+    engine.Actions[IntTestStep::a3] = CreateIntTree;
+    engine.Actions[IntTestStep::a4] = ValidateTree;
+    engine.Actions[IntTestStep::a5] = RemoveRandomTenIntsFromTree;
+    engine.Actions[IntTestStep::a6] = TraverseAndValidateTree;
     engine.Start(TestOneIntro);
     return ProgramStep::two;
 }
@@ -64,7 +64,7 @@ IntTestStep TestOneIntro(IntTestContext* context) {
     cout << endl << "4. Verifies that all numbers 0...999 are in the binary search tree.";
     cout << endl << "5. Removes 10 random numbers from the binary search tree.";
     cout << endl << "6. Does an in-order traversal verifying that each number 0...999 is found except for the 10 that were removed.";
-    return IntTestStep::a;
+    return IntTestStep::a1;
 }
 
 
@@ -87,7 +87,7 @@ IntTestStep InitIntArray(IntTestContext* context) {
     cout << endl;
     for (auto it = numbers.begin(); it != numbers.end(); it++)
         cout << ' ' << *it;
-    return IntTestStep::b;
+    return IntTestStep::a2;
 }
 
 
@@ -113,7 +113,7 @@ IntTestStep RandomizeIntArray(IntTestContext* context) {
     cout << endl << "COMPLETED STEP 2. Randomized array to:";
     for (auto it = numbers.begin(); it != numbers.end(); it++)
         cout << ' ' << *it;
-    return IntTestStep::c;
+    return IntTestStep::a3;
 }
 
 
@@ -133,7 +133,7 @@ IntTestStep CreateIntTree(IntTestContext* context) {
     cout << endl;
     cout << endl << "COMPLETED STEP 3: Created binary search tree. Head value:";
     cout << tree.Head()->Data();
-    return IntTestStep::d;
+    return IntTestStep::a4;
 }
 
 
@@ -167,7 +167,7 @@ IntTestStep ValidateTree(IntTestContext* context) {
         cout << endl << "These numbers were found:";
         for (auto it = foundNumbers.begin(); it != foundNumbers.end(); it++)
             cout << ' ' << it->first;
-    } return IntTestStep::e;
+    } return IntTestStep::a5;
 }
 
 
@@ -199,7 +199,7 @@ IntTestStep RemoveRandomTenIntsFromTree(IntTestContext* context) {
     cout << endl;
     for (auto it = removedNumbers.begin(); it != removedNumbers.end(); it++)
         cout << ' ' << it->first;
-    return IntTestStep::f;
+    return IntTestStep::a6;
 }
 
 
@@ -225,7 +225,7 @@ IntTestStep TraverseAndValidateTree(IntTestContext* context) {
     cout << endl;
     for (auto it = foundNumbers.begin(); it != foundNumbers.end(); it++)
         cout << ' ' << it->first;
-    return IntTestStep::DONE;
+    return IntTestStep::aDONE;
 }
 
 
