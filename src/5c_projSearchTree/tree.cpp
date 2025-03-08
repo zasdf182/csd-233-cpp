@@ -1,4 +1,5 @@
 #include "tree.hpp"
+using namespace std;
 namespace Collections {
 
 
@@ -22,10 +23,12 @@ template <class T> Tree<T>::Tree() {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Destructor that does an in-order traversal and deletes all nodes.
+///        Prints the data in the node before deleting it.
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> Tree<T>::~Tree() {
     int ctx = 0;
     execFuncOnNodesPostOrder<int> ([](TreeNode<T>* node, int& context) {
+        cout << endl << "NODE DELETED. It contained data: " << node->Data();
         delete node;
     }, ctx, head);
 }
