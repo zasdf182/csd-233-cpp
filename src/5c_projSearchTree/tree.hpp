@@ -47,9 +47,9 @@ template <class T> class Tree {
 
     private: //Binary search tree helper methods.
         TreeNode<T>* newNode(T newItem, TreeNode<T>* recursionPointer);
-        bool search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out = nullptr);
         TreeNode<T>* remove(T item, TreeNode<T>* recursionPointer);
         TreeNode<T>* getSuccessor(TreeNode<T>* recursionPointer);
+        bool search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out = nullptr);
         template <class ctx> void execFuncOnNodesInOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
         template <class ctx> void execFuncOnNodesPreOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
         template <class ctx> void execFuncOnNodesPostOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);

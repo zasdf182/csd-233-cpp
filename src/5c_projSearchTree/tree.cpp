@@ -134,31 +134,6 @@ TreeNode<T>* Tree<T>::newNode(T item, TreeNode<T>* recursionPointer) {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Recursive helper method.
-///        Searches for a node containing item.
-///        If not found, returns false, and sets *out to nullptr;
-///        If found, returns true, and sets *out to the node.
-/// @param recursionPointer Pass the tree head to this parameter.
-////////////////////////////////////////////////////////////////////////////////
-template <class T>
-bool Tree<T>::search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out) {
-    if (recursionPointer == nullptr) {
-        if (out != nullptr)
-            *out = nullptr;
-        return false;
-    }
-    if (item == recursionPointer->Data()) {
-        if (out != nullptr)
-            *out = recursionPointer;
-        return true;
-    }
-    if (item < recursionPointer->Data())
-        return search(item, recursionPointer->Left(), out);
-    else //if (item > recursionPointer->Data())
-        return search(item, recursionPointer->Right(), out);
-}
-
-////////////////////////////////////////////////////////////////////////////////
-/// @brief Recursive helper method.
 ///        Deletes the node containing item, if present.
 ///        Returns the tree head after any modifications.
 /// @param recursionPointer Pass the tree head to this parameter.
@@ -210,6 +185,31 @@ TreeNode<T>* Tree<T>::getSuccessor(TreeNode<T>* recursionPointer) {
     while (recursionPointer != nullptr && recursionPointer->Left() != nullptr)
         recursionPointer = recursionPointer->Left();
     return recursionPointer;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Recursive helper method.
+///        Searches for a node containing item.
+///        If not found, returns false, and sets *out to nullptr;
+///        If found, returns true, and sets *out to the node.
+/// @param recursionPointer Pass the tree head to this parameter.
+////////////////////////////////////////////////////////////////////////////////
+template <class T>
+bool Tree<T>::search(T item, TreeNode<T>* recursionPointer, TreeNode<T>** out) {
+    if (recursionPointer == nullptr) {
+        if (out != nullptr)
+            *out = nullptr;
+        return false;
+    }
+    if (item == recursionPointer->Data()) {
+        if (out != nullptr)
+            *out = recursionPointer;
+        return true;
+    }
+    if (item < recursionPointer->Data())
+        return search(item, recursionPointer->Left(), out);
+    else //if (item > recursionPointer->Data())
+        return search(item, recursionPointer->Right(), out);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
