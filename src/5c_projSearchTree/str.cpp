@@ -1,7 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <list>
 #include "str.hpp"
 using namespace std;
 namespace Str {
@@ -15,14 +11,28 @@ namespace Str {
 /// Returns an empty list if file is empty or broken.
 ////////////////////////////////////////////////////////////////////////////////
 static list<string> GetWordsFromFile(string filePath) {
-    list<string> result;
+    list<string> emptyList;
     ifstream file(filePath);
-    if (!file.is_open() || !file.good()) return result;
+    if (!file.is_open() || !file.good()) return emptyList;
+    return GetWordsFromFile(&file);
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Reads an entire file into a string.
+/// Returns a string list of the file contents split at whitespaces.
+/// Returns an empty list if file is empty or broken.
+////////////////////////////////////////////////////////////////////////////////
+static list<string> GetWordsFromFile(ifstream* file) {
+    list<string> result;
+    if (!file->is_open() || !file->good()) return result;
 
     // Read entire file contents into a string.
     ostringstream buffer;
     string fileContents;
-    buffer << file.rdbuf();
+    buffer << file->rdbuf();
     fileContents = buffer.str();
 
     // Split string at whitespaces.
