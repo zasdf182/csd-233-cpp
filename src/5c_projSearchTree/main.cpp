@@ -37,12 +37,12 @@ int main() {
 ProgramStep IntTreeTest(string* context) {
     IntTestEngine engine;
     engine.Actions[IntTestStep::aIntroMsg] = TestOneIntro;
-    engine.Actions[IntTestStep::a1] = InitIntArray;
-    engine.Actions[IntTestStep::a2] = RandomizeIntArray;
-    engine.Actions[IntTestStep::a3] = CreateIntTree;
-    engine.Actions[IntTestStep::a4] = ValidateTree;
-    engine.Actions[IntTestStep::a5] = RemoveRandomTenIntsFromTree;
-    engine.Actions[IntTestStep::a6] = TraverseAndValidateTree;
+    engine.Actions[IntTestStep::a1] = a1_InitIntArray;
+    engine.Actions[IntTestStep::a2] = a2_RandomizeIntArray;
+    engine.Actions[IntTestStep::a3] = a3_CreateIntTree;
+    engine.Actions[IntTestStep::a4] = a4_ValidateTree;
+    engine.Actions[IntTestStep::a5] = a5_RemoveRandomTenIntsFromTree;
+    engine.Actions[IntTestStep::a6] = a6_TraverseAndValidateTree;
     engine.Start(TestOneIntro);
     return ProgramStep::two;
 }
@@ -75,7 +75,7 @@ IntTestStep TestOneIntro(IntTestContext* context) {
 ///        Creates an array of 1000 integers and an empty int tree.
 /// @param context A pair this function uses to output the new array and new tree.
 ////////////////////////////////////////////////////////////////////////////////
-IntTestStep InitIntArray(IntTestContext* context) {
+IntTestStep a1_InitIntArray(IntTestContext* context) {
     array<int, 1000> numbers;
     IntTree tree;
 
@@ -97,7 +97,7 @@ IntTestStep InitIntArray(IntTestContext* context) {
 /// @brief Step two of subprogram one.
 ///        Randomly swaps values in the int array.
 ////////////////////////////////////////////////////////////////////////////////
-IntTestStep RandomizeIntArray(IntTestContext* context) {
+IntTestStep a2_RandomizeIntArray(IntTestContext* context) {
     array<int, 1000>& numbers = context->first;
     IntTree& tree = context->second;
 
@@ -123,7 +123,7 @@ IntTestStep RandomizeIntArray(IntTestContext* context) {
 /// @brief Step three of subprogram one.
 ///        Inserts the int array contents into the binary search tree.
 ////////////////////////////////////////////////////////////////////////////////
-IntTestStep CreateIntTree(IntTestContext* context) {
+IntTestStep a3_CreateIntTree(IntTestContext* context) {
     array<int, 1000>& numbers = context->first;
     IntTree& tree = context->second;
 
@@ -143,7 +143,7 @@ IntTestStep CreateIntTree(IntTestContext* context) {
 /// @brief Step four of subprogram one.
 ///        Verifies that all numbers 0...999 are in the binary search tree.
 ////////////////////////////////////////////////////////////////////////////////
-IntTestStep ValidateTree(IntTestContext* context) {
+IntTestStep a4_ValidateTree(IntTestContext* context) {
     array<int, 1000>& numbers = context->first;
     IntTree& tree = context->second;
 
@@ -177,7 +177,7 @@ IntTestStep ValidateTree(IntTestContext* context) {
 /// @brief Step five of subprogram one.
 ///        Removes 10 random numbers from the binary search tree.
 ////////////////////////////////////////////////////////////////////////////////
-IntTestStep RemoveRandomTenIntsFromTree(IntTestContext* context) {
+IntTestStep a5_RemoveRandomTenIntsFromTree(IntTestContext* context) {
     array<int, 1000>& numbers = context->first;
     IntTree& tree = context->second;
 
@@ -210,7 +210,7 @@ IntTestStep RemoveRandomTenIntsFromTree(IntTestContext* context) {
 ///        Verifies that 0...999 is found in tree, except for 10 removed nums.
 ///        Does an in-order traversal and uses a lambda function on each node.
 ////////////////////////////////////////////////////////////////////////////////
-IntTestStep TraverseAndValidateTree(IntTestContext* context) {
+IntTestStep a6_TraverseAndValidateTree(IntTestContext* context) {
     array<int, 1000>& numbers = context->first;
     IntTree& tree = context->second;
 
@@ -246,5 +246,6 @@ IntTestStep TraverseAndValidateTree(IntTestContext* context) {
 /// @return The next program step to do after this.
 ////////////////////////////////////////////////////////////////////////////////
 ProgramStep StringTreeTest(string* context) {
+    StringTestEngine engine;
     return ProgramStep::quit;
 }

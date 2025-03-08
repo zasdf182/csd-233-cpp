@@ -46,12 +46,12 @@ enum IntTestStep {
 
 typedef Singletons::Engine<IntTestContext, IntTestStep> IntTestEngine;
 IntTestStep TestOneIntro(IntTestContext* context);
-IntTestStep InitIntArray(IntTestContext* context);
-IntTestStep RandomizeIntArray(IntTestContext* context);
-IntTestStep CreateIntTree(IntTestContext* context);
-IntTestStep ValidateTree(IntTestContext* context);
-IntTestStep RemoveRandomTenIntsFromTree(IntTestContext* context);
-IntTestStep TraverseAndValidateTree(IntTestContext* context);
+IntTestStep a1_InitIntArray(IntTestContext* context);
+IntTestStep a2_RandomizeIntArray(IntTestContext* context);
+IntTestStep a3_CreateIntTree(IntTestContext* context);
+IntTestStep a4_ValidateTree(IntTestContext* context);
+IntTestStep a5_RemoveRandomTenIntsFromTree(IntTestContext* context);
+IntTestStep a6_TraverseAndValidateTree(IntTestContext* context);
 
 
 
