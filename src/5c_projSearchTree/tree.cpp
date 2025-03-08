@@ -25,7 +25,7 @@ template <class T> Tree<T>::Tree() {
 ////////////////////////////////////////////////////////////////////////////////
 template <class T> Tree<T>::~Tree() {
     int ctx = 0;
-    execFuncOnNodesInOrder<int> ([](TreeNode<T>* node, int& context) {
+    execFuncOnNodesPostOrder<int> ([](TreeNode<T>* node, int& context) {
         delete node;
     }, ctx, head);
 }
@@ -78,6 +78,26 @@ template <class T>
 template <class ctx>
 void Tree<T>::ExecFuncOnNodesInOrder(NodeAction<T, ctx> funcPtr, ctx& context) {
     execFuncOnNodesInOrder(funcPtr, context, head);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Does a pre-order traversal, and executes a function on each node.
+/// @param context An optional object for passing data in/out of the function.
+////////////////////////////////////////////////////////////////////////////////
+template <class T>
+template <class ctx>
+void Tree<T>::ExecFuncOnNodesPreOrder(NodeAction<T, ctx> funcPtr, ctx& context) {
+    execFuncOnNodesPreOrder(funcPtr, context, head);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Does a post-order traversal, and executes a function on each node.
+/// @param context An optional object for passing data in/out of the function.
+////////////////////////////////////////////////////////////////////////////////
+template <class T>
+template <class ctx>
+void Tree<T>::ExecFuncOnNodesPostOrder(NodeAction<T, ctx> funcPtr, ctx& context) {
+    execFuncOnNodesPostOrder(funcPtr, context, head);
 }
 
 
@@ -205,5 +225,35 @@ void Tree<T>::execFuncOnNodesInOrder(NodeAction<T, ctx> funcPtr, ctx& context, T
     execFuncOnNodesInOrder(funcPtr, context, recursionPointer->Left());
     (*funcPtr)(recursionPointer, context);
     execFuncOnNodesInOrder(funcPtr, context, recursionPointer->Right());
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Recursive helper method.
+///        Does a pre-order traversal, and executes a function on each node.
+/// @param context An optional object for passing data in/out of the function.
+/// @param recursionPointer Pass the tree head to this parameter.
+////////////////////////////////////////////////////////////////////////////////
+template <class T>
+template <class ctx>
+void Tree<T>::execFuncOnNodesPreOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer) {
+    if (recursionPointer == nullptr) return;
+    (*funcPtr)(recursionPointer, context);
+    execFuncOnNodesPreOrder(funcPtr, context, recursionPointer->Left());
+    execFuncOnNodesPreOrder(funcPtr, context, recursionPointer->Right());
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Recursive helper method.
+///        Does a post-order traversal, and executes a function on each node.
+/// @param context An optional object for passing data in/out of the function.
+/// @param recursionPointer Pass the tree head to this parameter.
+////////////////////////////////////////////////////////////////////////////////
+template <class T>
+template <class ctx>
+void Tree<T>::execFuncOnNodesPostOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer) {
+    if (recursionPointer == nullptr) return;
+    execFuncOnNodesPostOrder(funcPtr, context, recursionPointer->Left());
+    execFuncOnNodesPostOrder(funcPtr, context, recursionPointer->Right());
+    (*funcPtr)(recursionPointer, context);
 }
 }

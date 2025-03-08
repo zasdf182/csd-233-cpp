@@ -38,6 +38,8 @@ template <class T> class Tree {
         void AddItem(T item);
         bool RemoveItem(T item);
         template <class ctx> void ExecFuncOnNodesInOrder(NodeAction<T, ctx> funcPtr, ctx& context);
+        template <class ctx> void ExecFuncOnNodesPreOrder(NodeAction<T, ctx> funcPtr, ctx& context);
+        template <class ctx> void ExecFuncOnNodesPostOrder(NodeAction<T, ctx> funcPtr, ctx& context);
 
     public: //Retrieval methods.
         bool FindItem(T item);
@@ -49,6 +51,8 @@ template <class T> class Tree {
         TreeNode<T>* remove(T item, TreeNode<T>* recursionPointer);
         TreeNode<T>* getSuccessor(TreeNode<T>* recursionPointer);
         template <class ctx> void execFuncOnNodesInOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
+        template <class ctx> void execFuncOnNodesPreOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
+        template <class ctx> void execFuncOnNodesPostOrder(NodeAction<T, ctx> funcPtr, ctx& context, TreeNode<T>* recursionPointer);
 };
 }
 #endif

@@ -246,5 +246,5 @@ IntTestStep TraverseAndValidateTree(IntTestContext* context) {
 /// @return The next program step to do after this.
 ////////////////////////////////////////////////////////////////////////////////
 ProgramStep StringTreeTest(string* context) {
-
+    return ProgramStep::quit;
 }
