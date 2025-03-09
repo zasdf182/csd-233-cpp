@@ -14,6 +14,29 @@
                 "CMAKE_C_COMPILER": "/usr/bin/clang",
                 "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
                 "CMAKE_BUILD_TYPE": "Debug"
+            },
+
+            "cmakeExecutable": "/usr/local/bin/cmake",
+            "vendor": { "microsoft.com/VisualStudioSettings/CMake/1.0": { "hostOS": "macOS" } }
+        },
+        {
+            "name": "get-win-makefiles",
+            "displayName": "Generate Windows MakeFiles from CMakeLists.txt",
+            "description": "In folder: build/win-makefiles",
+
+            "binaryDir": "${sourceDir}/build/win-makefiles",
+            "installDir": "${sourceDir}/build/win-makefiles",
+
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/win-makefiles",
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+
+            "cmakeExecutable": "C:/Program Files/CMake/bin/cmake",
+            "vendor": { "microsoft.com/VisualStudioSettings/CMake/1.0": { "hostOS": "Windows" } },
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
             }
         }
     ],
@@ -25,7 +48,20 @@
 
             "cleanFirst": true,
             "configurePreset": "get-mac-makefiles",
-            "configuration": "Debug"
+            "configuration": "Debug",
+
+            "vendor": { "microsoft.com/VisualStudioSettings/CMake/1.0": { "hostOS": "macOS" } }
+        },
+        {
+            "name": "get-win-exe",
+            "displayName": "Build Windows executable from compiling MakeFiles",
+            "description": "In folder: build/",
+
+            "cleanFirst": true,
+            "configurePreset": "get-win-makefiles",
+            "configuration": "Debug",
+
+            "vendor": { "microsoft.com/VisualStudioSettings/CMake/1.0": { "hostOS": "Windows" } }
         }
     ]
 }

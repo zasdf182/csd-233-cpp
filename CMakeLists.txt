@@ -9,6 +9,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_Declare(
     googletest
     URL https://github.com/google/googletest/archive/24a9e940d481f992ba852599c78bb2217362847b.zip
+    DOWNLOAD_EXTRACT_TIMESTAMP NEW
 )
 FetchContent_MakeAvailable(googletest)
 
