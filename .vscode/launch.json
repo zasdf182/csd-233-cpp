@@ -15,7 +15,7 @@
             "terminal": "integrated",
 
             // Args
-            "args": ["line", "line", "line", "line"]
+            "args": ["build/wordlist.txt"]
         }
         ////////////////////////////////////////////////////////////////////////
     ]
