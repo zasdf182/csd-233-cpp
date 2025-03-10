@@ -129,8 +129,9 @@ static const enginegoto getschedules(SchedulePoll* out) {
             case ::part2:
             case ::quit:
                 if (delimbuffer == '\0' || isspace(delimbuffer)) {
+                    enginegoto enginenext = (enginegoto) *userinput;
                     delete[] userinput;
-                    return (enginegoto) (*userinput);
+                    return enginenext;
                 }
             default:
                 int status = out->import(userinput);
