@@ -254,7 +254,7 @@ int SchedulePoll::import(char const* schedulefile_) {
     if (studentend == NOTFOUND)
         studentend = std::strlen(schedulefile_);
 
-    char* student = new char[studentend - studentpos];
+    char* student = new char[1 + studentend - studentpos];
     student[studentend - studentpos] = '\0';
     std::copy((schedulefile_ + studentpos), (schedulefile_ + studentend), student);
 
