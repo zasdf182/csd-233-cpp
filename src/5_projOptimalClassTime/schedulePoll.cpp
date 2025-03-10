@@ -88,7 +88,8 @@ node::~node() {
  */
 void node::add(char const* student_) {
     int len = std::strlen(student_);
-    char* name = new char[len];
+    char* name = new char[len + 1];
+    name[len] = '\0';
     if (__count == __mem) __alloc();
     std::copy(student_, (student_ + len), name);
     __students[__count++] = name;
