@@ -88,7 +88,8 @@ node::~node() {
  */
 void node::add(char const* student_) {
     int len = std::strlen(student_);
-    char* name = new char[len];
+    char* name = new char[len + 1];
+    name[len] = '\0';
     if (__count == __mem) __alloc();
     std::copy(student_, (student_ + len), name);
     __students[__count++] = name;
@@ -254,7 +255,7 @@ int SchedulePoll::import(char const* schedulefile_) {
     if (studentend == NOTFOUND)
         studentend = std::strlen(schedulefile_);
 
-    char* student = new char[studentend - studentpos];
+    char* student = new char[1 + studentend - studentpos];
     student[studentend - studentpos] = '\0';
     std::copy((schedulefile_ + studentpos), (schedulefile_ + studentend), student);
 
@@ -308,6 +309,8 @@ int SchedulePoll::import(char const* schedulefile_) {
 
         // GARBAGE COLLECTION
         delete[] jour;
+        for (int i = 0; i < hourcount; i++)
+            delete[] hours[i];
         delete[] hours;
     }
 
