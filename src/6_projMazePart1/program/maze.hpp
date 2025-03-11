@@ -1,0 +1,12 @@
+#ifndef MAIN_FUNCS_HPP
+#define MAIN_FUNCS_HPP
+#include "../modules/draw/mazeSquare.hpp"
+#include "../program.hpp"
+namespace Main {
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Draws a grid of MazeSquares.
+////////////////////////////////////////////////////////////////////////////////
+ExitCode DrawMaze(Context* context);
+}
+#endif

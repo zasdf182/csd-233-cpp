@@ -128,7 +128,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/lib/)
 
 cmake_minimum_required(VERSION 3.31.3)
 project(currCppFile)
-add_executable(currCppFile src/6_projMazePart1/_main.cpp)
+add_executable(currCppFile src/6_projMazePart1/main.cpp)
+target_link_libraries(currCppFile ${OpenCV_LIBS})
 
                                                             ##################
                                                             #### MODULE 7 ####

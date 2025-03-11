@@ -1,9 +1,7 @@
 #ifndef SQUARE_HPP
 #define SQUARE_HPP
-#include "../../include/opencv.hpp"
+#include "include/opencv.hpp"
 namespace Draw {
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief A 2D shape to be written to an OpenCV raster matrix.
