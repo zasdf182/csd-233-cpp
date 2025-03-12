@@ -15,7 +15,7 @@ class MazeSquare : Square {
     public: //Static properties.
         static const int font = cv::FONT_HERSHEY_PLAIN;
         static constexpr double fontScale = 1.5;
-        static const double charWidth() {return 8 * fontScale;}
+        static const double charSize() {return 8 * fontScale;}
         static const char visitSymbol = 'v';
         static const char selectSymbol = 'q';
         static const int padding = 10;

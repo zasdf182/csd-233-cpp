@@ -5,6 +5,7 @@ namespace Draw {
 /// @brief Writes a new shape to an OpenCV raster matrix.
 ///        If marked as visited, paints a symbol in bottom left of shape.
 ///        If marked as selected, paints a symbol in bottom right of shape.
+///        If not marked, erase previous symbol.
 ///        Renders the final raster to an OpenCV window.
 ////////////////////////////////////////////////////////////////////////////////
 void MazeSquare::Draw(std::string wndname, cv::Mat raster) {
@@ -13,8 +14,11 @@ void MazeSquare::Draw(std::string wndname, cv::Mat raster) {
     cv::Point botRight(x + width, y + height);
     cv::Point botLeft(x, y + height);
 
-    cv::Point symbolPoint1(x + padding, y + height - padding);
-    cv::Point symbolPoint2(x + width - padding - charWidth(), y + height - padding);
+    cv::Point symbol1_botLeft(x + padding, y + height - padding);
+    cv::Point symbol1_topRight(x + padding + charSize(), y + height - padding - charSize());
+
+    cv::Point symbol2_botLeft(x + width - padding - charSize(), y + height - padding);
+    cv::Point symbol2_topRight(x + width - padding, y + height - padding - charSize());
 
     cv::Scalar color(blue, green, red);
     cv::Scalar eraseColor(eraseBlue, eraseGreen, eraseRed);
@@ -31,8 +35,11 @@ void MazeSquare::Draw(std::string wndname, cv::Mat raster) {
     if (hasLeft) cv::line(raster, botLeft, topLeft, color, thickness, lineType);
     else cv::line(raster, botLeft, topLeft, eraseColor, thickness, lineType);
 
-    if (isVisited) cv::putText(raster, std::string(1, visitSymbol), symbolPoint1, font, fontScale, color, thickness, lineType);
-    if (isSelected) cv::putText(raster, std::string(1, selectSymbol), symbolPoint2, font, fontScale, color, thickness, lineType);
+    if (isVisited) cv::putText(raster, std::string(1, visitSymbol), symbol1_botLeft, font, fontScale, color, thickness, lineType);
+    else cv::rectangle(raster, symbol1_botLeft, symbol1_topRight, eraseColor, thickness, lineType);
+
+    if (isSelected) cv::putText(raster, std::string(1, selectSymbol), symbol1_botLeft, font, fontScale, color, thickness, lineType);
+    else cv::rectangle(raster, symbol2_botLeft, symbol2_topRight, eraseColor, thickness, lineType);
 
     cv::imshow(wndname, raster);
 }
