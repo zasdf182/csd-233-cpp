@@ -42,7 +42,9 @@ class MazeSquare : Square {
     public: //OpenCV drawing methods.
         virtual void Draw(std::string wndname, cv::Mat raster);
         void RemoveSide(Side side);
-        void MarkVisited();
+        void MarkVisited() {isVisited = true;}
+        void MarkSelected() {isSelected = true;}
+        void MarkUnselected() {isSelected = false;}
 
     public: //Getters for encapsulated read-only properties.
         bool const& HasTop() {return hasTop;}
