@@ -33,7 +33,7 @@ class MazeSquare : Square {
         bool isVisited;
         bool isSelected;
 
-    public: //Constructors and destructors
+    public: //Constructors and destructors.
         MazeSquare(int x, int y, int width, int height, std::string wndname, cv::Mat raster):
             Square(x, y, width, height, wndname, raster),
             eraseBlue(0), eraseGreen(0), eraseRed(0),
@@ -54,6 +54,12 @@ class MazeSquare : Square {
         bool const& HasLeft() {return hasLeft;}
         bool const& IsVisited() {return isVisited;}
         bool const& IsSelected() {return isSelected;}
+        bool const& HasTop() const {return hasTop;}
+        bool const& HasRight() const {return hasRight;}
+        bool const& HasBottom() const {return hasBottom;}
+        bool const& HasLeft() const {return hasLeft;}
+        bool const& IsVisited() const {return isVisited;}
+        bool const& IsSelected() const {return isSelected;}
 };
 }
 #endif
