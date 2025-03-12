@@ -45,7 +45,7 @@ class MazeSquare : Square {
         void RemoveSide(Side side);
         void MarkVisited();
         void MarkSelected();
-        void MarkUnselected();
+        void MarkDeselected();
 
     public: //Getters for encapsulated read-only properties.
         bool const& HasTop() {return hasTop;}

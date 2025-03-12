@@ -38,7 +38,7 @@ void MazeSquare::Draw() {
     if (isVisited) cv::putText(raster, std::string(1, visitSymbol), symbol1_botLeft, font, fontScale, color, thickness, lineType);
     else cv::rectangle(raster, symbol1_botLeft, symbol1_topRight, eraseColor, thickness, lineType);
 
-    if (isSelected) cv::putText(raster, std::string(1, selectSymbol), symbol1_botLeft, font, fontScale, color, thickness, lineType);
+    if (isSelected) cv::putText(raster, std::string(1, selectSymbol), symbol2_botLeft, font, fontScale, color, thickness, lineType);
     else cv::rectangle(raster, symbol2_botLeft, symbol2_topRight, eraseColor, thickness, lineType);
 
     cv::imshow(wndName, raster);
@@ -76,7 +76,7 @@ void MazeSquare::MarkSelected() {
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Removes symbol from bottom-right of square, and calls Draw() again.
 ////////////////////////////////////////////////////////////////////////////////
-void MazeSquare::MarkUnselected() {
+void MazeSquare::MarkDeselected() {
     isSelected = false;
     Draw();
 }

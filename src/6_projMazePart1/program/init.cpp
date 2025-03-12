@@ -8,7 +8,7 @@ ExitCode InitContext(Context* context) {
     context->wndWidth = 400;
     context->wndHeight = 240;
     context->wndChannelBitDepth = CV_8UC3;
-    context->wndUpdatePeriod = 20000;
+    context->wndUpdatePeriod = 2000;
     context->wndRaster = cv::Mat(cv::Size(400, 240), CV_8UC3);
     context->wndName = "TurtleWindow";
 
@@ -16,7 +16,16 @@ ExitCode InitContext(Context* context) {
     context->gridCols = 3;
     context->gridCellWidth = 80;
     context->gridCellHeight = 80;
+    context->maze = nullptr;
 
-    return ExitCode::drawMaze;
+    return ExitCode::drawGrid;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Deallocates memory.
+////////////////////////////////////////////////////////////////////////////////
+ExitCode CollectGarbage(Context* context) {
+    delete context->maze;
+    return ExitCode::NIL;
 }
 }

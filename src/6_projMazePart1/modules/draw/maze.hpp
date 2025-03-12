@@ -7,7 +7,6 @@ namespace Draw {
 
 class Maze {
     private: //Encapsulated read-only properties.
-        MazeSquare*** grid;
         int rows;
         int cols;
         int cellWidth;
@@ -15,20 +14,35 @@ class Maze {
         std::string wndName;
         cv::Mat raster;
 
-    private: //Forbidden copy constructor.
-        Maze(const Maze&) = delete;
+    private: //Encapsulated properties. Read-only if const.
+        MazeSquare*** grid;
 
     public: //Constructors and destructors.
         Maze(int rows, int cols, int cellWidth, int cellHeight, std::string wndName, cv::Mat raster);
         ~Maze();
 
+    private: //Forbidden copy constructor and assignment operator.
+        Maze(const Maze&) = delete;
+        Maze& operator=(const Maze&) = delete;
+
     public: //Getters of encapsulated read-only properties.
-        const MazeSquare* const* const* Grid() {return grid;}
         const int& Rows() {return rows;}
         const int& Cols() {return cols;}
-        const MazeSquare* const* const* Grid() const {return grid;}
+        const int& CellWidth() {return cellWidth;}
+        const int& CellHeight() {return cellHeight;}
+        const std::string WndName() {return wndName;}
+        const cv::Mat Raster() {return raster;}
+
         const int& Rows() const {return rows;}
         const int& Cols() const {return cols;}
+        const int& CellWidth() const {return cellWidth;}
+        const int& CellHeight() const {return cellHeight;}
+        const std::string WndName() const {return wndName;}
+        const cv::Mat Raster() const {return raster;}
+
+    public: //Getters of encapsulated properties. Read-only if const.
+        MazeSquare*** Grid() {return grid;}
+        MazeSquare const* const* const* Grid() const {return grid;}
 };
 }
 #endif

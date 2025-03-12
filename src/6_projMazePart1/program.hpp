@@ -3,6 +3,7 @@
 #include <string>
 #include "include/opencv.hpp"
 #include "modules/manager/engine.hpp"
+#include "modules/draw/maze.hpp"
 namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -20,15 +21,18 @@ struct Context {
     int gridCols;
     int gridCellWidth;
     int gridCellHeight;
+    Draw::Maze* maze;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief A status key used to tell the main program which step to visit next.
 ////////////////////////////////////////////////////////////////////////////////
 enum ExitCode {
+    NIL = -2,
     quit = -1,
     initContext = 0,
-    drawMaze = 1
+    drawGrid = 1,
+    editGrid = 2
 };
 
 ////////////////////////////////////////////////////////////////////////////////

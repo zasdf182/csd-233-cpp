@@ -6,10 +6,11 @@ namespace Draw {
 /// @brief A side of a rectangular shape.
 ////////////////////////////////////////////////////////////////////////////////
 enum Side {
-    Top,
-    Right,
-    Bottom,
-    Left
+    NIL = -1,
+    Top = 0,
+    Right = 1,
+    Bottom = 2,
+    Left = 3
 };
 }
 #endif

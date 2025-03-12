@@ -4,6 +4,7 @@
 #include "modules/manager/engine.cpp"
 #include "program/init.cpp"
 #include "program/draw.cpp"
+#include "program/buildMaze.cpp"
 #include "main.hpp"
 using namespace std;
 using namespace cv;
@@ -14,9 +15,10 @@ using namespace Draw;
 ////////////////////////////////////////////////////////////////////////////////
 int main() {
     Main::Program engine;
-
+    engine.Actions[Main::ExitCode::quit] = Main::CollectGarbage;
     engine.Actions[Main::ExitCode::initContext] = Main::InitContext;
-    engine.Actions[Main::ExitCode::drawMaze] = Main::DrawMaze;
+    engine.Actions[Main::ExitCode::drawGrid] = Main::DrawGrid;
+    engine.Actions[Main::ExitCode::editGrid] = Main::EditGrid;
 
     engine.Start(Main::InitContext);
     waitKey(engine.CurrentState->wndUpdatePeriod);

@@ -1,12 +1,22 @@
 #ifndef MAIN_FUNCS_HPP
 #define MAIN_FUNCS_HPP
+#include <tuple>
+#include <queue>
+#include <set>
+#include "../modules/draw/types/shapes.hpp"
 #include "../modules/draw/maze.hpp"
 #include "../program.hpp"
+#include "buildMaze.hpp"
 namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Draws a grid of MazeSquares.
 ////////////////////////////////////////////////////////////////////////////////
-ExitCode DrawMaze(Context* context);
+ExitCode DrawGrid(Context* context);
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Randomly erases MazeSquare sides to build a maze.
+////////////////////////////////////////////////////////////////////////////////
+ExitCode EditGrid(Context* context);
 }
 #endif
