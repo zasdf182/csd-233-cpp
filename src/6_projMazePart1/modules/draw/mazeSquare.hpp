@@ -34,17 +34,18 @@ class MazeSquare : Square {
         bool isSelected;
 
     public: //Constructors and destructors
-        MazeSquare(int x, int y, int width, int height): Square(x, y, width, height),
+        MazeSquare(int x, int y, int width, int height, std::string wndname, cv::Mat raster):
+            Square(x, y, width, height, wndname, raster),
             eraseBlue(0), eraseGreen(0), eraseRed(0),
             hasTop(true), hasRight(true), hasBottom(true), hasLeft(true),
             isVisited(false), isSelected(false) {};
 
     public: //OpenCV drawing methods.
-        virtual void Draw(std::string wndname, cv::Mat raster);
+        virtual void Draw();
         void RemoveSide(Side side);
-        void MarkVisited() {isVisited = true;}
-        void MarkSelected() {isSelected = true;}
-        void MarkUnselected() {isSelected = false;}
+        void MarkVisited();
+        void MarkSelected();
+        void MarkUnselected();
 
     public: //Getters for encapsulated read-only properties.
         bool const& HasTop() {return hasTop;}

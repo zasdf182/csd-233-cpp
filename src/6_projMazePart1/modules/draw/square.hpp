@@ -1,5 +1,6 @@
 #ifndef SQUARE_HPP
 #define SQUARE_HPP
+#include <string>
 #include "include/opencv.hpp"
 namespace Draw {
 
@@ -16,18 +17,21 @@ class Square {
         int y;
         int width;
         int height;
+        std::string wndname;
+        cv::Mat raster;
         int blue;
         int green;
         int red;
         int thickness;
 
     public: //Constructors and destructors.
-        Square(int x, int y, int width, int height):
+        Square(int x, int y, int width, int height, std::string wndname, cv::Mat raster):
             x(x), y(y), width(width), height(height),
+            wndname(wndname), raster(raster),
             blue(255), green(255), red(255), thickness(2) {};
 
     public: //OpenCV drawing methods.
-        virtual void Draw(std::string wndname, cv::Mat raster);
+        virtual void Draw();
 };
 }
 #endif

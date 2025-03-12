@@ -3,6 +3,8 @@ namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Draws a grid of MazeSquares.
+/// @note This is a temporary implementation for testing.
+///       Refactor this into a Maze class later.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawMaze(Context* context) {
     int& rows = context->gridRows;
@@ -15,8 +17,10 @@ ExitCode DrawMaze(Context* context) {
             int y = col * context->gridCellHeight;
             int width = context->gridCellWidth;
             int height = context->gridCellHeight;
-            mazeSquares[row][col] = new Draw::MazeSquare(x, y, width, height);
-            mazeSquares[row][col]->Draw(context->wndName, context->wndRaster);
+            std::string wndname = context->wndName;
+            cv::Mat raster = context->wndRaster;
+            mazeSquares[row][col] = new Draw::MazeSquare(x, y, width, height, wndname, raster);
+            mazeSquares[row][col]->Draw();
         } return ExitCode::quit;
 }
 }

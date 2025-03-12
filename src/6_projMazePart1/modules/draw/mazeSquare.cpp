@@ -8,7 +8,7 @@ namespace Draw {
 ///        If not marked, erase previous symbol.
 ///        Renders the final raster to an OpenCV window.
 ////////////////////////////////////////////////////////////////////////////////
-void MazeSquare::Draw(std::string wndname, cv::Mat raster) {
+void MazeSquare::Draw() {
     cv::Point topLeft(x, y);
     cv::Point topRight(x + width, y);
     cv::Point botRight(x + width, y + height);
