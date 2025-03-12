@@ -41,7 +41,7 @@ void MazeSquare::Draw() {
     if (isSelected) cv::putText(raster, std::string(1, selectSymbol), symbol1_botLeft, font, fontScale, color, thickness, lineType);
     else cv::rectangle(raster, symbol2_botLeft, symbol2_topRight, eraseColor, thickness, lineType);
 
-    cv::imshow(wndname, raster);
+    cv::imshow(wndName, raster);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

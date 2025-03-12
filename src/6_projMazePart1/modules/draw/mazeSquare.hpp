@@ -34,8 +34,8 @@ class MazeSquare : Square {
         bool isSelected;
 
     public: //Constructors and destructors.
-        MazeSquare(int x, int y, int width, int height, std::string wndname, cv::Mat raster):
-            Square(x, y, width, height, wndname, raster),
+        MazeSquare(int x, int y, int width, int height, std::string wndName, cv::Mat raster):
+            Square(x, y, width, height, wndName, raster),
             eraseBlue(0), eraseGreen(0), eraseRed(0),
             hasTop(true), hasRight(true), hasBottom(true), hasLeft(true),
             isVisited(false), isSelected(false) {};

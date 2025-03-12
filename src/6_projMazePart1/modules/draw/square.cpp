@@ -10,6 +10,6 @@ void Square::Draw() {
     cv::Point botRight(x + width, y + height);
     cv::Scalar color(blue, green, red);
     cv::rectangle(raster, topLeft, botRight, color, thickness, lineType);
-    cv::imshow(wndname, raster);
+    cv::imshow(wndName, raster);
 }
 }

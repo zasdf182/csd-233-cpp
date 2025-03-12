@@ -1,8 +1,9 @@
-#include "modules/draw/square.cpp"
+#include "modules/draw/maze.cpp"
 #include "modules/draw/mazeSquare.cpp"
+#include "modules/draw/square.cpp"
 #include "modules/manager/engine.cpp"
 #include "program/init.cpp"
-#include "program/maze.cpp"
+#include "program/draw.cpp"
 #include "main.hpp"
 using namespace std;
 using namespace cv;

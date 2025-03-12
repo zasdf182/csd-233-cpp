@@ -1,6 +1,6 @@
 #ifndef MAIN_FUNCS_HPP
 #define MAIN_FUNCS_HPP
-#include "../modules/draw/mazeSquare.hpp"
+#include "../modules/draw/maze.hpp"
 #include "../program.hpp"
 namespace Main {
 

@@ -17,7 +17,7 @@ class Square {
         int y;
         int width;
         int height;
-        std::string wndname;
+        std::string wndName;
         cv::Mat raster;
         int blue;
         int green;
@@ -25,9 +25,9 @@ class Square {
         int thickness;
 
     public: //Constructors and destructors.
-        Square(int x, int y, int width, int height, std::string wndname, cv::Mat raster):
+        Square(int x, int y, int width, int height, std::string wndName, cv::Mat raster):
             x(x), y(y), width(width), height(height),
-            wndname(wndname), raster(raster),
+            wndName(wndName), raster(raster),
             blue(255), green(255), red(255), thickness(2) {};
 
     public: //OpenCV drawing methods.
