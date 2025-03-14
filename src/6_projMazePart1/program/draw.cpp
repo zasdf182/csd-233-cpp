@@ -35,6 +35,7 @@ ExitCode EditGrid(Context* context) {
     engine.Actions[BuildMaze::ExitCode::loopReset] = BuildMaze::ResetContext;
     engine.Actions[BuildMaze::ExitCode::loopStart] = BuildMaze::SelectQueueFront;
 
+    srand(0xA455);
     engine.Start(BuildMaze::QueueRandomSquares);
     cv::waitKey(context->wndUpdatePeriod);
     return ExitCode::quit;

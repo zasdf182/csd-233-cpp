@@ -157,8 +157,9 @@ ExitCode ResetContext(Context* context);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief A step of the BuildMaze subprogram.
-///        Selects the next square at the front of the queue. Mark it selected.
+///        Selects the next square at the front of the queue. Marks it selected.
 ///        Records it's pointer, row, and col, in the context object.
+///        Pauses for the window update period.
 ///
 ///        This begins a loop that parses all randomly selected squares in queue.
 ///        The loop continues at ChooseRandomNeighbor().
