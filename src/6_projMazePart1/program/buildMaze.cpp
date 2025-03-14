@@ -91,13 +91,13 @@ ExitCode ChooseRandomNeighbor(Context* context) {
 ///        Otherwise, proceeds to CheckNeighborVisited().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode CheckNeighborBounds(Context* context) {
-    if (context->checkedCol < 0)
-        return ExitCode::searchRandomUniqueChoice;
-    if (context->checkedCol >= context->maze->Rows())
-        return ExitCode::searchRandomUniqueChoice;
     if (context->checkedRow < 0)
         return ExitCode::searchRandomUniqueChoice;
-    if (context->checkedRow >= context->maze->Cols())
+    if (context->checkedRow >= context->maze->Rows())
+        return ExitCode::searchRandomUniqueChoice;
+    if (context->checkedCol < 0)
+        return ExitCode::searchRandomUniqueChoice;
+    if (context->checkedCol >= context->maze->Cols())
         return ExitCode::searchRandomUniqueChoice;
     return ExitCode::validateChoicePartTwo;
 }
