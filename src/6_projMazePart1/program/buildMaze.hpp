@@ -74,6 +74,7 @@ typedef Singletons::Engine<Context, ExitCode> Program;
 /// @brief A step of the BuildMaze subprogram.
 ///        Randomly picks squares to erase walls from.
 ///        The same square can be picked multiple times.
+///        However, the same square cannot be picked twice in a row.
 ///        Stores the square and it's row and col in queues, with matching indices.
 ///
 ///        This is an initialization step. After, the subprogram loops.

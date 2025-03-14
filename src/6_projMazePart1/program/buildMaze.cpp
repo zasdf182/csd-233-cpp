@@ -13,6 +13,7 @@ namespace BuildMaze {
 /// @brief A step of the BuildMaze subprogram.
 ///        Randomly picks squares to erase walls from.
 ///        The same square can be picked multiple times.
+///        However, the same square cannot be picked twice in a row.
 ///        Stores the square and it's row and col in queues, with matching indices.
 ///
 ///        This is an initialization step. After, the subprogram loops.
@@ -24,9 +25,17 @@ ExitCode QueueRandomSquares(Context* context) {
     int cols = context->maze->Cols();
     int iterations = rows * cols * 2;
 
+    // Randomly pick squares.
     for (int i = 0; i < iterations; i++) {
         int randRow = std::rand() % rows;
         int randCol = std::rand() % cols;
+
+        // Dont allow same square twice in a row.
+        if (i != 0)
+            if (randRow == context->rowQueue.back())
+                if (randCol == context->colQueue.back()) {i--; continue;}
+
+        // Store square, row, and col, in context object.
         Draw::MazeSquare* randSquare = context->maze->Grid()[randRow][randCol];
         context->squareQueue.push(randSquare);
         context->rowQueue.push(randRow);
