@@ -127,6 +127,7 @@ ExitCode CheckNeighborVisited(Context* context) {
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode RemoveNeighborWall(Context* context) {
     context->selectedSquare->RemoveSide(context->checkedSide);
+    context->checkedSquare->RemoveSide(Draw::MazeSquare::Opposite(context->checkedSide));
     context->checkedSquare->MarkVisited();
     return ExitCode::loopAdvance;
 }
