@@ -8,7 +8,7 @@ ExitCode InitContext(Context* context) {
     context->wndWidth = 400;
     context->wndHeight = 240;
     context->wndChannelBitDepth = CV_8UC3;
-    context->wndUpdatePeriod = 2000;
+    context->wndUpdatePeriod = 1000;
     context->wndRaster = cv::Mat(cv::Size(400, 240), CV_8UC3);
     context->wndName = "TurtleWindow";
 

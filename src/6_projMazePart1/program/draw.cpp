@@ -3,6 +3,7 @@ namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Draws a grid of MazeSquares.
+///        Proceeds to EditGrid(), which will loop back to this, in an endless loop.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawGrid(Context* context) {
     int rows = context->gridRows;
@@ -19,6 +20,7 @@ ExitCode DrawGrid(Context* context) {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief A subprogram that randomly erases MazeSquare sides to build a maze.
+///        Loops back to DrawGrid(), in an endless loop.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode EditGrid(Context* context) {
     BuildMaze::Program engine;
@@ -35,9 +37,8 @@ ExitCode EditGrid(Context* context) {
     engine.Actions[BuildMaze::ExitCode::loopReset] = BuildMaze::ResetContext;
     engine.Actions[BuildMaze::ExitCode::loopStart] = BuildMaze::SelectQueueFront;
 
-    srand(0xA455);
     engine.Start(BuildMaze::QueueRandomSquares);
     cv::waitKey(context->wndUpdatePeriod);
-    return ExitCode::quit;
+    return ExitCode::drawGrid;
 }
 }

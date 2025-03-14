@@ -20,6 +20,7 @@ int main() {
     engine.Actions[Main::ExitCode::drawGrid] = Main::DrawGrid;
     engine.Actions[Main::ExitCode::editGrid] = Main::EditGrid;
 
+    srand(0xA455);
     engine.Start(Main::InitContext);
     waitKey(engine.CurrentState->wndUpdatePeriod);
     return 0;
