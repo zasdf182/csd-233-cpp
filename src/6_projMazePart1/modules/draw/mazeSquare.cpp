@@ -2,6 +2,19 @@
 namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////
+/// @brief Gets the opposite side of a side.
+////////////////////////////////////////////////////////////////////////////////
+const Side MazeSquare::Opposite(Side side) {
+    switch (side) {
+        case Side::Top: return Side::Bottom;
+        case Side::Right: return Side::Left;
+        case Side::Bottom: return Side::Top;
+        case Side::Left: return Side::Right;
+        default: return Side::NIL;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 /// @brief Writes a new shape to an OpenCV raster matrix.
 ///        If marked as visited, paints a symbol in bottom left of shape.
 ///        If marked as selected, paints a symbol in bottom right of shape.

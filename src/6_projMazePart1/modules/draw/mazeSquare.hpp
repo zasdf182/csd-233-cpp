@@ -33,6 +33,9 @@ class MazeSquare : Square {
         bool isVisited;
         bool isSelected;
 
+    public: //Static methods.
+        static const Side Opposite(Side side);
+
     public: //Constructors and destructors.
         MazeSquare(int x, int y, int width, int height, std::string wndName, cv::Mat raster):
             Square(x, y, width, height, wndName, raster),
