@@ -15,32 +15,29 @@ void MazeSquare::Draw() {
     cv::Point botLeft(x, y + height);
 
     cv::Point symbol1_botLeft(x + padding, y + height - padding);
-    cv::Point symbol1_topRight(x + padding + charSize(), y + height - padding - charSize());
-
     cv::Point symbol2_botLeft(x + width - padding - charSize(), y + height - padding);
-    cv::Point symbol2_topRight(x + width - padding, y + height - padding - charSize());
 
     cv::Scalar color(blue, green, red);
     cv::Scalar eraseColor(eraseBlue, eraseGreen, eraseRed);
 
+    std::string vsym = std::string(1, visitSymbol);
+    std::string ssym = std::string(1, selectSymbol);
+
+    // To erase sides and symbols it does not have, erase entire square at start.
+    cv::Rect eraseRect(x - thickness, y - thickness, width + thickness * 2, height + thickness * 2);
+    cv::rectangle(raster, eraseRect, eraseColor, cv::FILLED, lineType);
+
+    // Draw sides that the square still has.
     if (hasTop) cv::line(raster, topLeft, topRight, color, thickness, lineType);
-    else cv::line(raster, topLeft, topRight, eraseColor, thickness, lineType);
-
     if (hasRight) cv::line(raster, topRight, botRight, color, thickness, lineType);
-    else cv::line(raster, topRight, botRight, eraseColor, thickness, lineType);
-
     if (hasBottom) cv::line(raster, botRight, botLeft, color, thickness, lineType);
-    else cv::line(raster, botRight, botLeft, eraseColor, thickness, lineType);
-
     if (hasLeft) cv::line(raster, botLeft, topLeft, color, thickness, lineType);
-    else cv::line(raster, botLeft, topLeft, eraseColor, thickness, lineType);
 
-    if (isVisited) cv::putText(raster, std::string(1, visitSymbol), symbol1_botLeft, font, fontScale, color, thickness, lineType);
-    else cv::rectangle(raster, symbol1_botLeft, symbol1_topRight, eraseColor, thickness, lineType);
+    // Draw symbols that the square still has.
+    if (isVisited) cv::putText(raster, vsym, symbol1_botLeft, font, fontScale, color, thickness, lineType);
+    if (isSelected) cv::putText(raster, ssym, symbol2_botLeft, font, fontScale, color, thickness, lineType);
 
-    if (isSelected) cv::putText(raster, std::string(1, selectSymbol), symbol2_botLeft, font, fontScale, color, thickness, lineType);
-    else cv::rectangle(raster, symbol2_botLeft, symbol2_topRight, eraseColor, thickness, lineType);
-
+    // Render the final raster to the OpenCV window.
     cv::imshow(wndName, raster);
 }
 
