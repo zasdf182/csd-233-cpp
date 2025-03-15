@@ -18,9 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\5_projOptimalClassTime\main.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -74,20 +71,32 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ExecutablePath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ExecutablePath)</ExecutablePath>
-    <ExternalIncludePath>$(ProgramData)\opencv\build\include\opencv2;$(ExternalIncludePath)</ExternalIncludePath>
-    <ReferencePath>$(ProgramData)\opencv\build\x64\vc16\lib;$(ReferencePath)</ReferencePath>
-    <LibraryPath>$(ProgramData)\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;$(ExecutablePath)</ExecutablePath>
+    <ExternalIncludePath>$(ProgramData)\opencv\build\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ReferencePath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;$(ReferencePath)</ReferencePath>
+    <LibraryPath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>build\$(ShortProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <SourcePath>$(ProgramData)\opencv\sources\include;$(VC_SourcePath);</SourcePath>
+    <PublicIncludeDirectories>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;</PublicIncludeDirectories>
+    <PublicModuleDirectories>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;</PublicModuleDirectories>
+    <IncludePath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ExecutablePath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ExecutablePath)</ExecutablePath>
-    <ExternalIncludePath>$(ProgramData)\opencv\build\include\opencv2;$(ExternalIncludePath)</ExternalIncludePath>
-    <ReferencePath>$(ProgramData)\opencv\build\x64\vc16\lib;$(ReferencePath)</ReferencePath>
-    <LibraryPath>$(ProgramData)\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;$(ExecutablePath)</ExecutablePath>
+    <ExternalIncludePath>$(ProgramData)\opencv\build\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ReferencePath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;$(ReferencePath)</ReferencePath>
+    <LibraryPath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>build\$(ShortProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <SourcePath>$(ProgramData)\opencv\sources\include;$(VC_SourcePath);</SourcePath>
+    <PublicIncludeDirectories>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;</PublicIncludeDirectories>
+    <PublicModuleDirectories>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;</PublicModuleDirectories>
+    <IncludePath>$(ProgramData)\opencv\build\x64\vc16\bin;$(ProgramData)\opencv\build\x64\vc16\lib;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -128,7 +137,14 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opencv_world4110d.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProgramData)\opencv\build\x64\vc16\lib;$(ProgramData)\opencv\build\x64\vc16\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(ProgramData)"\opencv\build\x64\vc16\bin\*.dll "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy OpenCV DLLs to Target Directory</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -145,7 +161,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opencv_world4110d.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProgramData)\opencv\build\x64\vc16\lib;$(ProgramData)\opencv\build\x64\vc16\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>XCOPY "$(ProgramData)"\opencv\build\x64\vc16\bin\*.dll "$(TargetDir)" /D /K /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy OpenCV DLLs to Target Directory</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
