@@ -22,6 +22,10 @@ class Ellipse : Shape {
             Shape(x, y, boxWidth, boxHeight, fillColor, eraseColor, wndName, raster),
             rotationDeg(rotationDeg) {}
 
+    private: //Forbidden copy constructor and assignment operator.
+        Ellipse(const Ellipse&) = delete;
+        Ellipse& operator=(const Ellipse&) = delete;
+
     public: //Math methods.
         cv::Size2f RotatedRectSize();
         cv::RotatedRect RotatedRect() {return cv::RotatedRect(Center(), RotatedRectSize(), rotationDeg);}

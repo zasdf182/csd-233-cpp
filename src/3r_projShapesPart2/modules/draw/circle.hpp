@@ -15,6 +15,10 @@ class Circle : Shape {
                std::string wndName, cv::Mat raster):
             Shape(x, y, radius * 2, radius * 2, fillColor, eraseColor, wndName, raster) {}
 
+    private: //Forbidden copy constructor and assignment operator.
+        Circle(const Circle&) = delete;
+        Circle& operator=(const Circle&) = delete;
+
     public: //Math methods.
         int Radius() {return width / 2;}
 

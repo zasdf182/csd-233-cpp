@@ -33,6 +33,10 @@ class Shape {
             wndName(wndName), raster(raster),
             fillColor(fillColor), eraseColor(eraseColor) {Draw();}
 
+    private: //Forbidden copy constructor and assignment operator.
+        Shape(const Shape&) = delete;
+        Shape& operator=(const Shape&) = delete;
+
     public: //Math methods.
         cv::Point Center() {return cv::Point((x + width) / 2, (y + height) / 2);}
 
