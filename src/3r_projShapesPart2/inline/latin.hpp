@@ -1,0 +1,11 @@
+#ifndef LIB_LATIN
+#define LIB_LATIN
+#include <cctype>
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Mutates a string. Assumes a valid string with terminating null char.
+///        Changes all uppercase Latin characters to lowercase.
+////////////////////////////////////////////////////////////////////////////////
+inline void ToLower(char* input);
+
+#endif
