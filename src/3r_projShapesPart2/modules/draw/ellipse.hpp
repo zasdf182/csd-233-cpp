@@ -6,6 +6,8 @@ namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief A 2D ellipse to be written to an OpenCV raster matrix.
+///        X and Y = top left of ellipse.
+///        Width and Height = size of bounding rect.
 ///        The constructor sets the width and height of the bounding rect.
 ///        The rotated ellipse will fit perfectly inside the bounding rect.
 ///        Is automatically drawn when constructed.
@@ -16,10 +18,10 @@ class Ellipse : Shape {
         float rotationDeg;
 
     public: //Constructors and destructors.
-        Ellipse(int x, int y, int boxWidth, int boxHeight, float rotationDeg,
+        Ellipse(int x, int y, int width, int height, float rotationDeg,
                 cv::Scalar fillColor, cv::Scalar eraseColor,
                 std::string wndName, cv::Mat raster):
-            Shape(x, y, boxWidth, boxHeight, fillColor, eraseColor, wndName, raster),
+            Shape(x, y, width, height, fillColor, eraseColor, wndName, raster),
             rotationDeg(rotationDeg) {}
 
     private: //Forbidden copy constructor and assignment operator.
