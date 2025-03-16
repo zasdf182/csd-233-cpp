@@ -10,8 +10,6 @@ namespace Draw {
 ///        Set properties then call Draw() to render to window.
 ///        X and Y = top left of ellipse.
 ///        Width and Height = size of bounding rect.
-///        The constructor sets the width and height of the bounding rect.
-///        The rotated ellipse will fit perfectly inside the bounding rect.
 ////////////////////////////////////////////////////////////////////////////////
 class Ellipse : public Sprite {
     protected: //Encapsulated read-only properties.

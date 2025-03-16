@@ -34,3 +34,14 @@ inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat ras
     circle->Draw();
     return circle;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs a new Ellipse object with random rotation and calls Draw().
+/// @return A pointer to the new Ellipse object.
+////////////////////////////////////////////////////////////////////////////////
+inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat raster) {
+    int rotationDeg = std::rand() % 360;
+    Draw::Ellipse* ellipse = new Draw::Ellipse(x, y, width, height, rotationDeg, WND_NAME, raster);
+    ellipse->Draw();
+    return ellipse;
+}

@@ -2,7 +2,7 @@
 namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Calculates the size and width of the rotated bounding rect.
+/// @brief Calculates the size of the rotated bounding rect.
 ///        This rotated rect fits entirely within the original bounding rect.
 ////////////////////////////////////////////////////////////////////////////////
 cv::Size2f Ellipse::RotatedRectSize() {
@@ -21,6 +21,7 @@ cv::Size2f Ellipse::RotatedRectSize() {
 ///        Renders the final raster to an OpenCV window.
 ////////////////////////////////////////////////////////////////////////////////
 void Ellipse::Draw() {
-
+    cv::ellipse(raster, RotatedRect(), Color(), thickness, lineType);
+    cv::imshow(wndName, raster);
 }
 }

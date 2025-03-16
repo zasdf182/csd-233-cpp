@@ -10,6 +10,7 @@ ExitCode InitContext(Context* context) {
     context->wndRaster = cv::Mat(cv::Size(WND_WIDTH, WND_HEIGHT), GFX_PALETTE);
     context->drawShapeFuncs = new Main::Context::DrawFunc*[5];
     *(context->drawShapeFuncs + Draw::Types::Shape::Circle) = DrawCircle;
+    *(context->drawShapeFuncs + Draw::Types::Shape::Ellipse) = DrawEllipse;
     return ExitCode::drawGrid;
 }
 

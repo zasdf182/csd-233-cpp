@@ -4,6 +4,7 @@
 #include "../define/app.hpp"
 #include "cstr.hpp"
 #include <cstring>
+#include <cstdlib>
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Get the enum equivalent of a shape string.
@@ -16,4 +17,10 @@ inline Draw::Types::Shape GetShape(char* shapeName);
 /// @return A pointer to the new Circle object.
 ////////////////////////////////////////////////////////////////////////////////
 inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat raster);
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs a new Ellipse object and calls Draw().
+/// @return A pointer to the new Ellipse object.
+////////////////////////////////////////////////////////////////////////////////
+inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat raster);
 #endif
