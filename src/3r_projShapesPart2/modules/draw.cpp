@@ -3,3 +3,4 @@
 #include "draw/ellipse.cpp"
 #include "draw/grid.cpp"
 #include "draw/rect.cpp"
+#include "draw/triangle.cpp"

@@ -29,4 +29,10 @@ inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat ra
 /// @return A pointer to the new Rect object.
 ////////////////////////////////////////////////////////////////////////////////
 inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raster);
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs a new Triangle object and calls Draw().
+/// @return A pointer to the new Triangle object.
+////////////////////////////////////////////////////////////////////////////////
+inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat raster);
 #endif

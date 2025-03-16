@@ -56,3 +56,13 @@ inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raste
     rect->Draw();
     return rect;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs a new Triangle object and calls Draw().
+/// @return A pointer to the new Triangle object.
+////////////////////////////////////////////////////////////////////////////////
+inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat raster) {
+    Draw::Triangle* triangle = new Draw::Triangle(x, y, width, height, WND_NAME, raster);
+    triangle->Draw();
+    return triangle;
+}
