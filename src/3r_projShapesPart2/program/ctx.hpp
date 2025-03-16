@@ -1,18 +1,24 @@
 #ifndef MAIN_PROGRAM_CTX
 #define MAIN_PROGRAM_CTX
 #include <string>
+#include <vector>
 #include "../include/opencv.hpp"
 #include "../modules/manager.hpp"
+#include "../modules/draw/grid.hpp"
+#include "../modules/draw/sprite.hpp"
 namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief An object used to pass data between steps of the main program.
 ////////////////////////////////////////////////////////////////////////////////
 struct Context {
-    int argc;
-    char** argv;
-    cv::Mat wndRaster;
+    int shapeCount;
+    char** shapeNames;
+
     int wndUpdatePeriod;
+    cv::Mat wndRaster;
+    Draw::Grid* grid;
+    std::vector<Draw::Sprite*> shapes;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

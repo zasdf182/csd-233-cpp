@@ -6,8 +6,7 @@ namespace Draw {
 ///        Renders the final raster to an OpenCV window.
 ////////////////////////////////////////////////////////////////////////////////
 void Circle::Draw() {
-    cv::Scalar color(blue, green, red);
-    cv::circle(raster, Center(), Radius(), color, thickness, lineType);
+    cv::circle(raster, Center(), Radius(), Color(), thickness, lineType);
     cv::imshow(wndName, raster);
 }
 }

@@ -1,5 +1,5 @@
-#ifndef LIB_LATIN
-#define LIB_LATIN
+#ifndef INLINE_LATIN
+#define INLINE_LATIN
 #include <cctype>
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,6 +1,8 @@
 #ifndef LIB_DRAW_GRID
 #define LIB_DRAW_GRID
+#include <cmath>
 #include <string>
+#include <cstdlib>
 #include "include/opencv.hpp"
 namespace Draw {
 
@@ -29,6 +31,7 @@ class Grid {
         int thickness;
 
     public: //Constructors and destructors.
+        ~Grid() {}
         Grid(int x, int y, int width, int height, int rows, int cols, std::string wndName, cv::Mat raster):
             x(x), y(y), width(width), height(height), rows(rows), cols(cols),
             wndName(wndName), raster(raster),
@@ -39,13 +42,19 @@ class Grid {
         Grid& operator=(const Grid&) = delete;
 
     public: //Math methods.
+        cv::Scalar Color() {return cv::Scalar(blue, green, red);}
         int CellWidth() {return width / rows;}
         int CellHeight() {return height / cols;}
-        int CellX(int row) {return x + row * CellWidth();}
-        int CellY(int col) {return y + col * CellHeight();}
-        cv::Point CellTopLeft(int row, int col) {return cv::Point(CellX(row), CellY(col));}
-        cv::Point CellBotRight(int row, int col) {return cv::Point(CellX(row + 1), CellY(col + 1));}
-        cv::Scalar Color() {return cv::Scalar(blue, green, red);}
+        int CellX(int col) {return x + col * CellWidth();}
+        int CellY(int row) {return y + row * CellHeight();}
+        int CellRandInX(int col) {return std::rand() % CellWidth() + CellX(col);}
+        int CellRandInY(int row) {return std::rand() % CellHeight() + CellY(row);}
+        cv::Point CellTopLeft(int col, int row) {return cv::Point(CellX(col), CellY(row));}
+        cv::Point CellBotRight(int col, int row) {return cv::Point(CellX(col + 1), CellY(row + 1));}
+        cv::Point CellRandIn(int col, int row) {return cv::Point(CellRandInX(col), CellRandInY(row));}
+        int MinFromEdgeX(int col, int inX) {return std::min(inX - CellX(col), CellX(col + 1) - inX);}
+        int MinFromEdgeY(int row, int inY) {return std::min(inY - CellY(row), CellY(row + 1) - inY);}
+        int MinFromEdge(int col, int row, int inX, int inY) {return std::min(MinFromEdgeX(col, inX), MinFromEdgeY(row, inY));}
 
     public: //OpenCV drawing methods.
         void Draw();

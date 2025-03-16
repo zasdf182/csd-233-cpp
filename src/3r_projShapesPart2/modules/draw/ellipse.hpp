@@ -13,11 +13,12 @@ namespace Draw {
 ///        The constructor sets the width and height of the bounding rect.
 ///        The rotated ellipse will fit perfectly inside the bounding rect.
 ////////////////////////////////////////////////////////////////////////////////
-class Ellipse : Sprite {
+class Ellipse : public Sprite {
     protected: //Encapsulated read-only properties.
         float rotationDeg;
 
     public: //Constructors and destructors.
+        virtual ~Ellipse() override {}
         Ellipse(int x, int y, int width, int height, float rotationDeg,
                 std::string wndName, cv::Mat raster):
             Sprite(x, y, width, height, wndName, raster),
@@ -32,7 +33,7 @@ class Ellipse : Sprite {
         cv::Size2f RotatedRectSize();
         cv::RotatedRect RotatedRect() {return cv::RotatedRect(Center(), RotatedRectSize(), rotationDeg);}
 
-    protected: //OpenCV drawing methods.
+    public: //OpenCV drawing methods.
         virtual void Draw() override;
 
     public: //Getters of encapsulated read-only properties.

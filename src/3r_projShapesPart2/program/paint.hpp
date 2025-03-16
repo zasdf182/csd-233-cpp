@@ -2,6 +2,7 @@
 #define MAIN_PROGRAM_PAINT
 #include "ctx.hpp"
 #include "../define/app.hpp"
+#include "../inline/math.hpp"
 #include "../modules/draw.hpp"
 #include <cmath>
 #include <cstdlib>

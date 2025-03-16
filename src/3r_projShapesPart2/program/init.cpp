@@ -6,15 +6,16 @@ namespace Main {
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode InitContext(Context* context) {
     context->wndRaster = cv::Mat(cv::Size(WND_WIDTH, WND_HEIGHT), GFX_PALETTE);
-    context->wndUpdatePeriod = 2000;
+    context->wndUpdatePeriod = 4000;
     return ExitCode::drawGrid;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Deallocates memory.
-/// TODO: remove this if no dynamic arrays are added to context object.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode CollectGarbage(Context* context) {
+    delete context->grid;
+    for (auto ptr : context->shapes) delete ptr;
     return ExitCode::NIL;
 }
 }

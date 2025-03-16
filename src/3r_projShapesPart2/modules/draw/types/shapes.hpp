@@ -1,6 +1,7 @@
 #ifndef SHAPES_TYPES
 #define SHAPES_TYPES
 namespace Draw {
+namespace Types {
 
 enum Shape {
     NIL = -1,
@@ -10,5 +11,6 @@ enum Shape {
     Triangle = 3,
     Line = 4
 };
+}
 }
 #endif

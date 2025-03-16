@@ -26,6 +26,7 @@ class Sprite {
         int red;
 
     public: //Constructors and destructors.
+        virtual ~Sprite() {};
         Sprite(int x, int y, int width, int height,
                std::string wndName, cv::Mat raster):
             x(x), y(y), width(width), height(height),
@@ -37,10 +38,10 @@ class Sprite {
         Sprite& operator=(const Sprite&) = delete;
 
     public: //Math methods.
-        cv::Point Center() {return cv::Point((x + width) / 2, (y + height) / 2);}
+        cv::Point Center() {return cv::Point((x + x + width) / 2, (y + y + height) / 2);}
         cv::Scalar Color() {return cv::Scalar(blue, green, red);}
 
-    protected: //OpenCV drawing methods.
+    public: //OpenCV drawing methods.
         virtual void Draw() = 0;
 };
 }
