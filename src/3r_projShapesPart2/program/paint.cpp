@@ -4,6 +4,7 @@ namespace Main {
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Divides the screen into a grid of rects, with one cell per shape.
 ///        There may be empty cells, depending on the number of shapes.
+///        Sets the color of grid lines to invisible.
 /// @note This is the second program step. Next is DrawShapes().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawGrid(Context* context) {
@@ -12,7 +13,10 @@ ExitCode DrawGrid(Context* context) {
     int y = 0 + WND_PAD;
     int width = WND_WIDTH - 2 * WND_PAD;
     int height = WND_HEIGHT - 2 * WND_PAD;
+    cv::Scalar color(0, 0, 0);
+
     context->grid = new Draw::Grid(x, y, width, height, div, div, WND_NAME, context->wndRaster);
+    context->grid->lineColor = color;
     context->grid->Erase();
     context->grid->Draw();
 
