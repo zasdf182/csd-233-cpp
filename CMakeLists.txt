@@ -83,7 +83,7 @@ target_link_libraries(currCppFile ${OpenCV_LIBS})
 cmake_minimum_required(VERSION 3.31.3) 
 project(currCppTests)
 add_executable(currCppTests
-    src/3r_projShapesPart2/spec/testLatin.cpp
+    src/3r_projShapesPart2/spec/testCstr.cpp
 )
 target_include_directories(currCppTests PRIVATE src/3r_projShapesPart2/inline/)
 target_link_libraries(currCppTests gtest gtest_main)

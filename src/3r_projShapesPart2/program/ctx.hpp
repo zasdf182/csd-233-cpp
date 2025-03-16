@@ -2,8 +2,8 @@
 #define MAIN_PROGRAM_CTX
 #include <string>
 #include <vector>
-#include "../include/opencv.hpp"
 #include "../modules/manager.hpp"
+#include "../include/opencv.hpp"
 #include "../modules/draw/grid.hpp"
 #include "../modules/draw/sprite.hpp"
 namespace Main {
@@ -12,11 +12,14 @@ namespace Main {
 /// @brief An object used to pass data between steps of the main program.
 ////////////////////////////////////////////////////////////////////////////////
 struct Context {
-    int shapeCount;
     char** shapeNames;
-
+    int shapeCount;
     int wndUpdatePeriod;
     cv::Mat wndRaster;
+
+    typedef Draw::Sprite* (DrawFunc)(int x, int y, int width, int height, cv::Mat raster);
+    DrawFunc** drawShapeFuncs;
+
     Draw::Grid* grid;
     std::vector<Draw::Sprite*> shapes;
 };

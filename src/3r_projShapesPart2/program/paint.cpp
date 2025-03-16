@@ -4,10 +4,12 @@ namespace Main {
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Divides the screen into a grid of rects, with one cell per shape.
 ///        There may be empty cells, depending on the number of shapes.
+/// @note This is the second program step. Next is DrawShapes().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawGrid(Context* context) {
     int div = std::ceil(std::sqrt(context->shapeCount));
     context->grid = new Draw::Grid(0, 0, WND_WIDTH, WND_HEIGHT, div, div, WND_NAME, context->wndRaster);
+    context->grid->Erase();
     context->grid->Draw();
 
     cv::waitKey(context->wndUpdatePeriod);
@@ -16,26 +18,28 @@ ExitCode DrawGrid(Context* context) {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Draws selected shapes with random positions, sizes, and colors.
+/// @note This is the third program step. Next is CollectGarbage().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawShapes(Context* context) {
+    int shapeIndex = 0;
     for (int row = 0; row < context->grid->rows; row++) {
         for (int col = 0; col < context->grid->cols; col++) {
-            if (context->shapes.size() >= context->shapeCount)
+            if (shapeIndex >= context->shapeCount)
                 return ExitCode::quit;
 
-            // Test maximum size circle.
-            int x = context->grid->CellX(col);
-            int y = context->grid->CellY(row);
-            int width = context->grid->CellWidth();
-            int height = context->grid->CellHeight();
+            char* shapeName = *(context->shapeNames + shapeIndex);
+            ToLower(shapeName);
+            Draw::Types::Shape drawFuncIndex = GetShape(shapeName);
 
-            // Draw shape.
-            Draw::Circle* circle = new Draw::Circle(x, y, width, height, WND_NAME, context->wndRaster);
-            context->shapes.insert(context->shapes.begin(), circle);
-            circle->Draw();
+            int x = context->grid->CellRandInX(col);
+            int y = context->grid->CellRandInY(row);
+            int width = context->grid->MinFromEdgeX(col, x);
+            int height = context->grid->MinFromEdgeY(row, y);
+            cv::Mat raster = context->wndRaster;
 
-            // Pause before drawing next shape.
+            (*(context->drawShapeFuncs + drawFuncIndex))(x, y, width, height, raster);
             cv::waitKey(context->wndUpdatePeriod);
+            shapeIndex++;
         }
     } return ExitCode::quit;
 }

@@ -1,6 +1,7 @@
 #ifndef MAIN_INLINE
 #define MAIN_INLINE
 
-#include "../inline/latin.hpp"
+#include "../inline/cstr.hpp"
 #include "../inline/math.hpp"
+#include "../inline/render.hpp"
 #endif

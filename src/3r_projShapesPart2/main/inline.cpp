@@ -1,3 +1,4 @@
 #include "inline.hpp"
-#include "../inline/latin.cpp"
+#include "../inline/cstr.cpp"
 #include "../inline/math.cpp"
+#include "../inline/render.cpp"

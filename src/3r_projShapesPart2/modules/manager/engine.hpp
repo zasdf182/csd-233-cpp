@@ -1,6 +1,7 @@
 #ifndef LIB_MANAGER_ENGINE
 #define LIB_MANAGER_ENGINE
 #include <map>
+#include <utility>
 namespace Singletons {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +36,7 @@ template <class ctxType, class returnMessageType> class Engine {
         ~Engine() {delete CurrentState;}
 
     public: //Singleton management methods.
+        void MapAction(returnMessageType key, EngineAction action);
         returnMessageType Start(EngineAction action);
 };
 }

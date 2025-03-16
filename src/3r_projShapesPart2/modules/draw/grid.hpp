@@ -25,9 +25,8 @@ class Grid {
         int cols;
         std::string wndName;
         cv::Mat raster;
-        int blue;
-        int green;
-        int red;
+        cv::Scalar lineColor;
+        cv::Scalar eraseColor;
         int thickness;
 
     public: //Constructors and destructors.
@@ -35,14 +34,14 @@ class Grid {
         Grid(int x, int y, int width, int height, int rows, int cols, std::string wndName, cv::Mat raster):
             x(x), y(y), width(width), height(height), rows(rows), cols(cols),
             wndName(wndName), raster(raster),
-            blue(255), green(255), red(255), thickness(2) {};
+            lineColor(cv::Scalar(255, 255, 255)), eraseColor(cv::Scalar(0, 0, 0)),
+            thickness(2) {};
 
     private: //Forbidden copy constructor and assignment operator.
         Grid(const Grid&) = delete;
         Grid& operator=(const Grid&) = delete;
 
     public: //Math methods.
-        cv::Scalar Color() {return cv::Scalar(blue, green, red);}
         int CellWidth() {return width / rows;}
         int CellHeight() {return height / cols;}
         int CellX(int col) {return x + col * CellWidth();}
@@ -55,9 +54,13 @@ class Grid {
         int MinFromEdgeX(int col, int inX) {return std::min(inX - CellX(col), CellX(col + 1) - inX);}
         int MinFromEdgeY(int row, int inY) {return std::min(inY - CellY(row), CellY(row + 1) - inY);}
         int MinFromEdge(int col, int row, int inX, int inY) {return std::min(MinFromEdgeX(col, inX), MinFromEdgeY(row, inY));}
+        int MaxFromEdgeX(int col, int inX) {return std::max(inX - CellX(col), CellX(col + 1) - inX);}
+        int MaxFromEdgeY(int row, int inY) {return std::max(inY - CellY(row), CellY(row + 1) - inY);}
+        int MaxFromEdge(int col, int row, int inX, int inY) {return std::max(MaxFromEdgeX(col, inX), MaxFromEdgeY(row, inY));}
 
     public: //OpenCV drawing methods.
         void Draw();
+        void Erase();
 };
 }
 #endif
