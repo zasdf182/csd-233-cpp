@@ -11,9 +11,8 @@ namespace Draw {
 class Circle : Sprite {
     public: //Constructors and destructors.
         Circle(int x, int y, int radius,
-               cv::Scalar fillColor, cv::Scalar eraseColor,
                std::string wndName, cv::Mat raster):
-            Sprite(x, y, radius * 2, radius * 2, fillColor, eraseColor, wndName, raster) {}
+            Sprite(x, y, radius * 2, radius * 2, wndName, raster) {}
 
     private: //Forbidden copy constructor and assignment operator.
         Circle(const Circle&) = delete;

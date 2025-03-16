@@ -1,5 +1,6 @@
 #ifndef LIB_DRAW_ELLIPSE
 #define LIB_DRAW_ELLIPSE
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include "sprite.hpp"
 namespace Draw {
@@ -18,9 +19,8 @@ class Ellipse : Sprite {
 
     public: //Constructors and destructors.
         Ellipse(int x, int y, int width, int height, float rotationDeg,
-                cv::Scalar fillColor, cv::Scalar eraseColor,
                 std::string wndName, cv::Mat raster):
-            Sprite(x, y, width, height, fillColor, eraseColor, wndName, raster),
+            Sprite(x, y, width, height, wndName, raster),
             rotationDeg(rotationDeg) {}
 
     private: //Forbidden copy constructor and assignment operator.
@@ -28,6 +28,7 @@ class Ellipse : Sprite {
         Ellipse& operator=(const Ellipse&) = delete;
 
     public: //Math methods.
+        float RotationRad() {return rotationDeg * M_PI / 180;}
         cv::Size2f RotatedRectSize();
         cv::RotatedRect RotatedRect() {return cv::RotatedRect(Center(), RotatedRectSize(), rotationDeg);}
 

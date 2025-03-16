@@ -38,6 +38,15 @@ class Grid {
         Grid(const Grid&) = delete;
         Grid& operator=(const Grid&) = delete;
 
+    public: //Math methods.
+        int CellWidth() {return width / rows;}
+        int CellHeight() {return height / cols;}
+        int CellX(int row) {return x + row * CellWidth();}
+        int CellY(int col) {return y + col * CellHeight();}
+        cv::Point CellTopLeft(int row, int col) {return cv::Point(CellX(row), CellY(col));}
+        cv::Point CellBotRight(int row, int col) {return cv::Point(CellX(row + 1), CellY(col + 1));}
+        cv::Scalar Color() {return cv::Scalar(blue, green, red);}
+
     public: //OpenCV drawing methods.
         void Draw();
 };
