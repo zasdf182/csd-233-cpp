@@ -1,20 +1,19 @@
 #ifndef LIB_DRAW_CIRCLE
 #define LIB_DRAW_CIRCLE
-#include "shape.hpp"
+#include "sprite.hpp"
 namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief A 2D circle to be written to an OpenCV raster matrix.
+///        Set properties then call Draw() to render to window.
 ///        X and Y = top left of circle.
-///        Is automatically drawn when constructed.
-///        Is automatically erased when deconstructed.
 ////////////////////////////////////////////////////////////////////////////////
-class Circle : Shape {
+class Circle : Sprite {
     public: //Constructors and destructors.
         Circle(int x, int y, int radius,
                cv::Scalar fillColor, cv::Scalar eraseColor,
                std::string wndName, cv::Mat raster):
-            Shape(x, y, radius * 2, radius * 2, fillColor, eraseColor, wndName, raster) {}
+            Sprite(x, y, radius * 2, radius * 2, fillColor, eraseColor, wndName, raster) {}
 
     private: //Forbidden copy constructor and assignment operator.
         Circle(const Circle&) = delete;
@@ -25,7 +24,6 @@ class Circle : Shape {
 
     protected: //OpenCV drawing methods.
         virtual void Draw() override;
-        virtual void Erase() override;
 };
 }
 #endif

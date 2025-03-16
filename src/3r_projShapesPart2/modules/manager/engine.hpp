@@ -1,5 +1,5 @@
-#ifndef LIB_ENGINE
-#define LIB_ENGINE
+#ifndef LIB_MANAGER_ENGINE
+#define LIB_MANAGER_ENGINE
 #include <map>
 namespace Singletons {
 

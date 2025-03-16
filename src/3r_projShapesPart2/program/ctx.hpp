@@ -1,14 +1,18 @@
-#ifndef MAIN_PROGRAM_HPP
-#define MAIN_PROGRAM_HPP
-#include "include/opencv.hpp"
-#include "modules/manager/engine.hpp"
+#ifndef MAIN_PROGRAM_CTX
+#define MAIN_PROGRAM_CTX
+#include <string>
+#include "../include/opencv.hpp"
+#include "../modules/manager.hpp"
 namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief An object used to pass data between steps of the main program.
 ////////////////////////////////////////////////////////////////////////////////
 struct Context {
-
+    int argc;
+    char** argv;
+    cv::Mat wndRaster;
+    int wndUpdatePeriod;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,7 +21,9 @@ struct Context {
 enum ExitCode {
     NIL = -2,
     quit = -1,
-
+    initContext = 0,
+    drawGrid = 1,
+    drawShapes = 2,
 };
 
 ////////////////////////////////////////////////////////////////////////////////

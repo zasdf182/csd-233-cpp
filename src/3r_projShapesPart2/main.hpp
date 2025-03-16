@@ -1,2 +1,6 @@
-#include "define/app.hpp"
-#include "include/opencv.hpp"
+#include "main/define.hpp"
+#include "main/include.hpp"
+#include "main/inline.hpp"
+#include "main/modules.hpp"
+#include "main/program.hpp"
+#include <iostream>

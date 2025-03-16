@@ -1,0 +1,20 @@
+#include "init.hpp"
+namespace Main {
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Initializes the main program's context object.
+////////////////////////////////////////////////////////////////////////////////
+ExitCode InitContext(Context* context) {
+    context->wndRaster = cv::Mat(cv::Size(WND_WIDTH, WND_HEIGHT), GFX_PALETTE);
+    context->wndUpdatePeriod = 2000;
+    return ExitCode::drawGrid;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Deallocates memory.
+/// TODO: remove this if no dynamic arrays are added to context object.
+////////////////////////////////////////////////////////////////////////////////
+ExitCode CollectGarbage(Context* context) {
+    return ExitCode::NIL;
+}
+}

@@ -1,16 +1,15 @@
-#ifndef LIB_DRAW_SHAPE
-#define LIB_DRAW_SHAPE
+#ifndef LIB_DRAW_SPRITE
+#define LIB_DRAW_SPRITE
 #include <string>
 #include "include/opencv.hpp"
 namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A 2D shape to be written to an OpenCV raster matrix.
+/// @brief A 2D sprite to be written to an OpenCV raster matrix.
 ///        X and Y = top left of shape.
-///        Is automatically drawn when constructed.
-///        Is automatically erased when deconstructed.
+///        Set properties then call Draw() to render to window.
 ////////////////////////////////////////////////////////////////////////////////
-class Shape {
+class Sprite {
     public: //Static properties.
         static const int thickness = cv::FILLED;
         static const int lineType = cv::LINE_8;
@@ -26,24 +25,22 @@ class Shape {
         cv::Scalar eraseColor;
 
     public: //Constructors and destructors.
-        ~Shape() {Erase();}
-        Shape(int x, int y, int width, int height,
-              cv::Scalar fillColor, cv::Scalar eraseColor,
-              std::string wndName, cv::Mat raster):
+        Sprite(int x, int y, int width, int height,
+               cv::Scalar fillColor, cv::Scalar eraseColor,
+               std::string wndName, cv::Mat raster):
             x(x), y(y), width(width), height(height),
             wndName(wndName), raster(raster),
-            fillColor(fillColor), eraseColor(eraseColor) {Draw();}
+            fillColor(fillColor), eraseColor(eraseColor) {}
 
     private: //Forbidden copy constructor and assignment operator.
-        Shape(const Shape&) = delete;
-        Shape& operator=(const Shape&) = delete;
+        Sprite(const Sprite&) = delete;
+        Sprite& operator=(const Sprite&) = delete;
 
     public: //Math methods.
         cv::Point Center() {return cv::Point((x + width) / 2, (y + height) / 2);}
 
     protected: //OpenCV drawing methods.
         virtual void Draw() = 0;
-        virtual void Erase() = 0;
 
     public: //Getters of encapsulated read-only properties.
         int X() {return x;}
