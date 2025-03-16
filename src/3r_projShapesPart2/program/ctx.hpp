@@ -17,7 +17,7 @@ struct Context {
     int wndUpdatePeriod;
     cv::Mat wndRaster;
 
-    typedef Draw::Sprite* (DrawFunc)(int x, int y, int width, int height, cv::Mat raster);
+    typedef Draw::Sprite* (DrawFunc)(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color);
     DrawFunc** drawShapeFuncs;
 
     Draw::Grid* grid;

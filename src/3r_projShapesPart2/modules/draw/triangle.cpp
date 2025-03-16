@@ -11,7 +11,7 @@ void Triangle::Draw() {
         cv::Point(x + width, y + height),
         cv::Point(x + width / 2, y)
     };
-    cv::fillConvexPoly(raster, points, 3, Color(), lineType);
+    cv::fillConvexPoly(raster, points, 3, fillColor, lineType);
     cv::imshow(wndName, raster);
 }
 }

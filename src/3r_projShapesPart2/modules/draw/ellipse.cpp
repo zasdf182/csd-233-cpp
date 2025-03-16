@@ -21,7 +21,7 @@ cv::Size2f Ellipse::RotatedRectSize() {
 ///        Renders the final raster to an OpenCV window.
 ////////////////////////////////////////////////////////////////////////////////
 void Ellipse::Draw() {
-    cv::ellipse(raster, RotatedRect(), Color(), thickness, lineType);
+    cv::ellipse(raster, RotatedRect(), fillColor, thickness, lineType);
     cv::imshow(wndName, raster);
 }
 }

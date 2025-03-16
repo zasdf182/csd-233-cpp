@@ -29,8 +29,9 @@ inline Draw::Types::Shape GetShape(char* shapeName) {
 /// @brief Constructs a new Circle object and calls Draw().
 /// @return A pointer to the new Circle object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat raster) {
+inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color) {
     Draw::Circle* circle = new Draw::Circle(x, y, width, height, WND_NAME, raster);
+    circle->fillColor = color;
     circle->Draw();
     return circle;
 }
@@ -40,9 +41,10 @@ inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat ras
 ///        The ellipse is rotated 90 degrees.
 /// @return A pointer to the new Ellipse object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat raster) {
+inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color) {
     int rotationDeg = 90;
     Draw::Ellipse* ellipse = new Draw::Ellipse(x, y, width, height, rotationDeg, WND_NAME, raster);
+    ellipse->fillColor = color;
     ellipse->Draw();
     return ellipse;
 }
@@ -51,8 +53,9 @@ inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat ra
 /// @brief Constructs a new Rect object and calls Draw().
 /// @return A pointer to the new Rect object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raster) {
+inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color) {
     Draw::Rect* rect = new Draw::Rect(x, y, width, height, WND_NAME, raster);
+    rect->fillColor = color;
     rect->Draw();
     return rect;
 }
@@ -61,8 +64,9 @@ inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raste
 /// @brief Constructs a new Triangle object and calls Draw().
 /// @return A pointer to the new Triangle object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat raster) {
+inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color) {
     Draw::Triangle* triangle = new Draw::Triangle(x, y, width, height, WND_NAME, raster);
+    triangle->fillColor = color;
     triangle->Draw();
     return triangle;
 }
@@ -71,8 +75,9 @@ inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat r
 /// @brief Constructs a new Line object and calls Draw().
 /// @return A pointer to the new Line object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawLine(int x, int y, int width, int height, cv::Mat raster) {
+inline Draw::Sprite* DrawLine(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color) {
     Draw::Line* line = new Draw::Line(x, y, width, height, WND_NAME, raster);
+    line->fillColor = color;
     line->Draw();
     return line;
 }

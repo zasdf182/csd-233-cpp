@@ -15,30 +15,30 @@ inline Draw::Types::Shape GetShape(char* shapeName);
 /// @brief Constructs a new Circle object and calls Draw().
 /// @return A pointer to the new Circle object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat raster);
+inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Constructs a new Ellipse object and calls Draw().
 ///        The ellipse is rotated 90 degrees.
 /// @return A pointer to the new Ellipse object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat raster);
+inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Constructs a new Rect object and calls Draw().
 /// @return A pointer to the new Rect object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raster);
+inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Constructs a new Triangle object and calls Draw().
 /// @return A pointer to the new Triangle object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat raster);
+inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color);
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Constructs a new Line object and calls Draw().
 /// @return A pointer to the new Line object.
 ////////////////////////////////////////////////////////////////////////////////
-inline Draw::Sprite* DrawLine(int x, int y, int width, int height, cv::Mat raster);
+inline Draw::Sprite* DrawLine(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color);
 #endif

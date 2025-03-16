@@ -21,9 +21,7 @@ class Sprite {
         int height;
         std::string wndName;
         cv::Mat raster;
-        int blue;
-        int green;
-        int red;
+        cv::Scalar fillColor;
 
     public: //Constructors and destructors.
         virtual ~Sprite() {};
@@ -31,7 +29,7 @@ class Sprite {
                std::string wndName, cv::Mat raster):
             x(x), y(y), width(width), height(height),
             wndName(wndName), raster(raster),
-            blue(255), green(255), red(255) {}
+            fillColor(cv::Scalar(255, 255, 255)) {}
 
     private: //Forbidden copy constructor and assignment operator.
         Sprite(const Sprite&) = delete;
@@ -39,7 +37,6 @@ class Sprite {
 
     public: //Math methods.
         cv::Point Center() {return cv::Point((x + x + width) / 2, (y + y + height) / 2);}
-        cv::Scalar Color() {return cv::Scalar(blue, green, red);}
 
     public: //OpenCV drawing methods.
         virtual void Draw() = 0;
