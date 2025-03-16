@@ -4,7 +4,6 @@
 #include "../define/app.hpp"
 #include "cstr.hpp"
 #include <cstring>
-#include <cstdlib>
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Get the enum equivalent of a shape string.
@@ -20,6 +19,7 @@ inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat ras
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Constructs a new Ellipse object and calls Draw().
+///        The ellipse is rotated 90 degrees.
 /// @return A pointer to the new Ellipse object.
 ////////////////////////////////////////////////////////////////////////////////
 inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat raster);

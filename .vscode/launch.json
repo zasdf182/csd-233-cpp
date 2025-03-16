@@ -15,7 +15,7 @@
             "terminal": "integrated",
 
             // Args
-            "args": ["Rectangle", "Rectangle", "Rectangle", "Rectangle"]
+            "args": ["Ellipse", "Ellipse", "Ellipse", "Ellipse"]
         }
         ////////////////////////////////////////////////////////////////////////
     ]
