@@ -35,4 +35,10 @@ inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raste
 /// @return A pointer to the new Triangle object.
 ////////////////////////////////////////////////////////////////////////////////
 inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat raster);
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs a new Line object and calls Draw().
+/// @return A pointer to the new Line object.
+////////////////////////////////////////////////////////////////////////////////
+inline Draw::Sprite* DrawLine(int x, int y, int width, int height, cv::Mat raster);
 #endif

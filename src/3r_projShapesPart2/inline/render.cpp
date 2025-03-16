@@ -66,3 +66,13 @@ inline Draw::Sprite* DrawTriangle(int x, int y, int width, int height, cv::Mat r
     triangle->Draw();
     return triangle;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs a new Line object and calls Draw().
+/// @return A pointer to the new Line object.
+////////////////////////////////////////////////////////////////////////////////
+inline Draw::Sprite* DrawLine(int x, int y, int width, int height, cv::Mat raster) {
+    Draw::Line* line = new Draw::Line(x, y, width, height, WND_NAME, raster);
+    line->Draw();
+    return line;
+}

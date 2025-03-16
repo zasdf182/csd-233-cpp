@@ -7,8 +7,8 @@
 #include "draw/circle.hpp"
 #include "draw/ellipse.hpp"
 #include "draw/grid.hpp"
+#include "draw/line.hpp"
 #include "draw/rect.hpp"
 #include "draw/sprite.hpp"
-#include "draw/rect.hpp"
 #include "draw/triangle.hpp"
 #endif

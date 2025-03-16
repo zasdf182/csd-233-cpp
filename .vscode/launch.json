@@ -15,7 +15,7 @@
             "terminal": "integrated",
 
             // Args
-            "args": ["Triangle", "Triangle", "Triangle", "Triangle"]
+            "args": ["Line", "Line", "Line", "Line"]
         }
         ////////////////////////////////////////////////////////////////////////
     ]
