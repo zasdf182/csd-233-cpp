@@ -6,8 +6,7 @@ using namespace std;
 using namespace Main;
 
 int main(int argc, char** argv) {
-    // srand(0xA455);
-    srand(333);
+    srand(0xA455);
     if (argc <= 1) {
         cout << "ERROR: please run the program with command line arguments.";
         return 1;

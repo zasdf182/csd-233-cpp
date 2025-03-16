@@ -45,3 +45,13 @@ inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat ra
     ellipse->Draw();
     return ellipse;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs a new Rect object and calls Draw().
+/// @return A pointer to the new Rect object.
+////////////////////////////////////////////////////////////////////////////////
+inline Draw::Sprite* DrawRect(int x, int y, int width, int height, cv::Mat raster) {
+    Draw::Rect* rect = new Draw::Rect(x, y, width, height, WND_NAME, raster);
+    rect->Draw();
+    return rect;
+}

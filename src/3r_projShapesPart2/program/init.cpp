@@ -11,6 +11,7 @@ ExitCode InitContext(Context* context) {
     context->drawShapeFuncs = new Main::Context::DrawFunc*[5];
     *(context->drawShapeFuncs + Draw::Types::Shape::Circle) = DrawCircle;
     *(context->drawShapeFuncs + Draw::Types::Shape::Ellipse) = DrawEllipse;
+    *(context->drawShapeFuncs + Draw::Types::Shape::Rectangle) = DrawRect;
     return ExitCode::drawGrid;
 }
 
