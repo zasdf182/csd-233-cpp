@@ -8,7 +8,11 @@ namespace Main {
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawGrid(Context* context) {
     int div = std::ceil(std::sqrt(context->shapeCount));
-    context->grid = new Draw::Grid(0, 0, WND_WIDTH, WND_HEIGHT, div, div, WND_NAME, context->wndRaster);
+    int x = 0 + WND_PAD;
+    int y = 0 + WND_PAD;
+    int width = WND_WIDTH - 2 * WND_PAD;
+    int height = WND_HEIGHT - 2 * WND_PAD;
+    context->grid = new Draw::Grid(x, y, width, height, div, div, WND_NAME, context->wndRaster);
     context->grid->Erase();
     context->grid->Draw();
 
