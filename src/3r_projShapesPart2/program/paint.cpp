@@ -37,7 +37,8 @@ ExitCode DrawShapes(Context* context) {
             int height = context->grid->MinFromEdgeY(row, y);
             cv::Mat raster = context->wndRaster;
 
-            (*(context->drawShapeFuncs + drawFuncIndex))(x, y, width, height, raster);
+            Draw::Sprite* shape = (*(context->drawShapeFuncs + drawFuncIndex))(x, y, width, height, raster);
+            context->shapes.insert(context->shapes.begin(), shape);
             cv::waitKey(context->wndUpdatePeriod);
             shapeIndex++;
         }
