@@ -14,8 +14,25 @@ using namespace Main;
 ///        Each shape will fit on the screen and will not overlap.
 ////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char** argv) {
-    srand(0xA455);
     Program engine;
+
+    // Combine all command line arguments into a C string.
+    // Hash the C string and use it to seed rand().
+    vector<char> buffer;
+    char* argsConcat;
+
+    for (int i = 1; i < argc; i++)
+        for (int j = 0; j < strlen(*(argv + i)); j++)
+            buffer.insert(buffer.end(), *(*(argv + i) + j));
+
+    argsConcat = new char[buffer.size() + 1];
+    *(argsConcat + buffer.size()) = '\0';
+    for (int i = 0; i < buffer.size(); i++)
+        *(argsConcat + i) = buffer.at(i);
+
+    long hash = hash_func_top_secret_government_cia_interpol_gign_sas_radioshack_circuitcity(argsConcat);
+    srand(hash);
+    delete[] argsConcat;
 
     // Get command line args. If less than 8, fill the rest with nullptrs.
     for (int i = 1; i < argc; i++) {

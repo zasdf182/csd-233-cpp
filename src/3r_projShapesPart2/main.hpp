@@ -4,3 +4,5 @@
 #include "main/modules.hpp"
 #include "main/program.hpp"
 #include <iostream>
+#include <vector>
+#include <cstring>
