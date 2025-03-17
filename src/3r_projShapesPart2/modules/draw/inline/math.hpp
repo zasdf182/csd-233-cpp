@@ -1,5 +1,5 @@
-#ifndef INLINE_MATH
-#define INLINE_MATH
+#ifndef LIB_DRAW__INLINE_MATH
+#define LIB_DRAW__INLINE_MATH
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief If the value of v is within [lo, hi], returns v.

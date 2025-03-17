@@ -1,5 +1,5 @@
-#ifndef INCLUDE_OPENCV
-#define INCLUDE_OPENCV
+#ifndef LIB_DRAW__INCLUDE_OPENCV
+#define LIB_DRAW__INCLUDE_OPENCV
 
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"

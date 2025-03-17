@@ -1,5 +1,5 @@
-#ifndef SHAPES_TYPES
-#define SHAPES_TYPES
+#ifndef LIB_DRAW__SHAPES_TYPES
+#define LIB_DRAW__SHAPES_TYPES
 namespace Draw {
 namespace Types {
 
