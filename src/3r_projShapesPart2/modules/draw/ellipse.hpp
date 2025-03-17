@@ -36,7 +36,7 @@ class Ellipse : public Sprite {
         virtual void Draw() override;
 
     public: //Getters of encapsulated read-only properties.
-        int RotationDeg() {return rotationDeg;}
+        float RotationDeg() {return rotationDeg;}
 };
 }
 #endif

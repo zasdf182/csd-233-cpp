@@ -42,7 +42,7 @@ inline Draw::Sprite* DrawCircle(int x, int y, int width, int height, cv::Mat ras
 /// @return A pointer to the new Ellipse object.
 ////////////////////////////////////////////////////////////////////////////////
 inline Draw::Sprite* DrawEllipse(int x, int y, int width, int height, cv::Mat raster, cv::Scalar color) {
-    int rotationDeg = 90;
+    float rotationDeg = 90.f;
     Draw::Ellipse* ellipse = new Draw::Ellipse(x, y, width, height, rotationDeg, WND_NAME, raster);
     ellipse->fillColor = color;
     ellipse->Draw();
