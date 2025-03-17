@@ -1,7 +1,9 @@
 #ifndef LIB_DRAW
 #define LIB_DRAW
 
+#include "draw/define/m.hpp"
 #include "draw/include/opencv.hpp"
+#include "draw/inline/math.hpp"
 #include "draw/types/shapes.hpp"
 
 #include "draw/circle.hpp"

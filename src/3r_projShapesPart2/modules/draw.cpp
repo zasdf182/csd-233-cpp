@@ -1,4 +1,6 @@
 #include "draw.hpp"
+#include "draw/inline/math.cpp"
+
 #include "draw/circle.cpp"
 #include "draw/ellipse.cpp"
 #include "draw/grid.cpp"
