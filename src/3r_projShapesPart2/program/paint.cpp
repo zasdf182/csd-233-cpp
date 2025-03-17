@@ -75,13 +75,15 @@ void displayShapes(Context* context, int n, ...) {
             Draw::Types::Shape drawFuncIndex = GetShape(shapeName);
 
             // Get random position and size.
-            // Top left point of shape is constrained to top-left quadrant of cell.
-            // The shape's bounding rectangle then extends to bottom right of cell.
+            // Clamps shape size between 50% and 100% of cell size by:
+            // -Constraining bounding rect's top-left x to half of cell width.
+            // -Constraining bounding rect's top-left y to half of cell height.
+            // -Extending bounding rect to bottom right of cell.
             float lerpFactor = ((rand() % 100) / 100.f) * 0.5f;
             int x = context->grid->CellLerpX(col, lerpFactor);
             int y = context->grid->CellLerpY(row, lerpFactor);
-            int width = context->grid->MinFromEdgeX(col, x);
-            int height = context->grid->MinFromEdgeY(row, y);
+            int width = context->grid->CellX(col + 1) - x;
+            int height = context->grid->CellY(row + 1) - y;
             cv::Mat raster = context->wndRaster;
 
             // Get random color.
