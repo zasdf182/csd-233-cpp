@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
         if (i > 8) break;
         if (i >= argc) *insertionPoint = nullptr;
         else *insertionPoint = *(argv + i);
-    } engine.CurrentState->shapeCount = argc - 1;
+    } engine.CurrentState->shapeCount = min(8, argc - 1);
 
     // Set up the program flow.
     engine.MapAction(ExitCode::quit, CollectGarbage);

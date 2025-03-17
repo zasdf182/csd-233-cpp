@@ -15,7 +15,16 @@
             "terminal": "integrated",
 
             // Args
-            "args": ["Circle", "Ellipse", "Rectangle", "Triangle", "Line"]
+            "args": [
+                "Circle",
+                "Ellipse",
+                "Rectangle",
+                "Triangle",
+                "Line",
+                "Circle",
+                "Ellipse",
+                "Rectangle"
+            ]
         }
         ////////////////////////////////////////////////////////////////////////
     ]
