@@ -25,20 +25,52 @@ ExitCode DrawGrid(Context* context) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Draws selected shapes with random positions, sizes, and colors.
+/// @brief Parses up to eight command line arguments.
+///        Each argument should be a C string with a shape name to draw.
+///        Allowed: nullptr, "circle", "ellipse", "rectangle", "triangle", "line"
+///
+///        Draws a shape on-screen for each argument.
+///        Each shape will have a random size, position, and color.
+///        Each shape will fit on the screen and will not overlap.
+///
 /// @note This is the third program step. Next is CollectGarbage().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawShapes(Context* context) {
+    char* c0 = *(context->shapeNames + 0);
+    char* c1 = *(context->shapeNames + 1);
+    char* c2 = *(context->shapeNames + 2);
+    char* c3 = *(context->shapeNames + 3);
+    char* c4 = *(context->shapeNames + 4);
+    char* c5 = *(context->shapeNames + 5);
+    char* c6 = *(context->shapeNames + 6);
+    char* c7 = *(context->shapeNames + 7);
+    displayShapes(context, 8, c0, c1, c2, c3, c4, c5, c6, c7);
+    return ExitCode::quit;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs new shape objects in the cells of the context grid.
+///        Records the new shape pointers in the context object.
+/// @param n The number of variadic arguments passed to the function.
+/// @param va_list Case-insensitive C strings of the shape names to construct.
+///                Allowed: nullptr, "circle", "ellipse", "rectangle", "triangle", "line"
+////////////////////////////////////////////////////////////////////////////////
+void displayShapes(Context* context, int n, ...) {
+    va_list args;
+    va_start(args, n);
     int shapeIndex = 0;
 
-    // Loop through argv and draw each shape.
+    // Loop through args and draw each shape.
     for (int row = 0; row < context->grid->rows; row++) {
         for (int col = 0; col < context->grid->cols; col++) {
-            if (shapeIndex >= context->shapeCount)
-                return ExitCode::quit;
+            if (shapeIndex >= context->shapeCount) {
+                va_end(args);
+                return;
+            }
 
             // Get pointer increment amount for array of function pointers.
-            char* shapeName = *(context->shapeNames + shapeIndex);
+            char* shapeName = va_arg(args, char*);
+            if (shapeName == nullptr) continue;
             ToLower(shapeName);
             Draw::Types::Shape drawFuncIndex = GetShape(shapeName);
 
@@ -61,6 +93,7 @@ ExitCode DrawShapes(Context* context) {
             cv::waitKey(context->wndUpdatePeriod);
             shapeIndex++;
         }
-    } return ExitCode::quit;
+    }
+    va_end(args);
 }
 }

@@ -7,6 +7,7 @@
 #include "../inline/render.hpp"
 #include <cmath>
 #include <cstdlib>
+#include <cstdarg>
 namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,10 +18,25 @@ namespace Main {
 ExitCode DrawGrid(Context* context);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Draws selected shapes with random positions, sizes, and colors.
+/// @brief Parses up to eight command line arguments.
+///        Each argument should be a C string with a shape name to draw.
+///        Allowed: nullptr, "circle", "ellipse", "rectangle", "triangle", "line"
+///
+///        Draws a shape on-screen for each argument.
+///        Each shape will have a random size, position, and color.
+///        Each shape will fit on the screen and will not overlap.
+///
 /// @note This is the third program step. Next is CollectGarbage().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawShapes(Context* context);
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Constructs new shape objects in the cells of a grid.
+/// @return A vector container of pointers to the new shape objects.
+/// @param va_list Case-insensitive C strings of the shape names to construct.
+///                Allowed: circle, ellipse, rectangle, triangle, line
+////////////////////////////////////////////////////////////////////////////////
+void displayShapes(Context* context, int n, ...);
 
 }
 #endif
