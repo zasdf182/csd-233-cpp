@@ -3,6 +3,7 @@
 #include <cmath>
 #include <algorithm>
 #include "sprite.hpp"
+#include "define/m.hpp"
 namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +28,7 @@ class Ellipse : public Sprite {
         Ellipse& operator=(const Ellipse&) = delete;
 
     public: //Math methods.
-        float RotationRad() {return rotationDeg * M_PI / 180;}
+        float RotationRad() {return rotationDeg * M_PI_10 / 180;}
         cv::Size2f RotatedRectSize();
         cv::RotatedRect RotatedRect() {return cv::RotatedRect(Center(), RotatedRectSize(), rotationDeg);}
 
