@@ -2,6 +2,7 @@
 #define LIB_DRAW_ELLIPSE
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <algorithm>
 #include "sprite.hpp"
 namespace Draw {
 

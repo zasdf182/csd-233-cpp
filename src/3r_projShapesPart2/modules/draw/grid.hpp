@@ -1,6 +1,7 @@
 #ifndef LIB_DRAW_GRID
 #define LIB_DRAW_GRID
 #include <cmath>
+#include <algorithm>
 #include <string>
 #include <cstdlib>
 #include "include/opencv.hpp"

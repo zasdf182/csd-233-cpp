@@ -2,6 +2,7 @@
 #define LIB_DRAW_RECT
 #include "sprite.hpp"
 #include <cmath>
+#include <algorithm>
 namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////

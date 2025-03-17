@@ -2,6 +2,7 @@
 #define LIB_DRAW_CIRCLE
 #include "sprite.hpp"
 #include <cmath>
+#include <algorithm>
 namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////
