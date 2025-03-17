@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include "include/opencv.hpp"
+#include "inline/math.hpp"
 namespace Draw {
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +49,8 @@ class Grid {
         int CellY(int row) {return y + row * CellHeight();}
         int CellRandInX(int col) {return std::rand() % CellWidth() + CellX(col);}
         int CellRandInY(int row) {return std::rand() % CellHeight() + CellY(row);}
+        int CellLerpX(int col, float t) {return lerp(CellX(col), CellX(col + 1), t);}
+        int CellLerpY(int row, float t) {return lerp(CellY(row), CellY(row + 1), t);}
         cv::Point CellTopLeft(int col, int row) {return cv::Point(CellX(col), CellY(row));}
         cv::Point CellBotRight(int col, int row) {return cv::Point(CellX(col + 1), CellY(row + 1));}
         cv::Point CellRandIn(int col, int row) {return cv::Point(CellRandInX(col), CellRandInY(row));}

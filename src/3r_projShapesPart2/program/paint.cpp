@@ -75,8 +75,11 @@ void displayShapes(Context* context, int n, ...) {
             Draw::Types::Shape drawFuncIndex = GetShape(shapeName);
 
             // Get random position and size.
-            int x = context->grid->CellRandInX(col);
-            int y = context->grid->CellRandInY(row);
+            // Top left point of shape is constrained to top-left quadrant of cell.
+            // The shape's bounding rectangle then extends to bottom right of cell.
+            float lerpFactor = ((rand() % 100) / 100.f) * 0.5f;
+            int x = context->grid->CellLerpX(col, lerpFactor);
+            int y = context->grid->CellLerpY(row, lerpFactor);
             int width = context->grid->MinFromEdgeX(col, x);
             int height = context->grid->MinFromEdgeY(row, y);
             cv::Mat raster = context->wndRaster;
