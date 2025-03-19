@@ -32,7 +32,11 @@ enum ExitCode {
     quit = -1,
     initContext = 0,
     drawGrid = 1,
-    editGrid = 2
+    editGrid = 2,
+    clearVisited = 3,
+    markDeadEnds = 4,
+    markPath = 5,
+    clearDeadEnds = 6,
 };
 
 ////////////////////////////////////////////////////////////////////////////////

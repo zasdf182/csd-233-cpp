@@ -1,5 +1,5 @@
-#ifndef SUBPROGRAM_TYPES
-#define SUBPROGRAM_TYPES
+#ifndef subprogram_TYPES
+#define subprogram_TYPES
 #include <deque>
 #include <set>
 #include "../../include/opencv.hpp"

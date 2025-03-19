@@ -27,14 +27,18 @@ void MazeSquare::Draw() {
     cv::Point botRight(x + width, y + height);
     cv::Point botLeft(x, y + height);
 
-    cv::Point symbol1_botLeft(x + padding, y + height - padding);
-    cv::Point symbol2_botLeft(x + width - padding - charSize(), y + height - padding);
+    cv::Point botLeftChar(x + padding, y + height - padding);
+    cv::Point botRightChar(x + width - padding - charSize(), y + height - padding);
+    cv::Point topRightChar(x + width - padding - charSize(), y + padding + charSize());
+    cv::Point topLeftChar(x + padding, y + padding + charSize());
 
     cv::Scalar color(blue, green, red);
     cv::Scalar eraseColor(eraseBlue, eraseGreen, eraseRed);
 
     std::string vsym = std::string(1, visitSymbol);
     std::string ssym = std::string(1, selectSymbol);
+    std::string psym = std::string(1, pathSymbol);
+    std::string dsym = std::string(1, deadSymbol);
 
     // To erase sides and symbols it does not have, erase entire square at start.
     cv::Rect eraseRect(x - thickness, y - thickness, width + thickness * 2, height + thickness * 2);
@@ -47,8 +51,10 @@ void MazeSquare::Draw() {
     if (hasLeft) cv::line(raster, botLeft, topLeft, color, thickness, lineType);
 
     // Draw symbols that the square still has.
-    if (isVisited) cv::putText(raster, vsym, symbol1_botLeft, font, fontScale, color, thickness, lineType);
-    if (isSelected) cv::putText(raster, ssym, symbol2_botLeft, font, fontScale, color, thickness, lineType);
+    if (isVisited) cv::putText(raster, vsym, botLeftChar, font, fontScale, color, thickness, lineType);
+    if (isSelected) cv::putText(raster, ssym, botRightChar, font, fontScale, color, thickness, lineType);
+    if (isPathed) cv::putText(raster, psym, topRightChar, font, fontScale, color, thickness, lineType);
+    if (isDead) cv::putText(raster, dsym, topLeftChar, font, fontScale, color, thickness, lineType);
 
     // Render the final raster to the OpenCV window.
     cv::imshow(wndName, raster);
@@ -84,10 +90,50 @@ void MazeSquare::MarkSelected() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+/// @brief Adds a symbol to top-right of square, and calls Draw() again.
+////////////////////////////////////////////////////////////////////////////////
+void MazeSquare::MarkPathed() {
+    isPathed = true;
+    Draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Adds a symbol to top-left of square, and calls Draw() again.
+////////////////////////////////////////////////////////////////////////////////
+void MazeSquare::MarkDead() {
+    isDead = true;
+    Draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Removes symbol from bottom-left of square, and calls Draw() again.
+////////////////////////////////////////////////////////////////////////////////
+void MazeSquare::UnmarkVisited() {
+    isVisited = false;
+    Draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////
 /// @brief Removes symbol from bottom-right of square, and calls Draw() again.
 ////////////////////////////////////////////////////////////////////////////////
-void MazeSquare::MarkDeselected() {
+void MazeSquare::UnmarkSelected() {
     isSelected = false;
+    Draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Removes symbol from top-right of square, and calls Draw() again.
+////////////////////////////////////////////////////////////////////////////////
+void MazeSquare::UnmarkPathed() {
+    isPathed = false;
+    Draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Removes symbol from top-left of square, and calls Draw() again.
+////////////////////////////////////////////////////////////////////////////////
+void MazeSquare::UnmarkDead() {
+    isDead = false;
     Draw();
 }
 }

@@ -18,6 +18,8 @@ class MazeSquare : Square {
         static const double charSize() {return 8 * fontScale;}
         static const char visitSymbol = 'v';
         static const char selectSymbol = 'q';
+        static const char pathSymbol = 'o';
+        static const char deadSymbol = 'x';
         static const int padding = 10;
 
     public: //Mutable properties.
@@ -32,6 +34,8 @@ class MazeSquare : Square {
         bool hasLeft;
         bool isVisited;
         bool isSelected;
+        bool isPathed;
+        bool isDead;
 
     public: //Static methods.
         static const Side Opposite(Side side);
@@ -48,7 +52,12 @@ class MazeSquare : Square {
         void RemoveSide(Side side);
         void MarkVisited();
         void MarkSelected();
-        void MarkDeselected();
+        void MarkPathed();
+        void MarkDead();
+        void UnmarkVisited();
+        void UnmarkSelected();
+        void UnmarkPathed();
+        void UnmarkDead();
 
     public: //Getters for encapsulated read-only properties.
         bool const& HasTop() {return hasTop;}
@@ -57,12 +66,16 @@ class MazeSquare : Square {
         bool const& HasLeft() {return hasLeft;}
         bool const& IsVisited() {return isVisited;}
         bool const& IsSelected() {return isSelected;}
+        bool const& IsPathed() {return isPathed;}
+        bool const& IsDead() {return isDead;}
         bool const& HasTop() const {return hasTop;}
         bool const& HasRight() const {return hasRight;}
         bool const& HasBottom() const {return hasBottom;}
         bool const& HasLeft() const {return hasLeft;}
         bool const& IsVisited() const {return isVisited;}
         bool const& IsSelected() const {return isSelected;}
+        bool const& IsPathed() const {return isPathed;}
+        bool const& IsDead() const {return isDead;}
 };
 }
 #endif

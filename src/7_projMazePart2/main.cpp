@@ -7,17 +7,18 @@ using namespace cv;
 using namespace Draw;
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Creates a grid of MazeSquares.
+/// @brief Creates a new maze and solves it. Loops endlessly.
 ////////////////////////////////////////////////////////////////////////////////
 int main() {
+    srand(0xA455);
     Main::Program engine;
     engine.Actions[Main::ExitCode::quit] = Main::CollectGarbage;
     engine.Actions[Main::ExitCode::initContext] = Main::InitContext;
     engine.Actions[Main::ExitCode::drawGrid] = Main::DrawGrid;
     engine.Actions[Main::ExitCode::editGrid] = Main::EditGrid;
-
-    srand(0xA455);
+    engine.Actions[Main::ExitCode::clearVisited] = Main::ClearVisited;
+    engine.Actions[Main::ExitCode::markDeadEnds] = Main::MarkDeadEnds;
+    engine.Actions[Main::ExitCode::markPath] = Main::MarkPath;
+    engine.Actions[Main::ExitCode::clearDeadEnds] = Main::ClearDeadEnds;
     engine.Start(Main::InitContext);
-    waitKey(engine.CurrentState->wndUpdatePeriod);
-    return 0;
 }

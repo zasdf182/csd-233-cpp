@@ -181,7 +181,7 @@ ExitCode RemoveNeighborWall(Context* context) {
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode PushQueue(Context* context) {
     cv::waitKey(context->wndUpdatePeriod);
-    context->selectedSquare->MarkDeselected();
+    context->selectedSquare->UnmarkSelected();
     context->squareQueue.push_back(context->checkedSquare);
     context->rowQueue.push_back(context->checkedRow);
     context->colQueue.push_back(context->checkedCol);
@@ -204,7 +204,7 @@ ExitCode PopQueue(Context* context) {
         context->colQueue.pop_front();
     }
 
-    context->selectedSquare->MarkDeselected();
+    context->selectedSquare->UnmarkSelected();
     if (context->squareQueue.size() > 0)
         return ExitCode::loopStartInvalid;
     return ExitCode::NIL;
