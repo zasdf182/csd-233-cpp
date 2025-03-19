@@ -75,10 +75,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/lib/)
 # add_executable(currCppFile src/3_projShapesPart2/main.cpp)
 # target_link_libraries(currCppFile ${OpenCV_LIBS})
 
-cmake_minimum_required(VERSION 3.31.3)
-project(currCppFile)
-add_executable(currCppFile src/3r_projShapesPart2/main.cpp)
-target_link_libraries(currCppFile ${OpenCV_LIBS})
+# cmake_minimum_required(VERSION 3.31.3)
+# project(currCppFile)
+# add_executable(currCppFile src/3r_projShapesPart2/main.cpp)
+# target_link_libraries(currCppFile ${OpenCV_LIBS})
 
 # cmake_minimum_required(VERSION 3.31.3) 
 # project(currCppTests)
@@ -142,6 +142,11 @@ target_link_libraries(currCppFile ${OpenCV_LIBS})
 # cmake_minimum_required(VERSION 3.31.3)
 # project(currCppFile)
 # add_executable(currCppFile src/7_assgYourTurn/main.cpp)
+
+cmake_minimum_required(VERSION 3.31.3)
+project(currCppFile)
+add_executable(currCppFile src/7_projMazePart2/main.cpp)
+target_link_libraries(currCppFile ${OpenCV_LIBS})
 
                                                             #################
                                                             #### MIDTERM ####
