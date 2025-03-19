@@ -5,7 +5,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/local/Cellar/opencv/4.11.0/include/opencv4"
+                "/usr/local/Cellar/opencv/4.11.0_1/include/opencv4"
             ],
             "defines": [],
             "macFrameworkPath": [
@@ -16,8 +16,6 @@
             "cppStandard": "c++17",
             "intelliSenseMode": "macos-clang-x64",
             "compilerArgs": [
-                // fix debugger breakpoints
-                // source: https://stackoverflow.com/questions/48268226/vs-code-is-ignoring-the-breakpoint-in-c-debugging
                 "-g"
             ]
         }

@@ -17,7 +17,8 @@
     "explorer.fileNesting.patterns": {
         ".gitignore": ".git*, .prettier*, .astyle*",
         "CMakeLists.txt": "CMake*",
-        "README": "HISTORY*, TODO*"
+        "README": "HISTORY*, TODO*",
+        "*.sln": "*.vcxproj, *.vcxproj.filters"
     },
 
     // VSCode syntax integration
@@ -111,6 +112,7 @@
         "*.inc": "cpp",
         "*.ipp": "cpp",
         "coroutine": "cpp",
-        "source_location": "cpp"
+        "source_location": "cpp",
+        "cinttypes": "cpp"
     }
 }

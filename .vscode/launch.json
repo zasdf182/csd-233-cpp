@@ -15,7 +15,16 @@
             "terminal": "integrated",
 
             // Args
-            "args": ["build/wordlist.txt"]
+            "args": [
+                "Circle",
+                "Ellipse",
+                "Rectangle",
+                "Triangle",
+                "Line",
+                "Circle",
+                "Ellipse",
+                "Rectangle"
+            ]
         }
         ////////////////////////////////////////////////////////////////////////
     ]

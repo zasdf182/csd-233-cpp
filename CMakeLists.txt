@@ -2,20 +2,20 @@
 find_package(OpenCV REQUIRED)
 
 # Dependency: GoogleTest
-enable_testing()
-include(GoogleTest)
-include(FetchContent)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_Declare(
-    googletest
-    URL https://github.com/google/googletest/archive/24a9e940d481f992ba852599c78bb2217362847b.zip
-    DOWNLOAD_EXTRACT_TIMESTAMP NEW
-)
-FetchContent_MakeAvailable(googletest)
+# enable_testing()
+# include(GoogleTest)
+# include(FetchContent)
+# set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+# FetchContent_Declare(
+#     googletest
+#     URL https://github.com/google/googletest/archive/24a9e940d481f992ba852599c78bb2217362847b.zip
+#     DOWNLOAD_EXTRACT_TIMESTAMP NEW
+# )
+# FetchContent_MakeAvailable(googletest)
 
-# GoogleTest requires at least C++14
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# # GoogleTest requires at least C++14
+# set(CMAKE_CXX_STANDARD 14)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set default build directory
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/build/)
@@ -75,6 +75,20 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/lib/)
 # add_executable(currCppFile src/3_projShapesPart2/main.cpp)
 # target_link_libraries(currCppFile ${OpenCV_LIBS})
 
+cmake_minimum_required(VERSION 3.31.3)
+project(currCppFile)
+add_executable(currCppFile src/3r_projShapesPart2/main.cpp)
+target_link_libraries(currCppFile ${OpenCV_LIBS})
+
+# cmake_minimum_required(VERSION 3.31.3) 
+# project(currCppTests)
+# add_executable(currCppTests
+#     src/3r_projShapesPart2/spec/testCstr.cpp
+# )
+# target_include_directories(currCppTests PRIVATE src/3r_projShapesPart2/inline/)
+# target_link_libraries(currCppTests gtest gtest_main)
+# gtest_discover_tests(currCppTests)
+
                                                             ##################
                                                             #### MODULE 4 ####
                                                             ##################
@@ -99,16 +113,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/lib/)
 # project(currCppFile)
 # add_executable(currCppFile src/5c_projSearchTree/main.cpp)
 
-# cmake_minimum_required(VERSION 3.31.3) 
-# project(currCppTests)
-# add_executable(currCppTests
-#     src/5c_projSearchTreeTests/testStr.cpp
-#     src/5c_projSearchTreeTests/testTree.cpp
-# )
-# target_include_directories(currCppTests PRIVATE src/5c_projSearchTree/)
-# target_link_libraries(currCppTests gtest gtest_main)
-# gtest_discover_tests(currCppTests)
-
                                                             ##################
                                                             #### MODULE 6 ####
                                                             ##################
@@ -126,10 +130,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build/lib/)
 # project(currCppFile)
 # add_executable(currCppFile src/6_assgDerivedClasses/main.cpp)
 
-cmake_minimum_required(VERSION 3.31.3)
-project(currCppFile)
-add_executable(currCppFile src/6_projMazePart1/main.cpp)
-target_link_libraries(currCppFile ${OpenCV_LIBS})
+# cmake_minimum_required(VERSION 3.31.3)
+# project(currCppFile)
+# add_executable(currCppFile src/6_projMazePart1/main.cpp)
+# target_link_libraries(currCppFile ${OpenCV_LIBS})
 
                                                             ##################
                                                             #### MODULE 7 ####
