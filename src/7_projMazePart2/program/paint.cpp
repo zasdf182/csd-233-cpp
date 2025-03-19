@@ -96,14 +96,14 @@ ExitCode MarkDeadEnds(Context* context) {
             if (cell->HasTop()) openSides--;
             else if (!atGridTop) if (top->IsDead()) openSides--;
 
-            if (cell->HasRight()) openSides--;
-            else if (!atGridRight) if (right->IsDead()) openSides--;
+            if (cell->HasLeft()) openSides--;
+            else if (!atGridLeft) if (left->IsDead()) openSides--;
 
             if (cell->HasBottom()) openSides--;
             else if (!atGridBottom) if (bottom->IsDead()) openSides--;
 
-            if (cell->HasLeft()) openSides--;
-            else if (!atGridLeft) if (left->IsDead()) openSides--;
+            if (cell->HasRight()) openSides--;
+            else if (!atGridRight) if (right->IsDead()) openSides--;
 
             if (openSides <= 1) {
                 cell->MarkDead();
@@ -151,22 +151,38 @@ ExitCode MarkPath(Context* context) {
         if (!atGridTop)
             if (!current->HasTop())
                 if (!top->IsPathed())
-                    if (!top->IsDead()) {current = top; continue;}
+                    if (!top->IsDead()) {
+                        current = top;
+                        row = row - 1;
+                        continue;
+                    }
 
         if (!atGridLeft)
             if (!current->HasLeft())
                 if (!left->IsPathed())
-                    if (!left->IsDead()) {current = left; continue;}
+                    if (!left->IsDead()) {
+                        current = left;
+                        col = col - 1;
+                        continue;
+                    }
 
         if (!atGridBottom)
             if (!current->HasBottom())
                 if (!bottom->IsPathed())
-                    if (!bottom->IsDead()) {current = bottom; continue;}
+                    if (!bottom->IsDead()) {
+                        current = bottom;
+                        row = row + 1;
+                        continue;
+                    }
 
         if (!atGridRight)
             if (!current->HasRight())
                 if (!right->IsPathed())
-                    if (!right->IsDead()) {current = right; continue;}
+                    if (!right->IsDead()) {
+                        current = right;
+                        col = col + 1;
+                        continue;
+                    }
     }
     current->MarkPathed();
     cv::waitKey(context->wndUpdatePeriod);
