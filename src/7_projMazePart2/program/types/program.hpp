@@ -1,5 +1,5 @@
-#ifndef PROGRAM_HPP
-#define PROGRAM_HPP
+#ifndef PROGRAM_TYPES
+#define PROGRAM_TYPES
 #include <string>
 #include "../../include/opencv.hpp"
 #include "../../modules/manager/engine.hpp"

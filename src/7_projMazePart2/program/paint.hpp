@@ -9,7 +9,7 @@
 namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Draws a grid of MazeSquares.
+/// @brief Overwrites the entire screen with a grid of MazeSquares.
 ///        Proceeds to EditGrid(), which will loop back to this, in an endless loop.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawGrid(Context* context);

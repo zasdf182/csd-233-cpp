@@ -2,7 +2,7 @@
 namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Draws a grid of MazeSquares.
+/// @brief Overwrites the entire screen with a grid of MazeSquares.
 ///        Proceeds to EditGrid(), which will loop back to this, in an endless loop.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawGrid(Context* context) {
@@ -26,18 +26,22 @@ ExitCode EditGrid(Context* context) {
     BuildMaze::Program engine;
     engine.CurrentState->maze = context->maze;
     engine.CurrentState->wndUpdatePeriod = context->wndUpdatePeriod;
-    engine.Actions[BuildMaze::ExitCode::loopInit] = BuildMaze::QueueRandomSquares;
+
+    engine.Actions[BuildMaze::ExitCode::programInit] = BuildMaze::BeginMaze;
+
+    engine.Actions[BuildMaze::ExitCode::loopStartValid] = BuildMaze::SelectQueueBack;
+    engine.Actions[BuildMaze::ExitCode::loopStartInvalid] = BuildMaze::SelectQueueFront;
+    engine.Actions[BuildMaze::ExitCode::loopConfigure] = BuildMaze::ResetContext;
 
     engine.Actions[BuildMaze::ExitCode::searchRandomUniqueChoice] = BuildMaze::ChooseRandomNeighbor;
     engine.Actions[BuildMaze::ExitCode::validateChoicePartOne] = BuildMaze::CheckNeighborBounds;
     engine.Actions[BuildMaze::ExitCode::validateChoicePartTwo] = BuildMaze::CheckNeighborVisited;
     engine.Actions[BuildMaze::ExitCode::parseValidatedChoice] = BuildMaze::RemoveNeighborWall;
 
-    engine.Actions[BuildMaze::ExitCode::loopAdvance] = BuildMaze::PopQueue;
-    engine.Actions[BuildMaze::ExitCode::loopReset] = BuildMaze::ResetContext;
-    engine.Actions[BuildMaze::ExitCode::loopStart] = BuildMaze::SelectQueueFront;
+    engine.Actions[BuildMaze::ExitCode::loopAdvanceValid] = BuildMaze::PushQueue;
+    engine.Actions[BuildMaze::ExitCode::loopAdvanceInvalid] = BuildMaze::PopQueue;
 
-    engine.Start(BuildMaze::QueueRandomSquares);
+    engine.Start(BuildMaze::BeginMaze);
     cv::waitKey(context->wndUpdatePeriod);
     return ExitCode::drawGrid;
 }

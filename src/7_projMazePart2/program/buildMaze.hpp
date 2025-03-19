@@ -1,22 +1,12 @@
 #ifndef PROGRAM_BUILDMAZE
 #define PROGRAM_BUILDMAZE
+#include <set>
+#include <cstdlib>
 #include "types/subprogram.hpp"
+#include "../modules/draw/types/shapes.hpp"
 namespace Main {
 namespace BuildMaze {
 
-////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Randomly picks squares to erase walls from.
-///        The same square can be picked multiple times.
-///        However, the same square cannot be picked twice in a row.
-///        Stores the square and it's row and col in queues, with matching indices.
-///
-///        This is an initialization step. After, the subprogram loops.
-///        The loop is initialized/advanced at ResetContext().
-///        Then, the loop begins at SelectQueueFront().
-////////////////////////////////////////////////////////////////////////////////
-ExitCode QueueRandomSquares(Context* context);
-
 
 
 
@@ -25,41 +15,69 @@ ExitCode QueueRandomSquares(Context* context);
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Randomly choose a neighbor to check that hasn't been chosen yet.
-///        Neighbors must share a side (diagonals are not neighbors).
-///        Record the neighbor's side, row, and col, in the context object.
-///        Remove the chosen side from the tracker in the context object.
-///
-///        If all neighbors were already chosen, skips to PopQueue().
-///        Otherwise, goes to CheckNeighborBounds() then CheckNeighborVisited().
+/// @brief Marks top left as visited. Removes it's left wall. Adds it to queue.
+///        Removes right wall of bottom right.
+/// @note Executed once at start.
+/// @note Next: SelectQueueBack().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode BeginMaze(Context* context);
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Selects back of queue. Pauses window.
+/// @note Next: ResetContext().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode SelectQueueBack(Context* context);
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Selects front of queue. Pauses window.
+/// @note Next: ResetContext().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode SelectQueueFront(Context* context);
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Resets loop variables.
+/// @note Next: ChooseRandomNeighbor().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode ResetContext(Context* context);
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Chooses random unchosen neighbor of selected square.
+/// @note Next: CheckNeighborBounds().
+/// @note Next: PopQueue() if all sides already chosen.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode ChooseRandomNeighbor(Context* context);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Checks if the chosen neighbor is within the maze boundaries.
-///
-///        If not, goes back to ChooseRandomNeighbor().
-///        Otherwise, proceeds to CheckNeighborVisited().
+/// @brief Checks if chosen neighbor out of bounds.
+/// @note Next: CheckNeighborVisited().
+/// @note Back: ChooseRandomNeighbor() if check fails.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode CheckNeighborBounds(Context* context);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Records the checked side's MazeSquare in the context object.
-///        Checks if the chosen neighbor is already visited.
-///
-///        If it is, goes back to ChooseRandomNeighbor().
-///        Otherwise, proceeds to RemoveNeighborWall().
+/// @brief Checks if chosen neighbor already visited.
+/// @note Next: RemoveNeighborWall().
+/// @note Back: ChooseRandomNeighbor() if check fails.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode CheckNeighborVisited(Context* context);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Erases the wall between the selected square and the chosen neighbor.
-///        Marks the neighbor as visited. In future loops, it will be skipped.
-///        Finally, proceeds to PopQueue().
+/// @brief Erases wall to neighbor. Marks it visited.
+/// @note Next: PushQueue().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode RemoveNeighborWall(Context* context);
 
@@ -71,35 +89,17 @@ ExitCode RemoveNeighborWall(Context* context);
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Pauses for the window update period.
-///        Then, deselects and removes the selected square from the queue.
-///
-///        Then, if queue is not empty, advances the loop at ResetContext().
-///        Otherwise, ends the subprogram by returning BuildMazeExitCode::NIL.
-///
-///        Visits this step when done operating on the selected square.
-///        Waits for a delay before proceeding to the next subprogram step.
+/// @brief Pauses window. Adds chosen neighbor to back of queue.
+/// @note Next: SelectQueueBack().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode PushQueue(Context* context);
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Pauses window. Removes selected square from back of queue.
+///        Selected square could be at front or back.
+/// @note Next: SelectQueueFront().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode PopQueue(Context* context);
-
-////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Resets the context object if it was modified by past loops.
-///        The loop then begins at SelectQueueFront().
-////////////////////////////////////////////////////////////////////////////////
-ExitCode ResetContext(Context* context);
-
-////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Selects the next square at the front of the queue. Marks it selected.
-///        Records it's pointer, row, and col, in the context object.
-///        Pauses for the window update period.
-///
-///        This begins a loop that parses all randomly selected squares in queue.
-///        The loop continues at ChooseRandomNeighbor().
-////////////////////////////////////////////////////////////////////////////////
-ExitCode SelectQueueFront(Context* context);
 }
 }
 #endif

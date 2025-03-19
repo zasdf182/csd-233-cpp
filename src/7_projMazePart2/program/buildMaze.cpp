@@ -10,37 +10,26 @@ namespace BuildMaze {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Randomly picks squares to erase walls from.
-///        The same square can be picked multiple times.
-///        However, the same square cannot be picked twice in a row.
-///        Stores the square and it's row and col in queues, with matching indices.
-///
-///        This is an initialization step. After, the subprogram loops.
-///        The loop is initialized/advanced at ResetContext().
-///        Then, the loop begins at SelectQueueFront().
+/// @brief Marks top left as visited. Removes it's left wall. Adds it to queue.
+///        Removes right wall of bottom right.
+/// @note Executed once at start.
+/// @note Next: SelectQueueBack().
 ////////////////////////////////////////////////////////////////////////////////
-ExitCode QueueRandomSquares(Context* context) {
-    int rows = context->maze->Rows();
-    int cols = context->maze->Cols();
-    int iterations = rows * cols * 2;
+ExitCode BeginMaze(Context* context) {
+    Draw::MazeSquare* topLeft = context->maze->Grid()[0][0];
+    Draw::MazeSquare* botRight = context->maze->Grid()[context->maze->Rows() - 1][context->maze->Cols() - 1];
+    botRight->RemoveSide(Draw::Side::Right);
 
-    // Randomly pick squares.
-    for (int i = 0; i < iterations; i++) {
-        int randRow = std::rand() % rows;
-        int randCol = std::rand() % cols;
+    topLeft->MarkVisited();
+    cv::waitKey(context->wndUpdatePeriod);
+    topLeft->RemoveSide(Draw::Side::Left);
+    cv::waitKey(context->wndUpdatePeriod);
 
-        // Dont allow same square twice in a row.
-        if (i != 0)
-            if (randRow == context->rowQueue.back())
-                if (randCol == context->colQueue.back()) {i--; continue;}
-
-        // Store square, row, and col, in context object.
-        Draw::MazeSquare* randSquare = context->maze->Grid()[randRow][randCol];
-        context->squareQueue.push(randSquare);
-        context->rowQueue.push(randRow);
-        context->colQueue.push(randCol);
-    } return ExitCode::loopReset;
+    context->squareQueue.push_back(topLeft);
+    context->rowQueue.push_back(0);
+    context->colQueue.push_back(0);
+    context->selectedQueueEnd = QueueSelection::Back;
+    return ExitCode::loopStartValid;
 }
 
 
@@ -51,18 +40,65 @@ ExitCode QueueRandomSquares(Context* context) {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Randomly choose a neighbor to check that hasn't been chosen yet.
-///        Neighbors must share a side (diagonals are not neighbors).
-///        Record the neighbor's side, row, and col, in the context object.
-///        Remove the chosen side from the tracker in the context object.
-///
-///        If all neighbors were already chosen, skips to PopQueue().
-///        Otherwise, goes to CheckNeighborBounds() then CheckNeighborVisited().
+/// @brief Selects back of queue. Pauses window.
+/// @note Next: ResetContext().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode SelectQueueBack(Context* context) {
+    context->squareQueue.back()->MarkSelected();
+    context->selectedSquare = context->squareQueue.back();
+    context->selectedRow = context->rowQueue.back();
+    context->selectedCol = context->colQueue.back();
+    context->selectedQueueEnd = QueueSelection::Back;
+    cv::waitKey(context->wndUpdatePeriod);
+    return ExitCode::loopConfigure;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Selects front of queue. Pauses window.
+/// @note Next: ResetContext().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode SelectQueueFront(Context* context) {
+    context->squareQueue.front()->MarkSelected();
+    context->selectedSquare = context->squareQueue.front();
+    context->selectedRow = context->rowQueue.front();
+    context->selectedCol = context->colQueue.front();
+    context->selectedQueueEnd = QueueSelection::Front;
+    cv::waitKey(context->wndUpdatePeriod);
+    return ExitCode::loopConfigure;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Resets loop variables.
+/// @note Next: ChooseRandomNeighbor().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode ResetContext(Context* context) {
+    context->checkedRow = -1;
+    context->checkedCol = -1;
+    context->checkedSide = Draw::Side::NIL;
+    context->checkedSquare = nullptr;
+    context->uncheckedSides = {
+        Draw::Side::Top,
+        Draw::Side::Right,
+        Draw::Side::Bottom,
+        Draw::Side::Left
+    }; return ExitCode::searchRandomUniqueChoice;
+}
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Chooses random unchosen neighbor of selected square.
+/// @note Next: CheckNeighborBounds().
+/// @note Next: PopQueue() if all sides already chosen.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode ChooseRandomNeighbor(Context* context) {
     if (context->uncheckedSides.size() <= 0)
-        return ExitCode::loopAdvance;
+        return ExitCode::loopAdvanceInvalid;
 
     std::set<Draw::Side>::iterator iter = context->uncheckedSides.begin();
     int randomIndex = rand() % context->uncheckedSides.size();
@@ -93,11 +129,9 @@ ExitCode ChooseRandomNeighbor(Context* context) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Checks if the chosen neighbor is within the maze boundaries.
-///
-///        If not, goes back to ChooseRandomNeighbor().
-///        Otherwise, proceeds to CheckNeighborVisited().
+/// @brief Checks if chosen neighbor out of bounds.
+/// @note Next: CheckNeighborVisited().
+/// @note Back: ChooseRandomNeighbor() if check fails.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode CheckNeighborBounds(Context* context) {
     if (context->checkedRow < 0)
@@ -112,33 +146,26 @@ ExitCode CheckNeighborBounds(Context* context) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Records the checked side's MazeSquare in the context object.
-///        Checks if the chosen neighbor is already visited.
-///
-///        If it is, goes back to ChooseRandomNeighbor().
-///        Otherwise, proceeds to RemoveNeighborWall().
+/// @brief Checks if chosen neighbor already visited.
+/// @note Next: RemoveNeighborWall().
+/// @note Back: ChooseRandomNeighbor() if check fails.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode CheckNeighborVisited(Context* context) {
-    int row = context->checkedRow;
-    int col = context->checkedCol;
-    context->checkedSquare = context->maze->Grid()[row][col];
+    context->checkedSquare = context->maze->Grid()[context->checkedRow][context->checkedCol];
     if (context->checkedSquare->IsVisited())
         return ExitCode::searchRandomUniqueChoice;
     return ExitCode::parseValidatedChoice;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Erases the wall between the selected square and the chosen neighbor.
-///        Marks the neighbor as visited. In future loops, it will be skipped.
-///        Finally, proceeds to PopQueue().
+/// @brief Erases wall to neighbor. Marks it visited.
+/// @note Next: PushQueue().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode RemoveNeighborWall(Context* context) {
     context->selectedSquare->RemoveSide(context->checkedSide);
     context->checkedSquare->RemoveSide(Draw::MazeSquare::Opposite(context->checkedSide));
     context->checkedSquare->MarkVisited();
-    return ExitCode::loopAdvance;
+    return ExitCode::loopAdvanceValid;
 }
 
 
@@ -149,65 +176,38 @@ ExitCode RemoveNeighborWall(Context* context) {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Pauses for the window update period.
-///        Then, deselects and removes the selected square from the queue.
-///
-///        Then, if queue is not empty, advances the loop at ResetContext().
-///        Otherwise, ends the subprogram by returning BuildMazeExitCode::NIL.
-///
-///        Visits this step when done operating on the selected square.
-///        Waits for a delay before proceeding to the next subprogram step.
+/// @brief Pauses window. Adds chosen neighbor to back of queue.
+/// @note Next: SelectQueueBack().
 ////////////////////////////////////////////////////////////////////////////////
-ExitCode PopQueue(Context* context) {
+ExitCode PushQueue(Context* context) {
     cv::waitKey(context->wndUpdatePeriod);
     context->selectedSquare->MarkDeselected();
-    context->squareQueue.pop();
-    context->rowQueue.pop();
-    context->colQueue.pop();
+    context->squareQueue.push_back(context->checkedSquare);
+    context->rowQueue.push_back(context->checkedRow);
+    context->colQueue.push_back(context->checkedCol);
+    return ExitCode::loopStartValid;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Pauses window. Removes selected square from back of queue.
+///        Selected square could be at front or back.
+/// @note Next: SelectQueueFront().
+////////////////////////////////////////////////////////////////////////////////
+ExitCode PopQueue(Context* context) {
+    if (context->selectedQueueEnd == QueueSelection::Back) {
+        context->squareQueue.pop_back();
+        context->rowQueue.pop_back();
+        context->colQueue.pop_back();
+    } else {
+        context->squareQueue.pop_front();
+        context->rowQueue.pop_front();
+        context->colQueue.pop_front();
+    }
+
+    context->selectedSquare->MarkDeselected();
     if (context->squareQueue.size() > 0)
-        return ExitCode::loopReset;
+        return ExitCode::loopStartInvalid;
     return ExitCode::NIL;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Resets the context object if it was modified by past loops.
-///        The loop then begins at SelectQueueFront().
-////////////////////////////////////////////////////////////////////////////////
-ExitCode ResetContext(Context* context) {
-    context->selectedSquare = nullptr;
-    context->selectedRow = -1;
-    context->selectedCol = -1;
-
-    context->checkedRow = -1;
-    context->checkedCol = -1;
-    context->checkedSide = Draw::Side::NIL;
-    context->checkedSquare = nullptr;
-    context->uncheckedSides = {
-        Draw::Side::Top,
-        Draw::Side::Right,
-        Draw::Side::Bottom,
-        Draw::Side::Left
-    }; return ExitCode::loopStart;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-/// @brief A step of the BuildMaze subprogram.
-///        Selects the next square at the front of the queue. Marks it selected.
-///        Records it's pointer, row, and col, in the context object.
-///        Pauses for the window update period.
-///
-///        This begins a loop that parses all randomly selected squares in queue.
-///        The loop continues at ChooseRandomNeighbor().
-////////////////////////////////////////////////////////////////////////////////
-ExitCode SelectQueueFront(Context* context) {
-    context->squareQueue.front()->MarkSelected();
-    cv::waitKey(context->wndUpdatePeriod);
-    context->selectedSquare = context->squareQueue.front();
-    context->selectedRow = context->rowQueue.front();
-    context->selectedCol = context->colQueue.front();
-    return ExitCode::searchRandomUniqueChoice;
 }
 }
 }

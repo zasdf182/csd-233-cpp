@@ -1,6 +1,6 @@
 #ifndef SUBPROGRAM_TYPES
 #define SUBPROGRAM_TYPES
-#include <queue>
+#include <deque>
 #include <set>
 #include "../../include/opencv.hpp"
 #include "../../modules/all/draw.hpp"
@@ -9,19 +9,27 @@ namespace Main {
 namespace BuildMaze {
 
 ////////////////////////////////////////////////////////////////////////////////
+/// @brief Tracks which end of the queue is currently selected by the subprogram.
+///        It selects the back if an unvisited neighbor was found.
+///        If not, it selects the front.
+////////////////////////////////////////////////////////////////////////////////
+enum QueueSelection {Front, Back};
+
+////////////////////////////////////////////////////////////////////////////////
 /// @brief An object used to pass data between steps of the BuildMaze subprogram.
 ////////////////////////////////////////////////////////////////////////////////
 struct Context {
     Draw::Maze* maze;
     int wndUpdatePeriod;
 
-    std::queue<Draw::MazeSquare*> squareQueue;
-    std::queue<int> rowQueue;
-    std::queue<int> colQueue;
+    std::deque<Draw::MazeSquare*> squareQueue;
+    std::deque<int> rowQueue;
+    std::deque<int> colQueue;
 
     Draw::MazeSquare* selectedSquare;
     int selectedRow;
     int selectedCol;
+    QueueSelection selectedQueueEnd;
 
     std::set<Draw::Side> uncheckedSides;
     Draw::MazeSquare* checkedSquare;
@@ -34,17 +42,21 @@ struct Context {
 /// @brief A status key to tell the BuildMaze subprogram the next step to visit.
 ////////////////////////////////////////////////////////////////////////////////
 enum ExitCode {
-    loopInit = -10,
+    programInit = 0,
 
-    searchRandomUniqueChoice = 11,
-    validateChoicePartOne = 12,
-    validateChoicePartTwo = 13,
-    parseValidatedChoice = 14,
+    loopStartValid = 11,
+    loopStartInvalid = 12,
+    loopConfigure = 13,
 
-    loopAdvance = 20,
-    loopReset = 0,
-    loopStart = 10,
-    NIL = -2,
+    searchRandomUniqueChoice = 21,
+    validateChoicePartOne = 22,
+    validateChoicePartTwo = 23,
+    parseValidatedChoice = 24,
+
+    loopAdvanceValid = 30,
+    loopAdvanceInvalid = 31,
+
+    NIL = -1,
 };
 
 ////////////////////////////////////////////////////////////////////////////////
