@@ -3,21 +3,26 @@ namespace Main {
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Initializes the main program's context object.
+///        Change values to customize the program.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode InitContext(Context* context) {
-    context->wndWidth = 400;
-    context->wndHeight = 240;
-    context->wndChannelBitDepth = CV_8UC3;
-    context->wndUpdatePeriod = 1000;
-    context->wndRaster = cv::Mat(cv::Size(400, 240), CV_8UC3);
     context->wndName = "TurtleWindow";
 
-    context->gridCols = 5;
-    context->gridRows = 3;
-    context->gridCellWidth = 80;
-    context->gridCellHeight = 80;
-    context->maze = nullptr;
+    context->tickRate = 5;
+    context->endDelay = 2000;
 
+    context->wndWidth = 800;
+    context->wndHeight = 800;
+
+    context->gridCols = 20;
+    context->gridRows = 20;
+
+    context->gridCellWidth = context->wndWidth / context->gridCols;
+    context->gridCellHeight = context->wndHeight / context->gridRows;
+
+    context->wndChannelBitDepth = CV_8UC3;
+    context->wndRaster = cv::Mat(cv::Size(context->wndWidth, context->wndHeight), context->wndChannelBitDepth);
+    context->maze = nullptr;
     return ExitCode::drawGrid;
 }
 

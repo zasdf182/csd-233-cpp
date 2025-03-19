@@ -21,9 +21,9 @@ ExitCode BeginMaze(Context* context) {
     botRight->RemoveSide(Draw::Side::Right);
 
     topLeft->MarkVisited();
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
     topLeft->RemoveSide(Draw::Side::Left);
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
 
     context->squareQueue.push_back(topLeft);
     context->colQueue.push_back(0);
@@ -49,7 +49,7 @@ ExitCode SelectQueueBack(Context* context) {
     context->selectedCol = context->colQueue.back();
     context->selectedRow = context->rowQueue.back();
     context->selectedQueueEnd = QueueSelection::Back;
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
     return ExitCode::loopConfigure;
 }
 
@@ -63,7 +63,7 @@ ExitCode SelectQueueFront(Context* context) {
     context->selectedCol = context->colQueue.front();
     context->selectedRow = context->rowQueue.front();
     context->selectedQueueEnd = QueueSelection::Front;
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
     return ExitCode::loopConfigure;
 }
 
@@ -180,7 +180,7 @@ ExitCode RemoveNeighborWall(Context* context) {
 /// @note Next: SelectQueueBack().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode PushQueue(Context* context) {
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
     context->selectedSquare->UnmarkSelected();
     context->squareQueue.push_back(context->checkedSquare);
     context->colQueue.push_back(context->checkedCol);

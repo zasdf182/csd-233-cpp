@@ -44,7 +44,7 @@ ExitCode MarkDeadEnds(Context* context);
 ExitCode MarkPath(Context* context);
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Clears 'dead' status from all squares. Pauses window for 3x time.
+/// @brief Clears 'dead' status from all squares. Pauses window for end delay.
 /// @note Loop Back To: DrawGrid().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode ClearDeadEnds(Context* context);

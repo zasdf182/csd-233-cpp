@@ -10,17 +10,22 @@ namespace Main {
 /// @brief An object used to pass data between steps of the main program.
 ////////////////////////////////////////////////////////////////////////////////
 struct Context {
+    std::string wndName;
+
+    int tickRate;
+    int endDelay;
+
     int wndWidth;
     int wndHeight;
-    int wndChannelBitDepth;
-    int wndUpdatePeriod;
-    cv::Mat wndRaster;
-    std::string wndName;
 
     int gridCols;
     int gridRows;
+
     int gridCellWidth;
     int gridCellHeight;
+
+    int wndChannelBitDepth;
+    cv::Mat wndRaster;
     Draw::Maze* maze;
 };
 

@@ -20,7 +20,7 @@ enum QueueSelection {Front, Back};
 ////////////////////////////////////////////////////////////////////////////////
 struct Context {
     Draw::Maze* maze;
-    int wndUpdatePeriod;
+    int tickRate;
 
     std::deque<Draw::MazeSquare*> squareQueue;
     std::deque<int> colQueue;

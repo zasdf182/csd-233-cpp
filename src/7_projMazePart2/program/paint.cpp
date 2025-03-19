@@ -15,7 +15,7 @@ ExitCode DrawGrid(Context* context) {
     cv::Mat raster = context->wndRaster;
 
     context->maze = new Draw::Maze(cols, rows, cellWidth, cellHeight, wndName, raster);
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
     return ExitCode::editGrid;
 }
 
@@ -27,7 +27,7 @@ ExitCode DrawGrid(Context* context) {
 ExitCode EditGrid(Context* context) {
     BuildMaze::Program engine;
     engine.CurrentState->maze = context->maze;
-    engine.CurrentState->wndUpdatePeriod = context->wndUpdatePeriod;
+    engine.CurrentState->tickRate = context->tickRate;
 
     engine.Actions[BuildMaze::ExitCode::programInit] = BuildMaze::BeginMaze;
 
@@ -44,7 +44,7 @@ ExitCode EditGrid(Context* context) {
     engine.Actions[BuildMaze::ExitCode::loopAdvanceInvalid] = BuildMaze::PopQueue;
 
     engine.Start(BuildMaze::BeginMaze);
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
     return ExitCode::clearVisited;
 }
 
@@ -56,7 +56,7 @@ ExitCode ClearVisited(Context* context) {
     for (int row = 0; row < context->gridRows; row++)
         for (int col = 0; col < context->gridCols; col++)
             context->maze->Grid()[col][row]->UnmarkVisited();
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
     return ExitCode::markDeadEnds;
 }
 
@@ -108,7 +108,7 @@ ExitCode MarkDeadEnds(Context* context) {
             if (openSides <= 1) {
                 cell->MarkDead();
                 newDeadEndFound = true;
-                cv::waitKey(context->wndUpdatePeriod);
+                cv::waitKey(context->tickRate);
             }
         }
     }
@@ -131,7 +131,7 @@ ExitCode MarkPath(Context* context) {
 
     while (current != end) {
         current->MarkPathed();
-        cv::waitKey(context->wndUpdatePeriod);
+        cv::waitKey(context->tickRate);
 
         bool atGridTop = row == 0;
         bool atGridLeft = col == 0;
@@ -185,19 +185,19 @@ ExitCode MarkPath(Context* context) {
                     }
     }
     current->MarkPathed();
-    cv::waitKey(context->wndUpdatePeriod);
+    cv::waitKey(context->tickRate);
     return ExitCode::clearDeadEnds;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief Clears 'dead' status from all squares. Pauses window for 3x time.
+/// @brief Clears 'dead' status from all squares. Pauses window for end delay.
 /// @note Loop Back To: DrawGrid().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode ClearDeadEnds(Context* context) {
     for (int row = 0; row < context->gridRows; row++)
         for (int col = 0; col < context->gridCols; col++)
             context->maze->Grid()[col][row]->UnmarkDead();
-    cv::waitKey(context->wndUpdatePeriod * 3);
+    cv::waitKey(context->endDelay);
     return ExitCode::drawGrid;
 }
 }
