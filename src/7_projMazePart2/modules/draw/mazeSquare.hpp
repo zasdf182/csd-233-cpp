@@ -21,6 +21,18 @@ class MazeSquare : Square {
         static const char pathSymbol = 'o';
         static const char deadSymbol = 'x';
         static const int padding = 10;
+        static const int visitBlue = 77;
+        static const int visitGreen = 77;
+        static const int visitRed = 77;
+        static const int selectBlue = 255;
+        static const int selectGreen = 122;
+        static const int selectRed = 122;
+        static const int pathBlue = 0;
+        static const int pathGreen = 255;
+        static const int pathRed = 0;
+        static const int deadBlue = 34;
+        static const int deadGreen = 10;
+        static const int deadRed = 99;
 
     public: //Mutable properties.
         int eraseBlue;

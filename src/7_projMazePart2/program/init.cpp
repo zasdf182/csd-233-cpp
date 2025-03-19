@@ -9,7 +9,7 @@ ExitCode InitContext(Context* context) {
     context->wndName = "TurtleWindow";
 
     context->tickRate = 5;
-    context->endDelay = 2000;
+    context->endDelay = 4000;
 
     context->wndWidth = 800;
     context->wndHeight = 800;

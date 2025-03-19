@@ -34,6 +34,10 @@ void MazeSquare::Draw() {
 
     cv::Scalar color(blue, green, red);
     cv::Scalar eraseColor(eraseBlue, eraseGreen, eraseRed);
+    cv::Scalar vc(visitBlue, visitGreen, visitRed);
+    cv::Scalar sc(selectBlue, selectGreen, selectRed);
+    cv::Scalar pc(pathBlue, pathGreen, pathRed);
+    cv::Scalar dc(deadBlue, deadGreen, deadRed);
 
     std::string vsym = std::string(1, visitSymbol);
     std::string ssym = std::string(1, selectSymbol);
@@ -51,10 +55,10 @@ void MazeSquare::Draw() {
     if (hasLeft) cv::line(raster, botLeft, topLeft, color, thickness, lineType);
 
     // Draw symbols that the square still has.
-    if (isVisited) cv::putText(raster, vsym, botLeftChar, font, fontScale, color, thickness, lineType);
-    if (isSelected) cv::putText(raster, ssym, botRightChar, font, fontScale, color, thickness, lineType);
-    if (isPathed) cv::putText(raster, psym, topRightChar, font, fontScale, color, thickness, lineType);
-    if (isDead) cv::putText(raster, dsym, topLeftChar, font, fontScale, color, thickness, lineType);
+    if (isVisited) cv::putText(raster, vsym, botLeftChar, font, fontScale, vc, thickness, lineType);
+    if (isSelected) cv::putText(raster, ssym, botRightChar, font, fontScale, sc, thickness, lineType);
+    if (isPathed) cv::putText(raster, psym, topRightChar, font, fontScale, pc, thickness, lineType);
+    if (isDead) cv::putText(raster, dsym, topLeftChar, font, fontScale, dc, thickness, lineType);
 
     // Render the final raster to the OpenCV window.
     cv::imshow(wndName, raster);

@@ -28,7 +28,7 @@ class Square {
         Square(int x, int y, int width, int height, std::string wndName, cv::Mat raster):
             x(x), y(y), width(width), height(height),
             wndName(wndName), raster(raster),
-            blue(255), green(255), red(255), thickness(2) {};
+            blue(200), green(200), red(200), thickness(2) {};
 
     public: //OpenCV drawing methods.
         virtual void Draw();
