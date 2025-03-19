@@ -7,14 +7,14 @@ namespace Main {
 /// @note Next: EditGrid().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode DrawGrid(Context* context) {
-    int rows = context->gridRows;
     int cols = context->gridCols;
+    int rows = context->gridRows;
     int cellWidth = context->gridCellWidth;
     int cellHeight = context->gridCellHeight;
     std::string wndName = context->wndName;
     cv::Mat raster = context->wndRaster;
 
-    context->maze = new Draw::Maze(rows, cols, cellWidth, cellHeight, wndName, raster);
+    context->maze = new Draw::Maze(cols, rows, cellWidth, cellHeight, wndName, raster);
     cv::waitKey(context->wndUpdatePeriod);
     return ExitCode::editGrid;
 }
@@ -55,7 +55,7 @@ ExitCode EditGrid(Context* context) {
 ExitCode ClearVisited(Context* context) {
     for (int row = 0; row < context->gridRows; row++)
         for (int col = 0; col < context->gridCols; col++)
-            context->maze->Grid()[row][col]->UnmarkVisited();
+            context->maze->Grid()[col][row]->UnmarkVisited();
     cv::waitKey(context->wndUpdatePeriod);
     return ExitCode::markDeadEnds;
 }
@@ -64,18 +64,17 @@ ExitCode ClearVisited(Context* context) {
 /// @brief Loops through all squares in maze.
 ///        Marks dead all squares with only 1 side that isn't closed or dead.
 ///        If a square was found last loop cycle, repeats until none are found.
-///        Pauses window after every loop.
+///        Pauses window after every marked square.
 /// @note Next: MarkPath().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode MarkDeadEnds(Context* context) {
-    int rows = context->gridRows;
     int cols = context->gridCols;
+    int rows = context->gridRows;
     bool newDeadEndFound = false;
 
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < cols; col++) {
-            context->maze->Grid()[row][col]->MarkVisited();
-            if (context->maze->Grid()[row][col]->IsDead()) continue;
+            if (context->maze->Grid()[col][row]->IsDead()) continue;
             int openSides = 4;
 
             bool atGridTop = row == 0;
@@ -83,16 +82,16 @@ ExitCode MarkDeadEnds(Context* context) {
             bool atGridBottom = row == rows - 1;
             bool atGridRight = col == cols - 1;
 
-            Draw::MazeSquare* cell = context->maze->Grid()[row][col];
+            Draw::MazeSquare* cell = context->maze->Grid()[col][row];
             Draw::MazeSquare* top = nullptr;
             Draw::MazeSquare* left = nullptr;
             Draw::MazeSquare* bottom = nullptr;
             Draw::MazeSquare* right = nullptr;
 
-            if (!atGridTop) top = context->maze->Grid()[row - 1][col];
-            if (!atGridLeft) left = context->maze->Grid()[row][col - 1];
-            if (!atGridBottom) bottom = context->maze->Grid()[row + 1][col];
-            if (!atGridRight) right = context->maze->Grid()[row][col + 1];
+            if (!atGridTop) top = context->maze->Grid()[col][row - 1];
+            if (!atGridLeft) left = context->maze->Grid()[col - 1][row];
+            if (!atGridBottom) bottom = context->maze->Grid()[col][row + 1];
+            if (!atGridRight) right = context->maze->Grid()[col + 1][row];
 
             if (cell->HasTop()) openSides--;
             else if (!atGridTop) if (top->IsDead()) openSides--;
@@ -114,7 +113,6 @@ ExitCode MarkDeadEnds(Context* context) {
         }
     }
 
-    cv::waitKey(context->wndUpdatePeriod);
     if (newDeadEndFound) return ExitCode::markDeadEnds;
     return ExitCode::markPath;
 }
@@ -124,12 +122,12 @@ ExitCode MarkDeadEnds(Context* context) {
 /// @note Next: ClearDeadEnds()
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode MarkPath(Context* context) {
-    int row = 0;
     int col = 0;
-    int endRow = context->gridRows - 1;
+    int row = 0;
     int endCol = context->gridCols - 1;
-    Draw::MazeSquare* current = context->maze->Grid()[row][col];
-    Draw::MazeSquare* end = context->maze->Grid()[endRow][endCol];
+    int endRow = context->gridRows - 1;
+    Draw::MazeSquare* current = context->maze->Grid()[col][row];
+    Draw::MazeSquare* end = context->maze->Grid()[endCol][endRow];
 
     while (current != end) {
         current->MarkPathed();
@@ -145,10 +143,10 @@ ExitCode MarkPath(Context* context) {
         Draw::MazeSquare* bottom = nullptr;
         Draw::MazeSquare* right = nullptr;
 
-        if (!atGridTop) top = context->maze->Grid()[row - 1][col];
-        if (!atGridLeft) left = context->maze->Grid()[row][col - 1];
-        if (!atGridBottom) bottom = context->maze->Grid()[row + 1][col];
-        if (!atGridRight) right = context->maze->Grid()[row][col + 1];
+        if (!atGridTop) top = context->maze->Grid()[col][row - 1];
+        if (!atGridLeft) left = context->maze->Grid()[col - 1][row];
+        if (!atGridBottom) bottom = context->maze->Grid()[col][row + 1];
+        if (!atGridRight) right = context->maze->Grid()[col + 1][row];
 
         if (!atGridTop)
             if (!current->HasTop())
@@ -182,7 +180,7 @@ ExitCode MarkPath(Context* context) {
 ExitCode ClearDeadEnds(Context* context) {
     for (int row = 0; row < context->gridRows; row++)
         for (int col = 0; col < context->gridCols; col++)
-            context->maze->Grid()[row][col]->UnmarkDead();
+            context->maze->Grid()[col][row]->UnmarkDead();
     cv::waitKey(context->wndUpdatePeriod * 3);
     return ExitCode::drawGrid;
 }

@@ -23,19 +23,19 @@ struct Context {
     int wndUpdatePeriod;
 
     std::deque<Draw::MazeSquare*> squareQueue;
-    std::deque<int> rowQueue;
     std::deque<int> colQueue;
+    std::deque<int> rowQueue;
 
     Draw::MazeSquare* selectedSquare;
-    int selectedRow;
     int selectedCol;
+    int selectedRow;
     QueueSelection selectedQueueEnd;
 
     std::set<Draw::Side> uncheckedSides;
     Draw::MazeSquare* checkedSquare;
     Draw::Side checkedSide;
-    int checkedRow;
     int checkedCol;
+    int checkedRow;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

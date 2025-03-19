@@ -17,7 +17,7 @@ namespace BuildMaze {
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode BeginMaze(Context* context) {
     Draw::MazeSquare* topLeft = context->maze->Grid()[0][0];
-    Draw::MazeSquare* botRight = context->maze->Grid()[context->maze->Rows() - 1][context->maze->Cols() - 1];
+    Draw::MazeSquare* botRight = context->maze->Grid()[context->maze->Cols() - 1][context->maze->Rows() - 1];
     botRight->RemoveSide(Draw::Side::Right);
 
     topLeft->MarkVisited();
@@ -26,8 +26,8 @@ ExitCode BeginMaze(Context* context) {
     cv::waitKey(context->wndUpdatePeriod);
 
     context->squareQueue.push_back(topLeft);
-    context->rowQueue.push_back(0);
     context->colQueue.push_back(0);
+    context->rowQueue.push_back(0);
     context->selectedQueueEnd = QueueSelection::Back;
     return ExitCode::loopStartValid;
 }
@@ -46,8 +46,8 @@ ExitCode BeginMaze(Context* context) {
 ExitCode SelectQueueBack(Context* context) {
     context->squareQueue.back()->MarkSelected();
     context->selectedSquare = context->squareQueue.back();
-    context->selectedRow = context->rowQueue.back();
     context->selectedCol = context->colQueue.back();
+    context->selectedRow = context->rowQueue.back();
     context->selectedQueueEnd = QueueSelection::Back;
     cv::waitKey(context->wndUpdatePeriod);
     return ExitCode::loopConfigure;
@@ -60,8 +60,8 @@ ExitCode SelectQueueBack(Context* context) {
 ExitCode SelectQueueFront(Context* context) {
     context->squareQueue.front()->MarkSelected();
     context->selectedSquare = context->squareQueue.front();
-    context->selectedRow = context->rowQueue.front();
     context->selectedCol = context->colQueue.front();
+    context->selectedRow = context->rowQueue.front();
     context->selectedQueueEnd = QueueSelection::Front;
     cv::waitKey(context->wndUpdatePeriod);
     return ExitCode::loopConfigure;
@@ -72,8 +72,8 @@ ExitCode SelectQueueFront(Context* context) {
 /// @note Next: ChooseRandomNeighbor().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode ResetContext(Context* context) {
-    context->checkedRow = -1;
     context->checkedCol = -1;
+    context->checkedRow = -1;
     context->checkedSide = Draw::Side::NIL;
     context->checkedSquare = nullptr;
     context->uncheckedSides = {
@@ -109,20 +109,20 @@ ExitCode ChooseRandomNeighbor(Context* context) {
 
     switch (context->checkedSide) {
         case Draw::Side::Top:
-            context->checkedRow = context->selectedRow;
-            context->checkedCol = context->selectedCol - 1;
+            context->checkedCol = context->selectedCol;
+            context->checkedRow = context->selectedRow - 1;
             break;
         case Draw::Side::Right:
-            context->checkedRow = context->selectedRow + 1;
-            context->checkedCol = context->selectedCol;
+            context->checkedCol = context->selectedCol + 1;
+            context->checkedRow = context->selectedRow;
             break;
         case Draw::Side::Bottom:
-            context->checkedRow = context->selectedRow;
-            context->checkedCol = context->selectedCol + 1;
+            context->checkedCol = context->selectedCol;
+            context->checkedRow = context->selectedRow + 1;
             break;
         case Draw::Side::Left:
-            context->checkedRow = context->selectedRow - 1;
-            context->checkedCol = context->selectedCol;
+            context->checkedCol = context->selectedCol - 1;
+            context->checkedRow = context->selectedRow;
             break;
         default: break;
     } return ExitCode::validateChoicePartOne;
@@ -134,13 +134,13 @@ ExitCode ChooseRandomNeighbor(Context* context) {
 /// @note Back: ChooseRandomNeighbor() if check fails.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode CheckNeighborBounds(Context* context) {
-    if (context->checkedRow < 0)
-        return ExitCode::searchRandomUniqueChoice;
-    if (context->checkedRow >= context->maze->Rows())
-        return ExitCode::searchRandomUniqueChoice;
     if (context->checkedCol < 0)
         return ExitCode::searchRandomUniqueChoice;
     if (context->checkedCol >= context->maze->Cols())
+        return ExitCode::searchRandomUniqueChoice;
+    if (context->checkedRow < 0)
+        return ExitCode::searchRandomUniqueChoice;
+    if (context->checkedRow >= context->maze->Rows())
         return ExitCode::searchRandomUniqueChoice;
     return ExitCode::validateChoicePartTwo;
 }
@@ -151,7 +151,7 @@ ExitCode CheckNeighborBounds(Context* context) {
 /// @note Back: ChooseRandomNeighbor() if check fails.
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode CheckNeighborVisited(Context* context) {
-    context->checkedSquare = context->maze->Grid()[context->checkedRow][context->checkedCol];
+    context->checkedSquare = context->maze->Grid()[context->checkedCol][context->checkedRow];
     if (context->checkedSquare->IsVisited())
         return ExitCode::searchRandomUniqueChoice;
     return ExitCode::parseValidatedChoice;
@@ -183,8 +183,8 @@ ExitCode PushQueue(Context* context) {
     cv::waitKey(context->wndUpdatePeriod);
     context->selectedSquare->UnmarkSelected();
     context->squareQueue.push_back(context->checkedSquare);
-    context->rowQueue.push_back(context->checkedRow);
     context->colQueue.push_back(context->checkedCol);
+    context->rowQueue.push_back(context->checkedRow);
     return ExitCode::loopStartValid;
 }
 
@@ -196,12 +196,12 @@ ExitCode PushQueue(Context* context) {
 ExitCode PopQueue(Context* context) {
     if (context->selectedQueueEnd == QueueSelection::Back) {
         context->squareQueue.pop_back();
-        context->rowQueue.pop_back();
         context->colQueue.pop_back();
+        context->rowQueue.pop_back();
     } else {
         context->squareQueue.pop_front();
-        context->rowQueue.pop_front();
         context->colQueue.pop_front();
+        context->rowQueue.pop_front();
     }
 
     context->selectedSquare->UnmarkSelected();

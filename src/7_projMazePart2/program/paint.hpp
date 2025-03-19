@@ -32,7 +32,7 @@ ExitCode ClearVisited(Context* context);
 /// @brief Loops through all squares in maze.
 ///        Marks dead all squares with only 1 side that isn't closed or dead.
 ///        If a square was found last loop cycle, repeats until none are found.
-///        Pauses window after every loop.
+///        Pauses window after every marked square.
 /// @note Next: MarkPath().
 ////////////////////////////////////////////////////////////////////////////////
 ExitCode MarkDeadEnds(Context* context);

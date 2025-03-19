@@ -17,8 +17,8 @@ struct Context {
     cv::Mat wndRaster;
     std::string wndName;
 
-    int gridRows;
     int gridCols;
+    int gridRows;
     int gridCellWidth;
     int gridCellHeight;
     Draw::Maze* maze;
